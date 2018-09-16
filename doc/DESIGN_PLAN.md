@@ -36,7 +36,7 @@ The Simulation class(es) will act as the "engine" of the program and contain met
 
 > This section describes how the user will interact with your program (keep it very simple to start). It should describe the overall appearance of program's user interface components and how users interact with these components (especially those specific to your program, i.e., means of input other than menus or toolbars). It should also include one or more pictures of the user interface (these pictures can be hand drawn and scanned in, created with a standard drawing program, or screen shots from a dummy program that serves as a exemplar). Finally, it should describe any erroneous situations that are reported to the user (i.e., bad input data, empty data, etc.). This section should go into as much detail as necessary to cover all your team wants to say.
 
-![](https://) -- UI image
+![UI image](https://coursework.cs.duke.edu/CompSci308_2018Fall/cellsociety_team16/blob/master/doc/UIplan.png)
 
 ### Design Details 
 
