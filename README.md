@@ -4,10 +4,15 @@ cell society
 This project implements a cellular automata simulator.
 
 Names:
+* Amy Kim (yk154)
+
+* Brooke Keene (bzk2)
+
+* Orgil Batzaya (ob29)
 
 ### Timeline
 
-Start Date: 
+Start Date: September 15, 2018
 
 Finish Date: 
 
