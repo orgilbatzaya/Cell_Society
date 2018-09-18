@@ -1,9 +1,10 @@
+package Simulation;
 /**
  *
  */
 public abstract class Simulation {
-    public int getEmptyCells;
-    public int getFreqs;
+    private int getEmptyCells;
+    private int getFreqs;
     /**
      *
      * @param row
