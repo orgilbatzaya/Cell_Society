@@ -30,6 +30,7 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) {
         UISetup myDisplay = new UISetup(WIDTH, HEIGHT, BACKGROUND);
+        myDisplay.addButtons();
         stage.setScene(myDisplay.getScene());
         stage.setTitle(TITLE);
         stage.show();
