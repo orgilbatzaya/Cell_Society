@@ -1,4 +1,6 @@
 package Cell;
+
+import Grid.Grid;
 import java.util.List;
 
 public abstract class  Cell {
@@ -18,8 +20,8 @@ public abstract class  Cell {
     /*
     public boolean inBounds(Grid g){
 
-    }
-    */
+    }*/
+
 
 
     public int getX(){
@@ -53,6 +55,10 @@ public abstract class  Cell {
     public void setNextState(int state) {
         nextState = state;
 
+    }
+
+    public void getNeighbors(Grid g){
+        myNeighbors = g.getCellsNear(this);
     }
 
     public abstract void checkNeighbors();
