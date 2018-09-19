@@ -23,6 +23,11 @@ public class UISetup {
     private Group myRoot;
     private BorderPane myBorder;
 
+    private Button startBtn;
+    private Button stopBtn;
+    private Button stepBtn;
+    private Button resetBtn;
+
     private int buttonSpace = 20;
     private int borderSpace = 10;
 
@@ -51,14 +56,31 @@ public class UISetup {
         bottomRow.setPadding(new Insets(buttonSpace));
         bottomRow.setAlignment(Pos.CENTER_LEFT);
 
-        Button startBtn = new Button("Start");
-        Button stopBtn = new Button("Stop");
-        Button stepBtn = new Button("Step");
-        Button resetBtn = new Button("Reset");
+        startBtn = new Button("Start");
+        stopBtn = new Button("Stop");
+        stepBtn = new Button("Step");
+        resetBtn = new Button("Reset");
+        setButtonFunctionality();
 
         bottomRow.getChildren().addAll(startBtn, stopBtn, stepBtn, resetBtn);
         myBorder.setBottom(bottomRow);
         myRoot.getChildren().add(myBorder);
+    }
+
+    private void setButtonFunctionality() {
+        startBtn.setOnAction(value ->  {
+            System.out.println("Clicked Start!");
+        });
+        stopBtn.setOnAction(value ->  {
+            System.out.println("Clicked Stop!");
+        });
+        stepBtn.setOnAction(value ->  {
+            System.out.println("Clicked Step!");
+        });
+        resetBtn.setOnAction(value ->  {
+            System.out.println("Clicked Reset!");
+        });
+
     }
 
     /**
