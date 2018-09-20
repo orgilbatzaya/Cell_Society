@@ -2,6 +2,7 @@ package GUI;
 
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
 import javafx.scene.control.Button;
@@ -54,7 +55,7 @@ public class UISetup {
     public void initializeUI() {
         this.makeBorderPane();
         this.addButtons();
-        this.addSliders();
+        this.makeSideMenu();
     }
 
     /**
@@ -74,6 +75,18 @@ public class UISetup {
         myBorder.prefWidthProperty().bind(myScene.widthProperty());
         myBorder.setPadding(new Insets(borderSpace));
         myRoot.getChildren().add(myBorder);
+    }
+
+    private void makeSideMenu() {
+        VBox right = new VBox(sliderSpace);
+        right.setPrefWidth(200);
+        right.setPadding(new Insets(sliderSpace));
+        right.setAlignment(Pos.TOP_CENTER);
+
+        this.addChoiceBox(right);
+        this.addSliders(right);
+
+        myBorder.setRight(right);
     }
 
     /**
@@ -97,19 +110,26 @@ public class UISetup {
     /**
      * creates a VBox with sliders
      */
-    private void addSliders() {
-        VBox right = new VBox(sliderSpace);
-        right.setPrefWidth(200);
-        right.setPadding(new Insets(sliderSpace));
-        right.setAlignment(Pos.TOP_CENTER);
-
+    private void addSliders(VBox vBox) {
         Slider simSpeed = new Slider(0, 100, 0);
         //simSpeed.valueProperty().addListener();
         Slider gridSize = new Slider(1, 100, 1);
         //gridSize.valueProperty().addListener();
 
-        right.getChildren().addAll(simSpeed, gridSize);
-        myBorder.setRight(right);
+        vBox.getChildren().addAll(simSpeed, gridSize);
+    }
+
+    /**
+     * creates a ChoiceBox to select simulation type
+     */
+    private void addChoiceBox(VBox vBox) {
+        ChoiceBox simSelect = new ChoiceBox();
+        // create choices
+        simSelect.getItems().add("Segregation");
+        simSelect.getItems().add("Wa-Tor World");
+        simSelect.getItems().add("Fire Spreading");
+
+        vBox.getChildren().add(simSelect);
     }
 
     /**
