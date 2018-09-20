@@ -10,9 +10,8 @@ public abstract class Simulation {
      * @param row
      * @param col
      */
-    public void reset(int row, int col){
 
-    }
+    public abstract void reset(int row, int col);
 
 
     /**
