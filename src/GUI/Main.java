@@ -52,10 +52,11 @@ public class Main extends Application {
      * @param elapsedTime
      */
     private void step(double elapsedTime) {
-//        String newSim = myDisplay.getSimSelection();
-//        if(!newSim.equals(simulation)) {
-//            System.out.println(simulation);
-//        }
+        String newSim = myDisplay.getSimSelection();
+        if(newSim != null && !newSim.equals(simulation)) {
+            System.out.println(newSim);
+        }
+        simulation = newSim;
     }
 
     public static void main(String[] args) {
