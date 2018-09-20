@@ -41,4 +41,15 @@ public abstract class Grid {
 
         return cellsNear;
     }
+
+    public List<Cell> getEmptyCells(int emptyVal){
+        for(List<Cell> row: myCells){
+            for(Cell c: row){
+                if(c.getCurrentState() == emptyVal){
+
+                }
+            }
+        }
+    }
+
 }
