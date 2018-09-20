@@ -1,8 +1,11 @@
 package GUI;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
 import javafx.scene.control.Button;
@@ -35,6 +38,10 @@ public class UISetup {
 
     private Slider simSpeed;
     private Slider gridSize;
+    private int userSimSpeed;
+    private int userGridSize;
+    private Label speedLabel;
+    private Label sizeLabel;
 
     private int buttonSpace = 20;
     private int borderSpace = 10;
@@ -81,6 +88,24 @@ public class UISetup {
     }
 
     /**
+     * returns the speed of the simulation as specified by the user
+     *
+     * @return
+     */
+    public int getSimSpeed() {
+        return userSimSpeed;
+    }
+
+    /**
+     * returns the size of the grid as specified by the user
+     *
+     * @return
+     */
+    public int getGridSize() {
+        return userGridSize;
+    }
+
+    /**
      * creates BorderPane
      */
     private void makeBorderPane() {
@@ -90,6 +115,9 @@ public class UISetup {
         myRoot.getChildren().add(myBorder);
     }
 
+    /**
+     * creates VBox to contain side menu options
+     */
     private void makeSideMenu() {
         VBox right = new VBox(borderSpace);
         right.setPrefWidth(sideMenuSpace);
@@ -125,11 +153,27 @@ public class UISetup {
      */
     private void addSliders(VBox vBox) {
         simSpeed = new Slider(0, 100, 0);
-        //simSpeed.valueProperty().addListener();
+        simSpeed.setMajorTickUnit(1);
+        speedLabel = new Label(Double.toString(simSpeed.getValue()));
+        simSpeed.valueProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                userSimSpeed = newValue.intValue();
+                speedLabel.setText(String.format("%.0f", newValue));
+            }
+        });
         gridSize = new Slider(1, 100, 1);
-        //gridSize.valueProperty().addListener();
+        gridSize.setMajorTickUnit(1);
+        sizeLabel = new Label(Double.toString(gridSize.getValue()));
+        gridSize.valueProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                userGridSize = newValue.intValue();
+                sizeLabel.setText(String.format("%.0f", newValue));
+            }
+        });
 
-        vBox.getChildren().addAll(simSpeed, gridSize);
+        vBox.getChildren().addAll(simSpeed, speedLabel, gridSize, sizeLabel);
     }
 
     /**

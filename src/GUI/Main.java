@@ -57,6 +57,16 @@ public class Main extends Application {
             System.out.println(newSim);
         }
         simulation = newSim;
+
+        int speed = myDisplay.getSimSpeed();
+        int grid = myDisplay.getGridSize();
+
+        if(speed == 50) {
+            System.out.println(speed);
+        }
+        if(grid == 2) {
+            System.out.println(grid);
+        }
     }
 
     public static void main(String[] args) {
