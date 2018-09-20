@@ -31,10 +31,14 @@ public class UISetup {
     private Button stepBtn;
     private Button resetBtn;
 
+    private ChoiceBox simSelect;
+
+    private Slider simSpeed;
+    private Slider gridSize;
+
     private int buttonSpace = 20;
-    private int sliderSpace = 20;
     private int borderSpace = 10;
-    private int settingsSpace = 200;
+    private int sideMenuSpace = 200;
 
     /**
      * Constructor
@@ -68,6 +72,15 @@ public class UISetup {
     }
 
     /**
+     * returns the Simulation selected by the user
+     *
+     * @return
+     */
+    public String getSimSelection() {
+        return (String) simSelect.getValue();
+    }
+
+    /**
      * creates BorderPane
      */
     private void makeBorderPane() {
@@ -78,9 +91,9 @@ public class UISetup {
     }
 
     private void makeSideMenu() {
-        VBox right = new VBox(sliderSpace);
-        right.setPrefWidth(200);
-        right.setPadding(new Insets(sliderSpace));
+        VBox right = new VBox(borderSpace);
+        right.setPrefWidth(sideMenuSpace);
+        right.setPadding(new Insets(borderSpace));
         right.setAlignment(Pos.TOP_CENTER);
 
         this.addChoiceBox(right);
@@ -97,7 +110,7 @@ public class UISetup {
         bottomRow.setPadding(new Insets(buttonSpace));
         bottomRow.setAlignment(Pos.CENTER_LEFT);
 
-        startBtn = new Button("Start");
+        startBtn = new Button("Start"); // myResources.get (title);
         stopBtn = new Button("Stop");
         stepBtn = new Button("Step");
         resetBtn = new Button("Reset");
@@ -111,9 +124,9 @@ public class UISetup {
      * creates a VBox with sliders
      */
     private void addSliders(VBox vBox) {
-        Slider simSpeed = new Slider(0, 100, 0);
+        simSpeed = new Slider(0, 100, 0);
         //simSpeed.valueProperty().addListener();
-        Slider gridSize = new Slider(1, 100, 1);
+        gridSize = new Slider(1, 100, 1);
         //gridSize.valueProperty().addListener();
 
         vBox.getChildren().addAll(simSpeed, gridSize);
@@ -123,7 +136,7 @@ public class UISetup {
      * creates a ChoiceBox to select simulation type
      */
     private void addChoiceBox(VBox vBox) {
-        ChoiceBox simSelect = new ChoiceBox();
+        simSelect = new ChoiceBox();
         // create choices
         simSelect.getItems().add("Segregation");
         simSelect.getItems().add("Wa-Tor World");

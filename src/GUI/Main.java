@@ -26,11 +26,14 @@ public class Main extends Application {
     public static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
     public static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
 
+    private UISetup myDisplay;
+    private String simulation;
 
     @Override
     public void start(Stage stage) {
-        UISetup myDisplay = new UISetup(WIDTH, HEIGHT, BACKGROUND);
+        myDisplay = new UISetup(WIDTH, HEIGHT, BACKGROUND);
         myDisplay.initializeUI();
+        simulation = myDisplay.getSimSelection();
         stage.setScene(myDisplay.getScene());
         stage.setTitle(TITLE);
         stage.show();
@@ -49,7 +52,10 @@ public class Main extends Application {
      * @param elapsedTime
      */
     private void step(double elapsedTime) {
-
+//        String newSim = myDisplay.getSimSelection();
+//        if(!newSim.equals(simulation)) {
+//            System.out.println(simulation);
+//        }
     }
 
     public static void main(String[] args) {
