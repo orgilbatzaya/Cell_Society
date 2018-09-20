@@ -22,7 +22,10 @@ Hours Spent:
 
 
 ### Resources Used
-
+* Oracle JavaFX 8 API
+* JavaFX Tutorial http://zetcode.com/gui/javafx/
+* JavaFX Tutorial - JavaFX BorderPane http://www.java2s.com/Tutorials/Java/JavaFX/0330__JavaFX_BorderPane.htm
+* JavaFX Button http://tutorials.jenkov.com/javafx/button.html#button-events
 
 ### Running the Program
 
