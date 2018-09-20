@@ -40,6 +40,11 @@ public abstract class  Cell {
         yPos = val;
     }
 
+    public void moveTo(int x, int y){
+        setX(x);
+        setY(y);
+    }
+
     public int getCurrentState(){
         return currentState;
     }

@@ -37,15 +37,10 @@ public class SegregationCell extends Cell {
     }
 
 
-    public void checkMySatisfaction(){
-        if(currentSatisfied < mySatisfaction){
-            move();
-        }
+    public boolean isSatisfied(){
+        return currentSatisfied >= mySatisfaction;
     }
 
-    public void move(){
-
-    }
 
 
 }
