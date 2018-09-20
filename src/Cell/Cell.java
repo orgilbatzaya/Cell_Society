@@ -4,11 +4,11 @@ import Grid.Grid;
 import java.util.List;
 
 public abstract class  Cell {
-    private int currentState;
+    protected int currentState;
     private int nextState;
     private int xPos;
     private int yPos;
-    private List<Cell> myNeighbors;
+    protected List<Cell> myNeighbors;
 
     public Cell(int stateOne, int stateTwo, int x, int y){
         currentState = stateOne;
@@ -54,14 +54,17 @@ public abstract class  Cell {
 
     public void setNextState(int state) {
         nextState = state;
+    }
 
+    public List<Cell> getMyNeighbors(){
+        return myNeighbors;
     }
 
     public void getNeighbors(Grid g){
         myNeighbors = g.getCellsNear(this);
     }
 
-    public abstract void checkNeighbors();
+    public abstract void checkNeighbors(Grid g);
 
 
 
