@@ -3,6 +3,7 @@
 > **Name: Amy Kim(yk154), Samuel(sa285)**
 
 **Part 1**
+
 What is an implementation decision that your design is encapsulating (i.e., hiding) for other areas of the program?
 
 * We created three abstract classes; each Cell and Simulation classes per simulation type.
