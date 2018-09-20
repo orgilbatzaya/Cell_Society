@@ -2,8 +2,10 @@ package GUI;
 
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
 import javafx.scene.control.Button;
+import javafx.scene.control.Slider;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.BorderPane;
 import javafx.geometry.Pos;
@@ -29,7 +31,9 @@ public class UISetup {
     private Button resetBtn;
 
     private int buttonSpace = 20;
+    private int sliderSpace = 20;
     private int borderSpace = 10;
+    private int settingsSpace = 200;
 
     /**
      * Constructor
@@ -42,16 +46,40 @@ public class UISetup {
         myRoot = new Group();
         myScene = new Scene(myRoot, width, height, color);
         myBorder = new BorderPane();
-
-        myBorder.prefHeightProperty().bind(myScene.heightProperty());
-        myBorder.prefWidthProperty().bind(myScene.widthProperty());
-        myBorder.setPadding(new Insets(borderSpace));
     }
 
     /**
-     * adds start, stop, step, and reset to GUI
+     * initializes the UI space, called by Main
      */
-    public void addButtons() {
+    public void initializeUI() {
+        this.makeBorderPane();
+        this.addButtons();
+        this.addSliders();
+    }
+
+    /**
+     * returns the Scene created in this class, called by Main
+     *
+     * @return myScene
+     */
+    public Scene getScene() {
+        return myScene;
+    }
+
+    /**
+     * creates BorderPane
+     */
+    private void makeBorderPane() {
+        myBorder.prefHeightProperty().bind(myScene.heightProperty());
+        myBorder.prefWidthProperty().bind(myScene.widthProperty());
+        myBorder.setPadding(new Insets(borderSpace));
+        myRoot.getChildren().add(myBorder);
+    }
+
+    /**
+     * creates a HBox with start, stop, step, and reset buttons
+     */
+    private void addButtons() {
         HBox bottomRow = new HBox(buttonSpace);
         bottomRow.setPadding(new Insets(buttonSpace));
         bottomRow.setAlignment(Pos.CENTER_LEFT);
@@ -64,9 +92,29 @@ public class UISetup {
 
         bottomRow.getChildren().addAll(startBtn, stopBtn, stepBtn, resetBtn);
         myBorder.setBottom(bottomRow);
-        myRoot.getChildren().add(myBorder);
     }
 
+    /**
+     * creates a VBox with sliders
+     */
+    private void addSliders() {
+        VBox right = new VBox(sliderSpace);
+        right.setPrefWidth(200);
+        right.setPadding(new Insets(sliderSpace));
+        right.setAlignment(Pos.TOP_CENTER);
+
+        Slider simSpeed = new Slider(0, 100, 0);
+        //simSpeed.valueProperty().addListener();
+        Slider gridSize = new Slider(1, 100, 1);
+        //gridSize.valueProperty().addListener();
+
+        right.getChildren().addAll(simSpeed, gridSize);
+        myBorder.setRight(right);
+    }
+
+    /**
+     * adds functionality to each button for when user clicks
+     */
     private void setButtonFunctionality() {
         startBtn.setOnAction(value ->  {
             System.out.println("Clicked Start!");
@@ -81,13 +129,5 @@ public class UISetup {
             System.out.println("Clicked Reset!");
         });
 
-    }
-
-    /**
-     *
-     * @return myScene
-     */
-    public Scene getScene() {
-        return myScene;
     }
 }
