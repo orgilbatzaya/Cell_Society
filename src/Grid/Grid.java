@@ -8,11 +8,11 @@ import java.util.List;
  *
  */
 public abstract class Grid {
-    private int size;
+    protected int size;
 
-    private int getSize;
-    private int setSize;
-    private List<List<Cell>> myCells;
+    protected int getSize;
+    protected int setSize;
+    protected List<List<Cell>> myCells;
 
     public Grid(int size, List<List<Cell>> cells) {
         this.size = size;

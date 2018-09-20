@@ -22,8 +22,6 @@ public abstract class  Cell {
 
     }*/
 
-
-
     public int getX(){
         return xPos;
     }
