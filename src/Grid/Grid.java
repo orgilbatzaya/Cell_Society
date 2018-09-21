@@ -1,3 +1,6 @@
+/*
+@author ob29
+ */
 package Grid;
 
 import Cell.Cell;
@@ -43,13 +46,16 @@ public abstract class Grid {
     }
 
     public List<Cell> getEmptyCells(int emptyVal){
+        List<Cell> requiredCells = new ArrayList<>();
         for(List<Cell> row: myCells){
             for(Cell c: row){
                 if(c.getCurrentState() == emptyVal){
-
+                    requiredCells.add(c);
                 }
             }
         }
+        return requiredCells;
+    }
 
     }
 }
