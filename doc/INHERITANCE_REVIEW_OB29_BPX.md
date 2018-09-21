@@ -40,8 +40,15 @@
     * As of now, Simulation depends on Grid, which depends on Cell. 
 3. How can you minimize these dependencies?
     * I can minimize these dependencies by changing how I'm using instance variables
-    * 
 4. Go over one pair of super/sub classes in detail to see if there is room for improvement. 
 Focus on what things they have in common (these go in the superclass) and what about them varies (these go in the subclass).
-
+    * Segregation Cell has an extra method compared to Cell super class called isSatisfied() which
+    is unique to the Segregation game. 
 ##Part 3
+1. Come up with at least five use cases for your part (most likely these will be useful for both teams).
+    * Cell will be used by Grid to fill it up
+    * Cell will be 
+2. What feature/design problem are you most excited to work on?
+    * I am most excited to figure 
+3. What feature/design problem are you most worried about working on?
+
