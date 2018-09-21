@@ -14,6 +14,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.BorderPane;
 import javafx.geometry.Pos;
 import javafx.geometry.Insets;
+import java.util.ResourceBundle;
 
 
 /**
@@ -46,6 +47,7 @@ public class UISetup {
     private int buttonSpace = 20;
     private int borderSpace = 10;
     private int sideMenuSpace = 200;
+    private ResourceBundle myResources;
 
     /**
      * Constructor
@@ -54,10 +56,11 @@ public class UISetup {
      * @param height
      * @param color
      */
-    public UISetup(int width, int height, Paint color) {
+    public UISetup(int width, int height, Paint color, ResourceBundle resources) {
         myRoot = new Group();
         myScene = new Scene(myRoot, width, height, color);
         myBorder = new BorderPane();
+        myResources = resources;
     }
 
     /**
@@ -138,10 +141,10 @@ public class UISetup {
         bottomRow.setPadding(new Insets(buttonSpace));
         bottomRow.setAlignment(Pos.CENTER_LEFT);
 
-        startBtn = new Button("Start"); // myResources.get (title);
-        stopBtn = new Button("Stop");
-        stepBtn = new Button("Step");
-        resetBtn = new Button("Reset");
+        startBtn = new Button(myResources.getString("Start")); // myResources.get (title);
+        stopBtn = new Button(myResources.getString("Stop"));
+        stepBtn = new Button(myResources.getString("Step"));
+        resetBtn = new Button(myResources.getString("Reset"));
         setButtonFunctionality();
 
         bottomRow.getChildren().addAll(startBtn, stopBtn, stepBtn, resetBtn);
@@ -182,9 +185,10 @@ public class UISetup {
     private void addChoiceBox(VBox vBox) {
         simSelect = new ChoiceBox();
         // create choices
-        simSelect.getItems().add("Segregation");
-        simSelect.getItems().add("Wa-Tor World");
-        simSelect.getItems().add("Fire Spreading");
+        simSelect.getItems().add(myResources.getString("GameOfLife"));
+        simSelect.getItems().add(myResources.getString("Segregation"));
+        simSelect.getItems().add(myResources.getString("WaTorWorld"));
+        simSelect.getItems().add(myResources.getString("Fire"));
 
         vBox.getChildren().add(simSelect);
     }
