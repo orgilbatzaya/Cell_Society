@@ -1,4 +1,4 @@
-package Segregation;
+package Cell;
 
 import Cell.Cell;
 import Grid.Grid;
@@ -40,6 +40,7 @@ public class SegregationCell extends Cell {
     public boolean isSatisfied(){
         return currentSatisfied >= mySatisfaction;
     }
+
 
 
 

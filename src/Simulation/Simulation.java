@@ -11,7 +11,9 @@ public abstract class Simulation {
      * @param col
      */
 
-    public abstract void reset(int row, int col);
+    public void reset(int row, int col){
+
+    }
 
 
     /**
@@ -39,8 +41,6 @@ public abstract class Simulation {
      * @param row
      * @param col
      */
-    public void initializeGrid(int row, int col){
-
-    }
+    public abstract void initializeGrid(int row, int col);
 
 }
