@@ -1,3 +1,7 @@
+/*
+@author yk154
+ */
+
 package Simulation;
 
 import Grid.Grid;
