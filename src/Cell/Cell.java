@@ -18,8 +18,7 @@ public abstract class  Cell {
     }
 
     /*
-    public boolean inBounds(Grid g){
-
+    public boolean inBounds(Grid g)
     }*/
 
     public int getX(){
@@ -68,7 +67,4 @@ public abstract class  Cell {
     }
 
     public abstract void checkNeighbors(Grid g);
-
-
-
 }
