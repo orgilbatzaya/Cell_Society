@@ -1,46 +1,44 @@
 package Simulation;
-/**
- *
- */
-public abstract class Simulation {
-    private int getEmptyCells;
-    private int getFreqs;
-    /**
-     *
-     * @param row
-     * @param col
-     */
 
-    public abstract void reset(int row, int col);
+import Grid.Grid;
 
+import java.util.Timer;
+import java.util.TimerTask;
 
-    /**
-     *
-     * @param row
-     * @param col
-     */
-    public void start(int row, int col){
+public class Simulation {
+    private Grid grid;
+    private Timer timer;
+    private boolean playing;
+    private long interval; // in milliseconds
 
+    public Simulation(int row, int col, long interval) {
+        this.interval = interval;
+        timer = new Timer();
+        playing = false;
+        initializeGrid(row, col);
     }
 
-
-    /**
-     *
-     * @param row
-     * @param col
-     */
-    public void stop(int row, int col){
-
+    public void setInterval(long newInterval) {
+        interval = newInterval;
+        if(playing) { stop(); start(); }
     }
 
-
     /**
-     *
      * @param row
      * @param col
      */
     public void initializeGrid(int row, int col){
-
+        // instantiate new grid of (row, col)
     }
+
+
+    public void start() {
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() { step(); }
+        }, 0, interval);
+    }
+    public void stop(){ timer.cancel(); }
+    public void step() { grid.updateEveryCell(); }
 
 }

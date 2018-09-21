@@ -56,4 +56,6 @@ public abstract class Grid {
         }
         return requiredCells;
     }
+
+    public void updateEveryCell() {}
 }

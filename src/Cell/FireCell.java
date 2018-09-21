@@ -20,7 +20,11 @@ public class FireCell extends Cell {
     public void checkNeighbors(Grid g) {
         if(getCurrentState() == GROUND || getCurrentState() == FIRE) setNextState(GROUND);
         else {
-            var cnt = getMyNeighbors().stream().filter(c -> c.getCurrentState() == FIRE).count();
+            var cnt = 0;
+            for(var neighbor : getMyNeighbors()) {
+                if(neighbor.getCurrentState() == FIRE) cnt ++;
+            }
+
             if(cnt > 0) {
                 var random = new Random();
                 if(random.nextDouble() < prob) {

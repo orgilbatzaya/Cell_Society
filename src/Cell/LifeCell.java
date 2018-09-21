@@ -12,7 +12,11 @@ public class LifeCell extends Cell {
 
     @Override
     public void checkNeighbors(Grid g) {
-        var cnt = getMyNeighbors().stream().filter(c -> c.getCurrentState() == ALIVE).count();
+        var cnt = 0;
+        for(var neighbor : getMyNeighbors()) {
+            if(neighbor.getCurrentState() == ALIVE) cnt ++;
+        }
+
         if(getCurrentState() == ALIVE) {
             if(cnt < 2) setNextState(DEAD);
             else if(cnt == 2 || cnt == 3) setNextState(ALIVE);
