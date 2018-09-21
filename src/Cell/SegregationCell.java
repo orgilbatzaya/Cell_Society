@@ -11,6 +11,10 @@ import java.util.List;
 public class SegregationCell extends Cell {
     private double currentSatisfied;
     private double mySatisfaction;
+    public static final int RED = 0;
+    public static final int BLUE = 1;
+    public static final int EMPTY = 0;
+
 
     public SegregationCell(int stateOne, int stateTwo, int x, int y, int satisfiedRate) {
         super(stateOne, stateTwo, x, y);
@@ -23,7 +27,7 @@ public class SegregationCell extends Cell {
         List<Cell> temp;
         temp = g.getCellsNear(this);
         for(Cell c:temp){
-            if(c.getCurrentState() != 0){
+            if(c.getCurrentState() != EMPTY){
                 myNeighbors.add(c);
             }
         }

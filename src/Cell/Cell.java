@@ -1,6 +1,7 @@
 package Cell;
 
 import Grid.Grid;
+import Grid.WatorGrid;
 import java.util.List;
 
 public abstract class  Cell {
@@ -66,5 +67,10 @@ public abstract class  Cell {
         myNeighbors = g.getCellsNear(this);
     }
 
+    public abstract void getNeighbors(WatorGrid g);
+
     public abstract void checkNeighbors(Grid g);
+
+    public abstract void checkNeighbors(WatorGrid g);
+
 }
