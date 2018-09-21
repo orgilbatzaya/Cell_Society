@@ -1,3 +1,7 @@
+/*
+@author yk154
+ */
+
 package Cell;
 
 import Grid.Grid;
