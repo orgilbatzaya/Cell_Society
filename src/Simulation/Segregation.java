@@ -2,12 +2,16 @@ package Simulation;
 
 import Simulation.Simulation;
 import Cell.Cell;
-import Grid.Grid1;
+import Grid.Grid;
 import java.util.List;
+
+/*
+@author ob29
+ */
 
 public class Segregation extends Simulation {
     private List<List<Cell>> myCells;
-    private Grid1 myGrid = new Grid1();
+    private Grid myGrid;
     private int size;
     private double similarity;
     private double ratio;

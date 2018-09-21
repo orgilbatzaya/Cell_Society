@@ -4,6 +4,10 @@ import Cell.Cell;
 import Grid.Grid;
 import java.util.List;
 
+/**
+* @author ob29
+*/
+
 public class SegregationCell extends Cell {
     private double currentSatisfied;
     private double mySatisfaction;
