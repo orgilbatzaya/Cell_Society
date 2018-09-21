@@ -1,5 +1,5 @@
 /*
-@author ob29
+@author ob29, yk154
  */
 package Grid;
 
@@ -8,11 +8,10 @@ import Cell.Cell;
 import java.util.ArrayList;
 import java.util.List;
 /**
- *
+ * isbound - grid ,
  */
 public abstract class Grid {
     protected int size;
-
     protected int getSize;
     protected int setSize;
     protected List<List<Cell>> myCells;
@@ -27,25 +26,9 @@ public abstract class Grid {
         return myCells.get(x).get(y);
     }
 
-    public List<Cell> getCellsNear(Cell cell) {
-        int xPos = cell.getX();
-        int yPos = cell.getY();
-        List<Cell> cellsNear = new ArrayList<Cell>();
-        //adjacent
-        cellsNear.add(myCells.get(xPos - 1).get(yPos));
-        cellsNear.add(myCells.get(xPos + 1).get(yPos));
-        cellsNear.add(myCells.get(xPos).get(yPos - 1));
-        cellsNear.add(myCells.get(xPos).get(yPos + 1));
-        //diagonals
-        cellsNear.add(myCells.get(xPos - 1).get(yPos - 1));
-        cellsNear.add(myCells.get(xPos - 1).get(yPos + 1));
-        cellsNear.add(myCells.get(xPos + 1).get(yPos - 1));
-        cellsNear.add(myCells.get(xPos + 1).get(yPos + 1));
+    public abstract List<Cell> getCellsNear(Cell cell);
 
-        return cellsNear;
-    }
-
-    public List<Cell> getEmptyCells(int emptyVal){
+    public List<Cell> getEmptyCells(int emptyVal){ //get all the empty cells
         List<Cell> requiredCells = new ArrayList<>();
         for(List<Cell> row: myCells){
             for(Cell c: row){
@@ -57,5 +40,32 @@ public abstract class Grid {
         return requiredCells;
     }
 
-    public void updateEveryCell() {}
+    public List<Cell> getEmptyCellsNear(){ //for segregation and WaTor
+        return null;
+
+    }
+
+    public abstract void updateEveryCell();
+
+    public abstract int checkStats();
+
+    /**
+     * Fire, Life of Game and segregation cell in bounds
+     */
+    public boolean inBounds(int x, int y) {
+        for(List<Cell> row: myCells){
+            for(Cell c: row){
+                if(c.getX() <0 || c.getX() >= size) return false;
+                if(c.getY() < 0 || c.getY() >= size) return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * WaTor should wrap bound. maybe after WaTor cell done
+     */
+    public int boundWrap() {
+        return 0;
+    }
 }
