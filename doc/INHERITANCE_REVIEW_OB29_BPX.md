@@ -49,6 +49,7 @@ Focus on what things they have in common (these go in the superclass) and what a
     * Cell will be used by Grid to fill it up
     * Cell will be 
 2. What feature/design problem are you most excited to work on?
-    * I am most excited to figure 
+    * I am most excited to figure out the rules for each cell.
 3. What feature/design problem are you most worried about working on?
-
+    * I am most worried about potential collisions or out of bounds
+    errors
