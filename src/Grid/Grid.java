@@ -61,11 +61,4 @@ public abstract class Grid {
         }
         return true;
     }
-
-    /**
-     * WaTor should wrap bound. maybe after WaTor cell done
-     */
-    public int boundWrap() {
-        return 0;
-    }
 }
