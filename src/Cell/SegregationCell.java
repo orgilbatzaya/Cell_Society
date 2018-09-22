@@ -1,7 +1,7 @@
 package Cell;
 
 import Cell.Cell;
-import Grid.Grid;
+import Grid.SegGrid;
 import java.util.List;
 
 /**
@@ -11,9 +11,10 @@ import java.util.List;
 public class SegregationCell extends Cell {
     private double currentSatisfied;
     private double mySatisfaction;
-    public static final int RED = 0;
-    public static final int BLUE = 1;
+    public static final int RED = 1;
+    public static final int BLUE = 2;
     public static final int EMPTY = 0;
+
 
 
     public SegregationCell(int stateOne, int stateTwo, int x, int y, int satisfiedRate) {
@@ -23,7 +24,7 @@ public class SegregationCell extends Cell {
     }
 
     @Override
-    public void getNeighbors(Grid g){
+    public void getNeighbors(SegGrid g){
         List<Cell> temp;
         temp = g.getCellsNear(this);
         for(Cell c:temp){
@@ -32,7 +33,7 @@ public class SegregationCell extends Cell {
             }
         }
     }
-    
+
 
     public void checkNeighbors(Grid g) {
         int happyCells = 0;
