@@ -46,7 +46,10 @@ public class XMLWriter {
      * add a Node to next element with String as data
      */
     public void addStrNode(String tag, String data) {
-
+        nextElem = DOM.createElement(tag);
+        Text text = DOM.createTextNode(data);
+        nextElem.appendChild(text);
+        rootElem.appendChild(nextElem);
     }
 
     /**
