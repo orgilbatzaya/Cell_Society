@@ -17,7 +17,7 @@ public class SegregationCell extends Cell {
 
 
 
-    public SegregationCell(int stateOne, int stateTwo, int x, int y, int satisfiedRate) {
+    public SegregationCell(int stateOne, int stateTwo, int x, int y, double satisfiedRate) {
         super(stateOne, stateTwo, x, y);
         this.mySatisfaction = satisfiedRate;
 

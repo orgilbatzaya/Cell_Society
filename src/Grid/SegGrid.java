@@ -3,9 +3,7 @@ package Grid;
 import Cell.Cell;
 import Cell.SegregationCell;
 
-import java.util.List;
-import java.util.Random;
-import java.util.ArrayList;
+import java.util.*;
 
 /*
 @author ob29
@@ -23,15 +21,44 @@ public class SegGrid extends Grid {
         initializeCells(similar,rbRatio,empty);
     }
 
-    public void initializeCells(int similar, double rbRatio, double empty){
+    /**
+     * Fills myCells with new Segregation Cells, with random placement of
+     * red/blue/empty cells depending on User input, along with a
+     * similarity/satisfaction threshold for all non-empty cells
+     * @param similar
+     * @param rbRatio percentage of red cells (user input)
+     * @param empty percentage of empty cells (user input)
+     */
+    public void initializeCells(double similar, double rbRatio, double empty){
+        int numEmpty = (int) empty*(size*size);
+        int numRed = (int) rbRatio*(size*size - numEmpty);
+        int numBlue = (size*size) - numEmpty - numRed;
+        var states = randomizeStates(numEmpty,numRed,numBlue);
+
         for(int i = 0; i < size; i++){
             var row = new ArrayList<SegregationCell>();
             for(int j = 0; j < size; j++){
-                var cell = new SegregationCell(1,1,i,j,similar);
+                int state = (int) states.pop();
+                var cell = new SegregationCell(state,state,i,j,similar);
                 row.add(cell);
             }
             myCells.add(row);
         }
+    }
+
+    private Stack randomizeStates(int empty, int red, int blue){
+        Stack<Integer> bagOfStates = new Stack<>();
+        for(int i = 0; i < empty; i++){
+            bagOfStates.push(EMPTY);
+        }
+        for(int i = 0; i < red; i++){
+            bagOfStates.push(RED);
+        }
+        for(int i = 0; i < blue; i++){
+            bagOfStates.push(BLUE);
+        }
+        Collections.shuffle(bagOfStates);
+        return bagOfStates;
     }
 
 
@@ -39,7 +66,7 @@ public class SegGrid extends Grid {
      * Called by SegregationCell cell in getNeighbors(), which is called
      * by checkNeighbors()
      * @param cell
-     * @return list of near Cells that are inValidPosition 
+     * @return list of near Cells that are inValidPosition
      */
     public List<Cell> getCellsNear(Cell cell) {
         List<Cell> nearCells = new ArrayList<Cell>();

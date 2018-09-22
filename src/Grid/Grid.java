@@ -23,9 +23,10 @@ public abstract class Grid {
     public Grid(int size /*List<List<Cell>> cells*/){
         this.size = size;
         //myCells = cells;
-
-
     }
+
+
+
     public abstract List<Cell> getCellsNear(Cell cell);
 
     public List<Cell> getEmptyCells(int emptyVal){ //get all the empty cells
