@@ -1,12 +1,16 @@
+
 /*
 @author ob29, yk154
  */
+
 package Grid;
 
 import Cell.Cell;
 
-import java.util.ArrayList;
 import java.util.List;
+
+import java.util.ArrayList;
+
 /**
  * isbound - grid ,
  */
@@ -16,15 +20,12 @@ public abstract class Grid {
     protected int setSize;
     protected List<List<Cell>> myCells;
 
-    public Grid(int size, List<List<Cell>> cells) {
+    public Grid(int size /*List<List<Cell>> cells*/){
         this.size = size;
-        myCells = cells;
-
+        //myCells = cells;
     }
 
-    public Cell getCellAt(int x, int y) {
-        return myCells.get(x).get(y);
-    }
+
 
     public abstract List<Cell> getCellsNear(Cell cell);
 
@@ -40,14 +41,12 @@ public abstract class Grid {
         return requiredCells;
     }
 
-    public List<Cell> getEmptyCellsNear(){ //for segregation and WaTor
-        return null;
 
-    }
+    public abstract List<Cell> getEmptyCellsNear();
 
     public abstract void updateEveryCell();
 
-    public abstract int checkStats();
+    public abstract double checkStats();
 
     /**
      * Fire, Life of Game and segregation cell in bounds
