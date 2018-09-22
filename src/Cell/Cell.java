@@ -67,10 +67,16 @@ public abstract class  Cell {
         myNeighbors = g.getCellsNear(this);
     }
 
-    public abstract void getNeighbors(WatorGrid g);
+    public void getNeighbors(WatorGrid g){
+        List<Cell> temp;
+        temp = g.getCellsNear(this);
+        for(Cell c:temp){
+            myNeighbors.add(c);
+        }
+    }
 
     public abstract void checkNeighbors(Grid g);
 
-    public abstract void checkNeighbors(WatorGrid g);
+
 
 }

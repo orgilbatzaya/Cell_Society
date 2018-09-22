@@ -4,7 +4,7 @@ import Cell.Cell;
 import java.util.ArrayList;
 import java.util.List;
 
-public class WatorGrid extends AbstractGrid {
+public class WatorGrid extends Grid {
 
     public WatorGrid(int size, List<List<Cell>> cells) {
        super(size,cells);
@@ -23,4 +23,7 @@ public class WatorGrid extends AbstractGrid {
 
         return cellsNear;
     }
+
+    public abstract List<Cell> getEmptyCellsNear();
+
 }

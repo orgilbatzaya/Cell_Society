@@ -32,6 +32,7 @@ public class SegregationCell extends Cell {
             }
         }
     }
+    
 
     public void checkNeighbors(Grid g) {
         int happyCells = 0;

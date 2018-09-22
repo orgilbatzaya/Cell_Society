@@ -22,7 +22,6 @@ public class FishCell extends Cell {
 
     }
 
-    @Override
     public void getNeighbors(WatorGrid g){
         List<Cell> temp;
         temp = g.getCellsNear(this);
@@ -30,6 +29,7 @@ public class FishCell extends Cell {
             myNeighbors.add(c);
         }
     }
+
 
 
     public void checkNeighbors(WatorGrid g){
