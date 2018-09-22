@@ -1,3 +1,7 @@
+/*
+@author yk154
+ */
+
 package Grid;
 
 import Cell.*;
@@ -11,7 +15,13 @@ public class FireGrid extends Grid {
     }
 
     @Override
+    public List<int[]> getNearCellPositions(Cell cell) {
+        return null;
+    }
+
+    @Override
     public void updateEveryCell(){
+
 
 
     }

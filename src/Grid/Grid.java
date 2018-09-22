@@ -12,18 +12,10 @@ import java.util.List;
  */
 public abstract class Grid {
     protected int size;
-//    protected int getSize;
-//    protected int setSize;
-    protected List<List<Cell>> myCells;
+    protected List<ArrayList<Cell>> myCells;
 
-    public Grid(int size, List<List<Cell>> cells) {
+    public Grid(int size) {
         this.size = size;
-        myCells = cells;
-
-    }
-
-    public Cell getCellAt(int x, int y) {
-        return myCells.get(x).get(y);
     }
 
     public List<Cell> getEmptyCells(int emptyVal){ //get all the empty cells
@@ -36,23 +28,6 @@ public abstract class Grid {
             }
         }
         return requiredCells;
-    }
-
-    public List<int[]> getNearCellPositions(Cell cell){
-        List<int[]> positions = new ArrayList<>();
-        int xPos = cell.getX();
-        int yPos = cell.getY();
-
-        positions.add(new int[]{xPos -1, yPos});
-        positions.add(new int[]{xPos +1, yPos});
-        positions.add(new int[]{xPos, yPos-1});
-        positions.add(new int[]{xPos, yPos+1});
-
-        positions.add(new int[]{xPos-1, yPos-1});
-        positions.add(new int[]{xPos-1, yPos+1});
-        positions.add(new int[]{xPos+1, yPos-1});
-        positions.add(new int[]{xPos+1, yPos+1});
-        return positions;
     }
 
 
@@ -79,13 +54,11 @@ public abstract class Grid {
         return true;
     }
 
-
-//
-//    public abstract List<Cell> getEmptyCellsNear();
+    public abstract List<int[]> getNearCellPositions(Cell cell);
 
     public abstract void updateEveryCell();
 
-    public abstract double checkStats();
+//    public abstract double checkStats();
 
 
 }
