@@ -10,30 +10,6 @@ public class LifeGrid extends Grid {
         super(size, cells);
     }
 
-    @Override
-    public List<Cell> getCellsNear(Cell cell){
-        int xPos = cell.getX();
-        int yPos = cell.getY();
-        List<Cell> cellsNear = new ArrayList<Cell>();
-        //adjacent
-        cellsNear.add(myCells.get(xPos - 1).get(yPos));
-        cellsNear.add(myCells.get(xPos + 1).get(yPos));
-        cellsNear.add(myCells.get(xPos).get(yPos - 1));
-        cellsNear.add(myCells.get(xPos).get(yPos + 1));
-        //diagonals
-        cellsNear.add(myCells.get(xPos - 1).get(yPos - 1));
-        cellsNear.add(myCells.get(xPos - 1).get(yPos + 1));
-        cellsNear.add(myCells.get(xPos + 1).get(yPos - 1));
-        cellsNear.add(myCells.get(xPos + 1).get(yPos + 1));
-
-        return cellsNear;
-    }
-
-    @Override
-    public List<Cell> getEmptyCellsNear(){
-        return null;
-    }
-
 
     @Override
     public void updateEveryCell(){
@@ -42,7 +18,7 @@ public class LifeGrid extends Grid {
     }
 
     @Override
-    public int checkStats(){
+    public double checkStats(){
         return 0;
     }
 
