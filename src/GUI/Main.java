@@ -26,10 +26,8 @@ public class Main extends Application {
     public static final int FRAMES_PER_SECOND = 60;
     public static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
     public static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
-    public static final String RESOURCE_PACKAGE = "resources/English";
-    public static final String STYLESHEET = "default.css";
-    public static final String BLANK = " ";
-
+    public static final String RESOURCE_PACKAGE = "resources/";
+    public static final String UI_TEXT = "English";
 
     private UISetup myDisplay;
     private String simulation;
@@ -37,8 +35,8 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) {
         // use resources for labels
-        ResourceBundle myResources = ResourceBundle.getBundle(RESOURCE_PACKAGE);
-        myDisplay = new UISetup(WIDTH, HEIGHT, BACKGROUND, myResources);
+        ResourceBundle myResources = ResourceBundle.getBundle(RESOURCE_PACKAGE + UI_TEXT);
+        myDisplay = new UISetup(WIDTH, HEIGHT, BACKGROUND);
         myDisplay.initializeUI();
         simulation = myDisplay.getSimSelection();
         stage.setScene(myDisplay.getScene());

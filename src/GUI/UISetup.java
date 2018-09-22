@@ -26,6 +26,10 @@ import java.util.ResourceBundle;
  * @author Brooke Keene
  */
 public class UISetup {
+    public static final String RESOURCE_PACKAGE = "resources/";
+    public static final String UI_TEXT = "English";
+    public static final String STYLESHEET = "default.css";
+
     private Scene myScene;
     private Group myRoot;
     private BorderPane myBorder;
@@ -56,17 +60,18 @@ public class UISetup {
      * @param height
      * @param color
      */
-    public UISetup(int width, int height, Paint color, ResourceBundle resources) {
+    public UISetup(int width, int height, Paint color) {
         myRoot = new Group();
         myScene = new Scene(myRoot, width, height, color);
         myBorder = new BorderPane();
-        myResources = resources;
     }
 
     /**
      * initializes the UI space, called by Main
      */
     public void initializeUI() {
+        myResources = ResourceBundle.getBundle(RESOURCE_PACKAGE + UI_TEXT);
+        myScene.getStylesheets().add(STYLESHEET);
         this.makeBorderPane();
         this.addButtons();
         this.makeSideMenu();
@@ -210,9 +215,5 @@ public class UISetup {
             System.out.println("Clicked Reset!");
         });
 
-    }
-
-    public void stuff(){
-        
     }
 }
