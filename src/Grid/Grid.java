@@ -20,9 +20,9 @@ public abstract class Grid {
     protected int setSize;
     protected List<List<Cell>> myCells;
 
-    public Grid(int size, List<List<Cell>> cells){
+    public Grid(int size /*List<List<Cell>> cells*/){
         this.size = size;
-        myCells = cells;
+        //myCells = cells;
 
 
     }
@@ -45,7 +45,7 @@ public abstract class Grid {
 
     public abstract void updateEveryCell();
 
-    public abstract int checkStats();
+    public abstract double checkStats();
 
     /**
      * Fire, Life of Game and segregation cell in bounds

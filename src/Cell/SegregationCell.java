@@ -1,7 +1,7 @@
 package Cell;
 
 import Cell.Cell;
-import Grid.SegGrid;
+import Grid.Grid;
 import java.util.List;
 
 /**
@@ -24,7 +24,7 @@ public class SegregationCell extends Cell {
     }
 
     @Override
-    public void getNeighbors(SegGrid g){
+    public void getNeighbors(Grid g){
         List<Cell> temp;
         temp = g.getCellsNear(this);
         for(Cell c:temp){
