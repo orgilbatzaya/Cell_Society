@@ -40,10 +40,7 @@ public abstract class Grid {
         return requiredCells;
     }
 
-    public List<Cell> getEmptyCellsNear(){ //for segregation and WaTor
-        return null;
-
-    }
+    public abstract List<Cell> getEmptyCellsNear();
 
     public abstract void updateEveryCell();
 

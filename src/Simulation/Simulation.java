@@ -43,6 +43,7 @@ public class Simulation {
         }, 0, interval);
     }
     public void stop(){ timer.cancel(); }
+
     public void step() { grid.updateEveryCell(); }
 
 }
