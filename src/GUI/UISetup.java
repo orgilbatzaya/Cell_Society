@@ -1,5 +1,6 @@
 package GUI;
 
+import XML.XMLWriter;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.Group;
@@ -34,10 +35,13 @@ public class UISetup {
     private Group myRoot;
     private BorderPane myBorder;
 
+    private XMLWriter myXML;
+
     private Button startBtn;
     private Button stopBtn;
     private Button stepBtn;
     private Button resetBtn;
+    private Button doneBtn;
 
     private ChoiceBox simSelect;
 
@@ -75,6 +79,7 @@ public class UISetup {
         this.makeBorderPane();
         this.addButtons();
         this.makeSideMenu();
+        myXML = new XMLWriter();
     }
 
     /**
@@ -135,6 +140,15 @@ public class UISetup {
         this.addChoiceBox(right);
         this.addSliders(right);
 
+        doneBtn = new Button(myResources.getString("Done"));
+        doneBtn.setOnAction(value -> {
+            myXML.addStrNode("simulation", (String) simSelect.getValue());
+            myXML.addIntNode("simSpeed", userSimSpeed);
+            myXML.addIntNode("gridSize", userGridSize);
+            myXML.saveFile();
+        });
+        right.getChildren().add(doneBtn);
+
         myBorder.setRight(right);
     }
 
@@ -146,7 +160,7 @@ public class UISetup {
         bottomRow.setPadding(new Insets(buttonSpace));
         bottomRow.setAlignment(Pos.CENTER_LEFT);
 
-        startBtn = new Button(myResources.getString("Start")); // myResources.get (title);
+        startBtn = new Button(myResources.getString("Start"));
         stopBtn = new Button(myResources.getString("Stop"));
         stepBtn = new Button(myResources.getString("Step"));
         resetBtn = new Button(myResources.getString("Reset"));
@@ -214,6 +228,5 @@ public class UISetup {
         resetBtn.setOnAction(value ->  {
             System.out.println("Clicked Reset!");
         });
-
     }
 }
