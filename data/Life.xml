@@ -1,0 +1,32 @@
+<Simulation>
+
+    <Attributes>
+        <Type>Life</Type>
+        <Title>Life Simulation</Title>
+        <Author>Ben Welton</Author>
+    </Attributes>
+
+    <Variables>
+
+    </Variables>
+
+    <Cells>
+        <Cell color="#FDFEFE" proportion="50">
+            <Name>DEAD</Name>
+            <Value>0</Value>
+        </Cell>
+
+        <Cell color="#17202A" proportion="50">
+            <Name>ALIVE</Name>
+            <Value>1</Value>
+        </Cell>
+
+    </Cells>
+
+    <Grid>
+        <Size>5</Size>
+        <Type>Normal</Type>
+        <Visibile>true</Visibile>
+    </Grid>
+
+</Simulation>
