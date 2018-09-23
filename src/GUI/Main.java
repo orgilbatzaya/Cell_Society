@@ -3,6 +3,7 @@ package GUI;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
+import javafx.scene.control.Button;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
@@ -29,6 +30,7 @@ public class Main extends Application {
     public static final String UI_TEXT = "English";
 
     private UISetup myDisplay;
+    private simGrid myGridDisplay;
 
     @Override
     /**
@@ -42,6 +44,8 @@ public class Main extends Application {
         stage.setScene(myDisplay.getScene());
         stage.setTitle(myResources.getString("Title"));
         stage.show();
+
+        myGridDisplay = myDisplay.getMyGrid();
 
         var frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> step(SECOND_DELAY));
         var animation = new Timeline();

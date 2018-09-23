@@ -67,6 +67,7 @@ public class simControls {
         });
         stepBtn.setOnAction(value ->  {
             System.out.println("Clicked Step!");
+            //TODO: updateGrid
         });
         resetBtn.setOnAction(value ->  {
             System.out.println("Clicked Reset!");
