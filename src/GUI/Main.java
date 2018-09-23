@@ -3,11 +3,8 @@ package GUI;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
-import javafx.scene.Group;
-import javafx.scene.Scene;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -16,6 +13,8 @@ import java.util.ResourceBundle;
 
 /**
  * Main
+ *
+ * main class to run program
  *
  * @author Brooke Keene
  */
@@ -30,15 +29,16 @@ public class Main extends Application {
     public static final String UI_TEXT = "English";
 
     private UISetup myDisplay;
-    private String simulation;
 
     @Override
+    /**
+     * sets Stage and initializes GUI
+     */
     public void start(Stage stage) {
-        // use resources for labels
         ResourceBundle myResources = ResourceBundle.getBundle(RESOURCE_PACKAGE + UI_TEXT);
-        myDisplay = new UISetup(WIDTH, HEIGHT, BACKGROUND);
+
+        myDisplay = new UISetup(WIDTH, HEIGHT, BACKGROUND, stage);
         myDisplay.initializeUI();
-        simulation = myDisplay.getSimSelection();
         stage.setScene(myDisplay.getScene());
         stage.setTitle(myResources.getString("Title"));
         stage.show();
@@ -57,21 +57,7 @@ public class Main extends Application {
      * @param elapsedTime
      */
     private void step(double elapsedTime) {
-        String newSim = myDisplay.getSimSelection();
-        if(newSim != null && !newSim.equals(simulation)) {
-            System.out.println(newSim);
-        }
-        simulation = newSim;
 
-        int speed = myDisplay.getSimSpeed();
-        int grid = myDisplay.getGridSize();
-
-        if(speed == 50) {
-            System.out.println(speed);
-        }
-        if(grid == 2) {
-            System.out.println(grid);
-        }
     }
 
     public static void main(String[] args) {
