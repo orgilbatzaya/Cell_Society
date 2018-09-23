@@ -1,20 +1,11 @@
 package GUI;
 
-import XML.XMLParser;
-import XML.XMLWriter;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
+import java.io.File;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
-import javafx.scene.control.Button;
-import javafx.scene.control.Slider;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.BorderPane;
-import javafx.geometry.Pos;
+import javafx.stage.Stage;
 import javafx.geometry.Insets;
 import java.util.ResourceBundle;
 
@@ -32,32 +23,17 @@ public class UISetup {
     public static final String UI_TEXT = "English";
     public static final String STYLESHEET = "default.css";
 
+    private Stage myStage;
     private Scene myScene;
     private Group myRoot;
     private BorderPane myBorder;
 
-    private XMLWriter myXML;
-    private XMLParser myParser;
+    private simControls myControls;
+    private simSelectMenu myMenu;
 
-    private Button startBtn;
-    private Button stopBtn;
-    private Button stepBtn;
-    private Button resetBtn;
-    private Button doneBtn;
-
-    private ChoiceBox simSelect;
-
-    private Slider simSpeed;
-    private Slider gridSize;
-    private int userSimSpeed;
-    private int userGridSize;
-    private Label speedLabel;
-    private Label sizeLabel;
-
-    private int buttonSpace = 20;
-    private int borderSpace = 10;
-    private int sideMenuSpace = 200;
     private ResourceBundle myResources;
+
+    private int borderSpace = 10;
 
     /**
      * Constructor
@@ -66,179 +42,53 @@ public class UISetup {
      * @param height
      * @param color
      */
-    public UISetup(int width, int height, Paint color) {
+    public UISetup(int width, int height, Paint color, Stage stage) {
         myRoot = new Group();
+        myStage = stage;
         myScene = new Scene(myRoot, width, height, color);
         myBorder = new BorderPane();
     }
 
     /**
-     * initializes the UI space, called by Main
+     * initializes the GUI when called by Main
      */
     public void initializeUI() {
         myResources = ResourceBundle.getBundle(RESOURCE_PACKAGE + UI_TEXT);
         myScene.getStylesheets().add(STYLESHEET);
+
         this.makeBorderPane();
-        this.addButtons();
-        this.makeSideMenu();
-        myXML = new XMLWriter();
+
+        myControls = new simControls(myBorder, myResources);
+        myControls.addButtons();
+
+        myMenu = new simSelectMenu(myStage, myBorder, myResources);
+        myMenu.makeSideMenu();
     }
 
     /**
-     * returns the Scene created in this class, called by Main
+     * returns Scene when called by Main
      *
-     * @return myScene
+     * @return myScene, the Scene created by this UISetup class
      */
     public Scene getScene() {
         return myScene;
     }
 
     /**
-     * returns the Simulation selected by the user
      *
-     * @return
+     * @return the File selected by the user
      */
-    public String getSimSelection() {
-        return (String) simSelect.getValue();
+    public File getUserFile() {
+        return myMenu.getFile();
     }
 
     /**
-     * returns the speed of the simulation as specified by the user
-     *
-     * @return
-     */
-    public int getSimSpeed() {
-        return userSimSpeed;
-    }
-
-    /**
-     * returns the size of the grid as specified by the user
-     *
-     * @return
-     */
-    public int getGridSize() {
-        return userGridSize;
-    }
-
-    /**
-     * creates BorderPane
+     * creates BorderPane object to hold other UI controls
      */
     private void makeBorderPane() {
         myBorder.prefHeightProperty().bind(myScene.heightProperty());
         myBorder.prefWidthProperty().bind(myScene.widthProperty());
         myBorder.setPadding(new Insets(borderSpace));
         myRoot.getChildren().add(myBorder);
-    }
-
-    /**
-     * creates VBox to contain side menu options
-     */
-    private void makeSideMenu() {
-        VBox right = new VBox(borderSpace);
-        right.setPrefWidth(sideMenuSpace);
-        right.setPadding(new Insets(borderSpace));
-        right.setAlignment(Pos.TOP_CENTER);
-
-        this.addChoiceBox(right);
-        this.addSliders(right);
-
-        doneBtn = new Button(myResources.getString("Done"));
-        doneBtn.setOnAction(value -> {
-            //TODO: reset xml file
-            myXML.addStrNode("simulation", (String) simSelect.getValue());
-            myXML.addIntNode("simSpeed", userSimSpeed);
-            myXML.addIntNode("gridSize", userGridSize);
-            myXML.saveFile();
-            this.parserXML();
-        });
-        right.getChildren().add(doneBtn);
-
-        myBorder.setRight(right);
-    }
-
-    /**
-     * testing
-     */
-    private void parserXML() {
-        myParser = new XMLParser("type");
-        myParser.readFile("data/output.xml");
-    }
-
-    /**
-     * creates a HBox with start, stop, step, and reset buttons
-     */
-    private void addButtons() {
-        HBox bottomRow = new HBox(buttonSpace);
-        bottomRow.setPadding(new Insets(buttonSpace));
-        bottomRow.setAlignment(Pos.CENTER_LEFT);
-
-        startBtn = new Button(myResources.getString("Start"));
-        stopBtn = new Button(myResources.getString("Stop"));
-        stepBtn = new Button(myResources.getString("Step"));
-        resetBtn = new Button(myResources.getString("Reset"));
-        setButtonFunctionality();
-
-        bottomRow.getChildren().addAll(startBtn, stopBtn, stepBtn, resetBtn);
-        myBorder.setBottom(bottomRow);
-    }
-
-    /**
-     * creates a VBox with sliders
-     */
-    private void addSliders(VBox vBox) {
-        simSpeed = new Slider(0, 100, 0);
-        simSpeed.setMajorTickUnit(1);
-        speedLabel = new Label(Double.toString(simSpeed.getValue()));
-        simSpeed.valueProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                userSimSpeed = newValue.intValue();
-                speedLabel.setText(String.format("%.0f", newValue));
-            }
-        });
-        gridSize = new Slider(1, 100, 1);
-        gridSize.setMajorTickUnit(1);
-        sizeLabel = new Label(Double.toString(gridSize.getValue()));
-        gridSize.valueProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                userGridSize = newValue.intValue();
-                sizeLabel.setText(String.format("%.0f", newValue));
-            }
-        });
-
-        vBox.getChildren().addAll(simSpeed, speedLabel, gridSize, sizeLabel);
-    }
-
-    /**
-     * creates a ChoiceBox to select simulation type
-     */
-    private void addChoiceBox(VBox vBox) {
-        simSelect = new ChoiceBox();
-        // create choices
-        simSelect.getItems().add(myResources.getString("GameOfLife"));
-        simSelect.getItems().add(myResources.getString("Segregation"));
-        simSelect.getItems().add(myResources.getString("WaTorWorld"));
-        simSelect.getItems().add(myResources.getString("Fire"));
-
-        vBox.getChildren().add(simSelect);
-    }
-
-    /**
-     * adds functionality to each button for when user clicks
-     */
-    private void setButtonFunctionality() {
-        startBtn.setOnAction(value ->  {
-            System.out.println("Clicked Start!");
-        });
-        stopBtn.setOnAction(value ->  {
-            System.out.println("Clicked Stop!");
-        });
-        stepBtn.setOnAction(value ->  {
-            System.out.println("Clicked Step!");
-        });
-        resetBtn.setOnAction(value ->  {
-            System.out.println("Clicked Reset!");
-        });
     }
 }
