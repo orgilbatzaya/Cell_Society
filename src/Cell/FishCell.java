@@ -29,10 +29,5 @@ public class FishCell extends Cell {
         }
 
     }
-
-    public void breed(Grid g){
-
-
-    }
 }
 
