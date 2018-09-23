@@ -29,6 +29,10 @@ GUI:
 * JavaFX Button http://tutorials.jenkov.com/javafx/button.html#button-events
 * CompSci308_2018Fall GitLab Repository (example_browser)
 
+CSS:
+* Buttons and Sliders - https://www.w3schools.com/howto/
+* Oracle Getting Started with JavaFX - https://docs.oracle.com/javafx/2/get_started/css.htm
+
 XML:
 * How to read and write XML files with code (https://www.makeuseof.com/tag/read-write-xml-file-code/)
 * CompSci308_2018Fall GitLab Repository (spike_cellsociety)
