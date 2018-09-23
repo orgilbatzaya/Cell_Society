@@ -30,6 +30,7 @@ public class UISetup {
 
     private simControls myControls;
     private simSelectMenu myMenu;
+    private simGrid myGrid;
 
     private ResourceBundle myResources;
 
@@ -63,6 +64,8 @@ public class UISetup {
 
         myMenu = new simSelectMenu(myStage, myBorder, myResources);
         myMenu.makeSideMenu();
+
+        myGrid = new simGrid(8, myBorder);
     }
 
     /**
