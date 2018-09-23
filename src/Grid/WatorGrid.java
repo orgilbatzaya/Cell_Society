@@ -134,7 +134,7 @@ public class WatorGrid extends Grid {
         if(cell.checkFishNear()){
             int f = random.nextInt(neighborSize);
             cell.setNextState(WATER);
-            tempNeighbors.get(f)
+            tempNeighbors.get(f);
             tempNeighbors.get(f).setNextState(cell.getCurrentState());
             tempNeighbors.remove(f);
         }
@@ -167,7 +167,7 @@ public class WatorGrid extends Grid {
     public void eatFish() {
         int f = random.nextInt(neighborSize);
         cell.setNextState(WATER);
-        tempNeighbors.get(f)
+        tempNeighbors.get(f);
         tempNeighbors.get(f).setNextState(cell.getCurrentState());
         tempNeighbors.remove(f);
     }

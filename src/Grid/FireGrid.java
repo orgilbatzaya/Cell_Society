@@ -66,6 +66,7 @@ public class FireGrid extends Grid {
         for(int x = 0; x < size; x++){
             for(int y = 0; y < size; y++){
                 var cell = myFireCells.get(x).get(y);
+                cell.checkNeighbors(this);
                 cell.setCurrentState(cell.getNextState());
             }
         }
