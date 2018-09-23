@@ -32,7 +32,6 @@ public class FireGrid extends Grid {
         }
     }
 
-
     @Override
     public List<int[]> getNearCellPositions(Cell cell) {
         List<int[]> positions = new ArrayList<>();
