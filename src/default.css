@@ -1,19 +1,22 @@
 .button {
-    -fx-text-fill: #006464;
-    -fx-background-color: #DFB951;
-    -fx-border-radius: 20;
-    -fx-background-radius: 20;
+    -fx-text-fill: #FFFFFF;         /* White */
+    -fx-font-size: 12pt;
+    -fx-background-color: #00009C;  /* Duke Blue */
+    -fx-border-radius: 4px;
+    -fx-background-radius: 4px;
     -fx-padding: 8;
 }
 
-.label {
-    -fx-font-size: 11pt;
-    -fx-font-family: "Segoe UI Semibold";
-    -fx-text-fill: #006464;
-    -fx-opacity: 0.6;
+.button:hover {
+    -fx-background-color: #1616CE;
 }
 
-.text-field {
-    -fx-font-size: 14pt;
+.label {
+    -fx-font-size: 12pt;
     -fx-font-family: "Segoe UI Semibold";
+    -fx-text-fill: #FFFFFF;
+}
+
+#speedLbl {
+    -fx-text-fill: #00009C;
 }

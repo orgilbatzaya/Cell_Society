@@ -1,10 +1,14 @@
 package GUI;
 
 import java.io.File;
+
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Slider;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -22,9 +26,9 @@ public class simSelectMenu {
     private Stage myStage;
     private ResourceBundle myResources;
     private BorderPane myBorder;
-    private Button fileBtn;
+    private VBox myVbox;
     private File myFile;
-    private Label fileName;
+    private int mySimSpeed;
     private int borderPadding = 10;
     private int sideMenuPadding = 200;
 
@@ -39,7 +43,6 @@ public class simSelectMenu {
         myStage = stage;
         myResources = resources;
         myBorder = border;
-        fileName = new Label();
     }
 
     /**
@@ -52,19 +55,35 @@ public class simSelectMenu {
     }
 
     /**
+     *
+     * @return
+     */
+    public int getSimSpeed() {
+        return mySimSpeed;
+    }
+
+    /**
      * creates VBox to contain FileChooser
      */
     public void makeSideMenu() {
-        VBox right = new VBox(borderPadding);
-        right.setPrefWidth(sideMenuPadding);
-        right.setPadding(new Insets(borderPadding));
-        right.setAlignment(Pos.TOP_CENTER);
+        myVbox = new VBox(borderPadding);
+        myVbox.setPrefWidth(sideMenuPadding);
+        myVbox.setPadding(new Insets(borderPadding));
+        myVbox.setAlignment(Pos.TOP_CENTER);
 
+        this.addFileChooser();
+        this.addSliders();
+
+        myBorder.setRight(myVbox);
+    }
+
+    private void addFileChooser() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle(myResources.getString("FileWindow"));
 
         // creates a button that opens the FileChooser
-        fileBtn = new Button(myResources.getString("File"));
+        Button fileBtn = new Button(myResources.getString("File"));
+        Label fileName = new Label();
         fileBtn.setOnAction(value -> {
             //TODO: reset xml file
             //TODO: exceptions if wrong type of file
@@ -76,8 +95,24 @@ public class simSelectMenu {
             }
         });
 
-        right.getChildren().add(fileBtn);
-        right.getChildren().add(fileName);
-        myBorder.setRight(right);
+        myVbox.getChildren().add(fileBtn);
+        myVbox.getChildren().add(fileName);
+    }
+
+    private void addSliders() {
+        Slider simSpeed = new Slider(0, 100, 0);
+        simSpeed.setMajorTickUnit(1);
+        Label speedLabel = new Label(Double.toString(simSpeed.getValue()));
+        speedLabel.setId("speedLbl");
+        simSpeed.valueProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                mySimSpeed = newValue.intValue();
+                speedLabel.setText(String.format("%.0f", newValue));
+            }
+        });
+
+        myVbox.getChildren().addAll(simSpeed, speedLabel);
+
     }
 }
