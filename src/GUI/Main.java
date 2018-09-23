@@ -38,7 +38,6 @@ public class Main extends Application {
         ResourceBundle myResources = ResourceBundle.getBundle(RESOURCE_PACKAGE + UI_TEXT);
         myDisplay = new UISetup(WIDTH, HEIGHT, BACKGROUND);
         myDisplay.initializeUI();
-        simulation = myDisplay.getSimSelection();
         stage.setScene(myDisplay.getScene());
         stage.setTitle(myResources.getString("Title"));
         stage.show();
@@ -57,21 +56,7 @@ public class Main extends Application {
      * @param elapsedTime
      */
     private void step(double elapsedTime) {
-        String newSim = myDisplay.getSimSelection();
-        if(newSim != null && !newSim.equals(simulation)) {
-            System.out.println(newSim);
-        }
-        simulation = newSim;
 
-        int speed = myDisplay.getSimSpeed();
-        int grid = myDisplay.getGridSize();
-
-        if(speed == 50) {
-            System.out.println(speed);
-        }
-        if(grid == 2) {
-            System.out.println(grid);
-        }
     }
 
     public static void main(String[] args) {
