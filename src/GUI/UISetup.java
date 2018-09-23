@@ -1,5 +1,6 @@
 package GUI;
 
+import XML.XMLParser;
 import XML.XMLWriter;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -36,6 +37,7 @@ public class UISetup {
     private BorderPane myBorder;
 
     private XMLWriter myXML;
+    private XMLParser myParser;
 
     private Button startBtn;
     private Button stopBtn;
@@ -142,14 +144,24 @@ public class UISetup {
 
         doneBtn = new Button(myResources.getString("Done"));
         doneBtn.setOnAction(value -> {
+            //TODO: reset xml file
             myXML.addStrNode("simulation", (String) simSelect.getValue());
             myXML.addIntNode("simSpeed", userSimSpeed);
             myXML.addIntNode("gridSize", userGridSize);
             myXML.saveFile();
+            this.parserXML();
         });
         right.getChildren().add(doneBtn);
 
         myBorder.setRight(right);
+    }
+
+    /**
+     * testing
+     */
+    private void parserXML() {
+        myParser = new XMLParser("type");
+        myParser.readFile("data/output.xml");
     }
 
     /**
