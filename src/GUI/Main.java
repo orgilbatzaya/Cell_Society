@@ -19,7 +19,7 @@ import java.util.ResourceBundle;
  * @author Brooke Keene
  */
 public class Main extends Application {
-    public static final int WIDTH = 850;
+    public static final int WIDTH = 750;
     public static final int HEIGHT = 600;
     public static final Paint BACKGROUND = Color.WHITE;
     public static final int FRAMES_PER_SECOND = 60;
