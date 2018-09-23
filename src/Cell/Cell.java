@@ -16,11 +16,6 @@ public abstract class  Cell {
         xPos = x;
         yPos = y;
     }
-
-    /*
-    public boolean inBounds(Grid g)
-    }*/
-
     public int getX(){
         return xPos;
     }
@@ -35,11 +30,6 @@ public abstract class  Cell {
 
     public void setY(int val){
         yPos = val;
-    }
-
-    public void moveTo(int x, int y){
-        setX(x);
-        setY(y);
     }
 
     public int getCurrentState(){

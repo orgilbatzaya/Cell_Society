@@ -13,6 +13,7 @@ public class FireCell extends Cell {
     public static final int FIRE = 1;
     public static final int GROUND = 2;
 
+
     private double prob;
 
     public FireCell(int stateOne, int x, int y, double prob) {

@@ -39,8 +39,6 @@ public abstract class Grid {
                 nearCells.add(myCells.get(pos[0]).get(pos[1]));
             }
         }
-
-
         return nearCells;
     }
 
