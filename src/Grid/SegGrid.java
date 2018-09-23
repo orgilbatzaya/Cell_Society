@@ -62,22 +62,7 @@ public class SegGrid extends Grid {
     }
 
 
-    /**
-     * Called by SegregationCell cell in getNeighbors(), which is called
-     * by checkNeighbors()
-     * @param cell
-     * @return list of near Cells that are inValidPosition
-     */
-    public List<Cell> getCellsNear(Cell cell) {
-        List<Cell> nearCells = new ArrayList<Cell>();
-        List<int[]> nearCellPs = getNearCellPositions(cell);
-        for(int[] pos:nearCellPs){
-            if(isValidPosition(pos[0],pos[1])){
-                nearCells.add(myCells.get(pos[0]).get(pos[1]));
-            }
-        }
-        return nearCells;
-    }
+
 
     public List<int[]> getNearCellPositions(Cell cell){
         List<int[]> nearCellPositions = new ArrayList<>();
@@ -96,15 +81,7 @@ public class SegGrid extends Grid {
     }
 
 
-    public boolean isValidPosition(int x, int y){
-        if(x < 0 || x >= size){
-            return false;
-        }
-        if(y < 0 || y >= size){
-            return false;
-        }
-        return true;
-    }
+    
 
     public List<Cell> getEmptyCellsNear(){
         List<Cell> res = new ArrayList<>();
