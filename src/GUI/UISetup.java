@@ -50,7 +50,7 @@ public class UISetup {
     }
 
     /**
-     * initializes the UI space, called by Main
+     * initializes the GUI when called by Main
      */
     public void initializeUI() {
         myResources = ResourceBundle.getBundle(RESOURCE_PACKAGE + UI_TEXT);
@@ -66,25 +66,24 @@ public class UISetup {
     }
 
     /**
-     * returns the Scene created in this class, called by Main
+     * returns Scene when called by Main
      *
-     * @return myScene
+     * @return myScene, the Scene created by this UISetup class
      */
     public Scene getScene() {
         return myScene;
     }
 
     /**
-     * returns the File selected by the user
      *
-     * @return
+     * @return the File selected by the user
      */
     public File getUserFile() {
         return myMenu.getFile();
     }
 
     /**
-     * creates BorderPane
+     * creates BorderPane object to hold other UI controls
      */
     private void makeBorderPane() {
         myBorder.prefHeightProperty().bind(myScene.heightProperty());

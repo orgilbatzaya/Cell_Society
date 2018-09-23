@@ -3,11 +3,8 @@ package GUI;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
-import javafx.scene.Group;
-import javafx.scene.Scene;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -16,6 +13,8 @@ import java.util.ResourceBundle;
 
 /**
  * Main
+ *
+ * main class to run program
  *
  * @author Brooke Keene
  */
@@ -32,9 +31,12 @@ public class Main extends Application {
     private UISetup myDisplay;
 
     @Override
+    /**
+     * sets Stage and initializes GUI
+     */
     public void start(Stage stage) {
-        // use resources for labels
         ResourceBundle myResources = ResourceBundle.getBundle(RESOURCE_PACKAGE + UI_TEXT);
+
         myDisplay = new UISetup(WIDTH, HEIGHT, BACKGROUND, stage);
         myDisplay.initializeUI();
         stage.setScene(myDisplay.getScene());
