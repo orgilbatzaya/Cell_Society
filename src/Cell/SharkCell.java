@@ -1,12 +1,15 @@
+/*
 package Cell;
 
 import Grid.Grid;
 
 import java.util.List;
 
+*/
 /**
  * @author ob29
- */
+ *//*
+
 public class SharkCell extends FishCell {
     public static final int SHARK = 2;
     public static final int FISH = 1;
@@ -47,3 +50,4 @@ public class SharkCell extends FishCell {
 
 
 }
+*/
