@@ -12,7 +12,7 @@ import java.util.List;
  */
 public abstract class Grid {
     protected int size;
-    protected List<List<Cell>> myCells;
+    protected ArrayList<ArrayList<Cell>> myCells;
 
     public Grid(int size) {
         this.size = size;
@@ -51,9 +51,9 @@ public abstract class Grid {
         }
         return true;
     }
-    public List<List<Cell>> getGrid(){
-        return myCells;
-    }
+//    public ArrayList<ArrayList<Cell>> getGrid(){
+//        return myCells;
+//    }
 
     public abstract List<int[]> getNearCellPositions(Cell cell);
 

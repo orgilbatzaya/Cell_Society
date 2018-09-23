@@ -17,16 +17,17 @@ public class LifeCell extends Cell {
     @Override
     public void checkNeighbors(Grid g) {
         var cnt = 0;
-        for(var neighbor : getMyNeighbors()) {
+        this.getNeighbors(g);
+        for(var neighbor : this.getMyNeighbors()) {
             if(neighbor.getCurrentState() == ALIVE) cnt ++;
         }
 
-        if(getCurrentState() == ALIVE) {
-            if(cnt < 2) setNextState(DEAD);
-            else if(cnt == 2 || cnt == 3) setNextState(ALIVE);
-            else setNextState(DEAD);
+        if(this.getCurrentState() == ALIVE) {
+            if(cnt < 2) this.setNextState(DEAD);
+            else if(cnt == 2 || cnt == 3) this.setNextState(ALIVE);
+            else this.setNextState(DEAD);
         } else {
-            if(cnt == 3) setNextState(ALIVE);
+            if(cnt == 3) this.setNextState(ALIVE);
         }
     }
 }
