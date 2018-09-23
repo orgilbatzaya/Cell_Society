@@ -8,6 +8,7 @@ import Cell.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class LifeGrid extends Grid {
     List<List<LifeCell>> myCells;
@@ -21,7 +22,8 @@ public class LifeGrid extends Grid {
         for(int i = 0; i < size; i++){
             var row = new ArrayList<LifeCell>();
             for(int j = 0; j < size; j++){
-                var cell = new LifeCell(1, x, y);
+                var random = new Random();
+                var cell = new LifeCell(random.nextInt(2), x, y);
                 row.add(cell);
             }
             myCells.add(row);
@@ -34,15 +36,19 @@ public class LifeGrid extends Grid {
         int xPos = cell.getX();
         int yPos = cell.getY();
 
-        positions.add(new int[]{xPos -1, yPos});
-        positions.add(new int[]{xPos +1, yPos});
-        positions.add(new int[]{xPos, yPos-1});
-        positions.add(new int[]{xPos, yPos+1});
+        if(inBounds(cell.getX(), cell.getY())){
+            positions.add(new int[]{xPos -1, yPos});
+            positions.add(new int[]{xPos +1, yPos});
+            positions.add(new int[]{xPos, yPos-1});
+            positions.add(new int[]{xPos, yPos+1});
 
-        positions.add(new int[]{xPos-1, yPos-1});
-        positions.add(new int[]{xPos-1, yPos+1});
-        positions.add(new int[]{xPos+1, yPos-1});
-        positions.add(new int[]{xPos+1, yPos+1});
+            positions.add(new int[]{xPos-1, yPos-1});
+            positions.add(new int[]{xPos-1, yPos+1});
+            positions.add(new int[]{xPos+1, yPos-1});
+            positions.add(new int[]{xPos+1, yPos+1});
+
+        }
+
         return positions;
     }
 
