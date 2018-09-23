@@ -2,13 +2,11 @@ package GUI;
 
 import Cell.Cell;
 import Cell.LifeCell;
-import Grid.Grid;
 import Grid.LifeGrid;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * simGrid
@@ -23,7 +21,7 @@ public class simGrid {
     private String myType;
     private int gridDim;
     private ArrayList<ArrayList<LifeCell>> myCells;
-    private LifeGrid myGrid;
+    private LifeGrid myLifeGrid;
 
     private double gridSpace = 500.00;
 
@@ -39,21 +37,22 @@ public class simGrid {
 
     private void choseGrid() {
 //        if(myType.equals("life")) {
-//            myGrid = new LifeGrid(gridDim);
+//            myLifeGrid = new LifeGrid(gridDim);
 //        }
 //        if(myType.equals("seg")) {
-//            myGrid = new SegGrid();
+//            myLifeGrid = new SegGrid();
 //        }
 //        if(myType.equals("wat")) {
-//            myGrid = WatorGrid();
+//            myLifeGrid = WatorGrid();
 //        }
 //        if(myType.equals("fire")) {
-//            myGrid = new FireGrid();
+//            myLifeGrid = new FireGrid();
 //        }
-        myGrid = new LifeGrid(gridDim);
-        myCells = myGrid.getGrid();
+        myLifeGrid = new LifeGrid(gridDim);
+        myCells = myLifeGrid.getGrid();
     }
 
+    // TODO: make it more general?????
     private void makeGrid() {
         myGP = new GridPane();
         myGP.setPrefSize(gridSpace, gridSpace);
@@ -64,7 +63,7 @@ public class simGrid {
                 temp.setPrefWidth(gridSpace/gridDim);
                 Cell tempCell = myCells.get(row).get(col);
                 tempCell.getCurrentState();
-                if(tempCell.getCurrentState() == 0) {
+                if(tempCell.getCurrentState() == LifeCell.DEAD) {
                     temp.setId("deadCell");
                 }
                 else {
@@ -79,8 +78,13 @@ public class simGrid {
 
     public void updateGrid() {
         myBorder.setCenter(null);
-        myGrid.updateEveryCell();
-        myCells = myGrid.getGrid();
+        myLifeGrid.updateEveryCell();
+        myCells = myLifeGrid.getGrid();
         this.makeGrid();
+    }
+
+    public void resetGrid() {
+        myLifeGrid.reset();
+        updateGrid();
     }
 }

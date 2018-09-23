@@ -13,7 +13,7 @@
 //    public static final int RED = 1;
 //    public static final int BLUE = 2;
 //    public static final int EMPTY = 0;
-//    List<List<SegregationCell>> myCells;
+//    List<List<SegregationCell>> myFireCells;
 //    List<Cell> emptyCells;
 //
 //    public SegGrid(int size,int similar, double rbRatio, double empty ){
@@ -22,7 +22,7 @@
 //    }
 //
 //    /**
-//     * Fills myCells with new Segregation Cells, with random placement of
+//     * Fills myFireCells with new Segregation Cells, with random placement of
 //     * red/blue/empty cells depending on User input, along with a
 //     * similarity/satisfaction threshold for all non-empty cells
 //     * @param similar
@@ -42,7 +42,7 @@
 //                var cell = new SegregationCell(state,state,i,j,similar);
 //                row.add(cell);
 //            }
-//            myCells.add(row);
+//            myFireCells.add(row);
 //        }
 //    }
 //
@@ -96,7 +96,7 @@
 //        emptyCells = getEmptyCells(EMPTY);
 //        for(int x = 0; x < size; x++){
 //            for(int y = 0; y < size; y++){
-//                var cell = myCells.get(x).get(y);
+//                var cell = myFireCells.get(x).get(y);
 //                cell.checkNeighbors(this);
 //                if(!cell.isSatisfied()){
 //                    swapRandomEmptyCell(cell);
@@ -113,7 +113,7 @@
 //    public void updateStates(){
 //        for(int x = 0; x < size; x++){
 //            for(int y = 0; y < size; y++){
-//                var cell = myCells.get(x).get(y);
+//                var cell = myFireCells.get(x).get(y);
 //                int nextState = cell.getNextState();
 //                cell.setCurrentState(nextState);
 //            }
@@ -142,7 +142,7 @@
 //        int numSatisfied = 0;
 //        for (int x = 0; x < size; x++) {
 //            for (int y = 0; y < size; y++) {
-//                if(myCells.get(x).get(y).isSatisfied()){
+//                if(myFireCells.get(x).get(y).isSatisfied()){
 //                    numSatisfied++;
 //                }
 //            }

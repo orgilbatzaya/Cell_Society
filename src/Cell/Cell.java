@@ -49,14 +49,4 @@ public abstract class Cell {
     public void setNextState(int state) {
         nextState = state;
     }
-
-    public List<Cell> getMyNeighbors(){
-        return myNeighbors;
-    }
-
-    public void getNeighbors(LifeGrid g){
-        myNeighbors = g.getCellsNear(this);
-    }
-
-    public abstract void checkNeighbors(LifeGrid g);
 }

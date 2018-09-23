@@ -1,5 +1,5 @@
 /*
-@author yk154
+@author Amy Kim
  */
 
 package Grid;
@@ -35,6 +35,10 @@ public class LifeGrid extends Grid {
         return myLifeCells;
     }
 
+    public void reset() {
+        myLifeCells.clear();
+        initializeCells();
+    }
 
     public List<int[]> getNearCellPositions(Cell cell){
         List<int[]> positions = new ArrayList<>();

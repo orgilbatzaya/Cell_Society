@@ -1,5 +1,5 @@
 /*
-@author yk154
+@author Amy Kim
  */
 
 package Simulation;
@@ -19,11 +19,6 @@ public class Simulation {
         playing = false;
     }
 
-    public void setInterval(long newInterval) {
-        interval = newInterval;
-        if(playing) { stop(); start(); }
-    }
-
     public void ticktock(double duration) {
         if(playing) {
             timer += duration;
@@ -37,5 +32,5 @@ public class Simulation {
     public void start() { playing = true; }
     public void stop(){ playing = false; timer = 0; }
     public void step() { grid.updateGrid(); }
-
+    public void reset() { grid.resetGrid(); }
 }

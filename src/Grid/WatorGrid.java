@@ -13,7 +13,7 @@
 //    public static final int SHARK = 2;
 //    public static final int FISH = 1;
 //    public static final int WATER = 0;
-//    List<List<FishCell>> myCells;
+//    List<List<FishCell>> myFireCells;
 //    List<Cell> emptyCells;
 //
 //    public WatorGrid(int size) {
@@ -37,7 +37,7 @@
 //                }
 //                row.add(cell);
 //            }
-//            myCells.add(row);
+//            myFireCells.add(row);
 //        }
 //    }
 //    private Stack randomizeStates(int empty, int red, int blue){
@@ -70,7 +70,7 @@
 //        emptyCells = getEmptyCells(WATER);
 //        for(int x = 0; x < size; x++){
 //            for(int y = 0; y < size; y++){
-//                var cell = myCells.get(x).get(y);
+//                var cell = myFireCells.get(x).get(y);
 //                cell.checkNeighbors(this);
 //                if(!cell.isSatisfied()){
 //                    swapRandomEmptyCell(cell);

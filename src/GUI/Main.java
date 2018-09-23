@@ -62,6 +62,7 @@ public class Main extends Application {
      */
     private void step(double elapsedTime) {
         myDisplay.tickTock(elapsedTime);
+
     }
 
     public static void main(String[] args) {

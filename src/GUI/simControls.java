@@ -73,7 +73,7 @@ public class simControls {
            mySim.step();
         });
         resetBtn.setOnAction(value ->  {
-            System.out.println("Clicked Reset!");
+            mySim.reset();
         });
     }
 }

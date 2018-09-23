@@ -1,5 +1,5 @@
 /*
-@author yk154
+@author Amy Kim
  */
 
 package Cell;
@@ -14,11 +14,10 @@ public class LifeCell extends Cell {
         super(alive, alive, x, y);
     }
 
-    @Override
     public void checkNeighbors(LifeGrid g) {
         var cnt = 0;
-        this.getNeighbors(g);
-        for(var neighbor : this.getMyNeighbors()) {
+        g.getCellsNear(this);
+        for(var neighbor : g.getCellsNear(this)) {
             if(neighbor.getCurrentState() == ALIVE) cnt ++;
         }
 
