@@ -92,7 +92,8 @@ public class SegGrid extends Grid {
      * first passes through grid to find unsatisfied cells and setNextState
      * then passes again to actually update states
      */
-    public  void updateEveryCell(){
+    @Override
+    public void updateEveryCell(){
         emptyCells = getEmptyCells(EMPTY);
         for(int x = 0; x < size; x++){
             for(int y = 0; y < size; y++){
@@ -103,21 +104,8 @@ public class SegGrid extends Grid {
                 }
             }
         }
-        updateStates();
+        super.updateEveryCell();
         checkStats();
-    }
-
-    /**
-     * turns next state into current one
-     */
-    public void updateStates(){
-        for(int x = 0; x < size; x++){
-            for(int y = 0; y < size; y++){
-                var cell = myCells.get(x).get(y);
-                int nextState = cell.getNextState();
-                cell.setCurrentState(nextState);
-            }
-        }
     }
 
     /**
@@ -149,7 +137,4 @@ public class SegGrid extends Grid {
         }
         return (1.0*numSatisfied)/(size*size);
     }
-
-
-
 }

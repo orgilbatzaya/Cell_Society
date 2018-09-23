@@ -18,7 +18,7 @@ public abstract class Grid {
         this.size = size;
     }
 
-    public List<Cell> getEmptyCells(int emptyVal){ //get all the empty cells
+    protected List<Cell> getEmptyCells(int emptyVal){ //get all the empty cells
         List<Cell> requiredCells = new ArrayList<>();
         for(List<Cell> row: myCells){
             for(Cell c: row){
@@ -31,7 +31,7 @@ public abstract class Grid {
     }
 
 
-    public List<Cell> getCellsNear(Cell cell){
+    protected List<Cell> getCellsNear(Cell cell){
         List<Cell> nearCells = new ArrayList<Cell>();
         List<int[]> positions = getNearCellPositions(cell);
         for(int[] pos:positions){
@@ -42,7 +42,7 @@ public abstract class Grid {
         return nearCells;
     }
 
-    public boolean inBounds(int x, int y) {
+    protected boolean inBounds(int x, int y) {
         if(x < 0 || x >= size){
             return false;
         }
@@ -55,9 +55,14 @@ public abstract class Grid {
         return myCells;
     }
 
-    public abstract List<int[]> getNearCellPositions(Cell cell);
+    protected abstract List<int[]> getNearCellPositions(Cell cell);
 
-    public abstract void updateEveryCell();
-
-
+    protected void updateEveryCell() {
+        for(int x = 0; x < size; x++){
+            for(int y = 0; y < size; y++){
+                var cell = myCells.get(x).get(y);
+                cell.setCurrentState(cell.getNextState());
+            }
+        }
+    }
 }

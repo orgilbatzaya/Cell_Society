@@ -60,11 +60,5 @@ public abstract class  Cell {
         myNeighbors = g.getCellsNear(this);
     }
 
-
-
-
-
-
-
     public abstract void checkNeighbors(Grid g);
 }

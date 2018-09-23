@@ -14,7 +14,7 @@ import java.util.List;
  *
  * @author Brooke Keene
  */
-public class simGrid {
+public class sisimGrid {
     private GridPane myGP;
     private BorderPane myBorder;
     private int gridDim;

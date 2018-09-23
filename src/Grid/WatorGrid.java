@@ -66,6 +66,7 @@ public class WatorGrid extends Grid {
         return nearCellPositions;
     }
 
+
     public void updateEveryCell(){
         emptyCells = getEmptyCells(WATER);
         for(int x = 0; x < size; x++){
