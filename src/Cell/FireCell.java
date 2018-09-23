@@ -4,8 +4,7 @@
 
 package Cell;
 
-import Grid.WatorGrid;
-
+import Grid.Grid;
 
 import java.util.Random;
 
@@ -22,7 +21,7 @@ public class FireCell extends Cell {
     }
 
     @Override
-    public void checkNeighbors(WatorGrid g) {
+    public void checkNeighbors(Grid g) {
         if(getCurrentState() == GROUND || getCurrentState() == FIRE) setNextState(GROUND);
         else {
             var cnt = 0;

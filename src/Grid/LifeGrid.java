@@ -1,26 +1,60 @@
+/*
+@author yk154
+ */
+
 package Grid;
 
-import Cell.Cell;
+import Cell.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class LifeGrid extends Grid {
-    public LifeGrid(int size, List<List<Cell>> cells){
-        super(size, cells);
+    List<List<LifeCell>> myCells;
+
+    public LifeGrid(int size, int x, int y){
+        super(size);
+        initializeCells(x,y);
     }
 
-    @Override
-    public List<Cell> getCellsNear(Cell cell){
-        return null;
+    public void initializeCells(int x, int y){
+        for(int i = 0; i < size; i++){
+            var row = new ArrayList<LifeCell>();
+            for(int j = 0; j < size; j++){
+                var cell = new LifeCell(1, x, y);
+                row.add(cell);
+            }
+            myCells.add(row);
+        }
     }
+
+
+    public List<int[]> getNearCellPositions(Cell cell){
+        List<int[]> positions = new ArrayList<>();
+        int xPos = cell.getX();
+        int yPos = cell.getY();
+
+        positions.add(new int[]{xPos -1, yPos});
+        positions.add(new int[]{xPos +1, yPos});
+        positions.add(new int[]{xPos, yPos-1});
+        positions.add(new int[]{xPos, yPos+1});
+
+        positions.add(new int[]{xPos-1, yPos-1});
+        positions.add(new int[]{xPos-1, yPos+1});
+        positions.add(new int[]{xPos+1, yPos-1});
+        positions.add(new int[]{xPos+1, yPos+1});
+        return positions;
+    }
+
 
     @Override
     public void updateEveryCell(){
-
-    }
-
-    public int checkStats(){
-        return 0;
+        for(int x = 0; x < size; x++){
+            for(int y = 0; y < size; y++){
+                var cell = myCells.get(x).get(y);
+                cell.setCurrentState(cell.getNextState());
+            }
+        }
     }
 
 }

@@ -1,33 +1,22 @@
-
 /*
 @author ob29, yk154
  */
-
 package Grid;
 
 import Cell.Cell;
 
-import java.util.List;
-
 import java.util.ArrayList;
-
+import java.util.List;
 /**
- * isbound - grid ,
+ *
  */
 public abstract class Grid {
     protected int size;
-    protected int getSize;
-    protected int setSize;
-    protected List<List<Cell>> myCells;
+    protected List<ArrayList<Cell>> myCells;
 
-    public Grid(int size /*List<List<Cell>> cells*/){
+    public Grid(int size) {
         this.size = size;
-        //myCells = cells;
     }
-
-
-
-    public abstract List<Cell> getCellsNear(Cell cell);
 
     public List<Cell> getEmptyCells(int emptyVal){ //get all the empty cells
         List<Cell> requiredCells = new ArrayList<>();
@@ -42,22 +31,32 @@ public abstract class Grid {
     }
 
 
-    public abstract List<Cell> getEmptyCellsNear();
-
-    public abstract void updateEveryCell();
-
-    public abstract double checkStats();
-
-    /**
-     * Fire, Life of Game and segregation cell in bounds
-     */
-    public boolean inBounds(int x, int y) {
-        for(List<Cell> row: myCells){
-            for(Cell c: row){
-                if(c.getX() <0 || c.getX() >= size) return false;
-                if(c.getY() < 0 || c.getY() >= size) return false;
+    public List<Cell> getCellsNear(Cell cell){
+        List<Cell> nearCells = new ArrayList<Cell>();
+        List<int[]> positions = getNearCellPositions(cell);
+        for(int[] pos:positions){
+            if(inBounds(pos[0], pos[1])){
+                nearCells.add(myCells.get(pos[0]).get(pos[1]));
             }
+        }
+
+
+        return nearCells;
+    }
+
+    public boolean inBounds(int x, int y) {
+        if(x < 0 || x >= size){
+            return false;
+        }
+        if(y < 0 || y >= size){
+            return false;
         }
         return true;
     }
+
+    public abstract List<int[]> getNearCellPositions(Cell cell);
+
+    public abstract void updateEveryCell();
+
+
 }

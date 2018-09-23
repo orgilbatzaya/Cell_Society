@@ -1,27 +1,29 @@
+/*
+@author yk154
+ */
+
 package Grid;
 
-import Cell.Cell;
+import Cell.*;
 
 import java.util.List;
+import java.util.ArrayList;
 
 public class FireGrid extends Grid {
-    public FireGrid(int size, List<List<Cell>> cells){
-        super(size, cells);
+    public FireGrid(int size){
+        super(size);
     }
 
     @Override
-    public List<Cell> getCellsNear(Cell cell){
+    public List<int[]> getNearCellPositions(Cell cell) {
         return null;
     }
 
     @Override
     public void updateEveryCell(){
 
-    }
 
-    public int checkStats(){
-        return 0;
-    }
 
+    }
 
 }
