@@ -11,23 +11,28 @@ import java.util.List;
 import java.util.Random;
 
 public class LifeGrid extends Grid {
-    List<List<LifeCell>> myCells;
+    ArrayList<ArrayList<LifeCell>> myCells;
 
-    public LifeGrid(int size, int x, int y){
+    public LifeGrid(int size){
         super(size);
-        initializeCells(x,y);
+        myCells = new ArrayList<ArrayList<LifeCell>>();
+        initializeCells();
     }
 
-    public void initializeCells(int x, int y){
+    public void initializeCells(){
         for(int i = 0; i < size; i++){
             var row = new ArrayList<LifeCell>();
             for(int j = 0; j < size; j++){
                 var random = new Random();
-                var cell = new LifeCell(random.nextInt(2), x, y);
+                var cell = new LifeCell(random.nextInt(2), i, j);
                 row.add(cell);
             }
             myCells.add(row);
         }
+    }
+
+    public ArrayList<ArrayList<LifeCell>> getGrid(){
+        return myCells;
     }
 
 

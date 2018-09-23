@@ -1,8 +1,10 @@
 package GUI;
 
+import GUI.simGrid;
 import java.io.File;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.paint.Paint;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
@@ -65,7 +67,17 @@ public class UISetup {
         myMenu = new simSelectMenu(myStage, myBorder, myResources);
         myMenu.makeSideMenu();
 
-        myGrid = new simGrid(8, myBorder);
+        myGrid = new simGrid(4, "life", myBorder);
+
+        Button update = new Button("Update Grid");
+        update.setLayoutX(600);
+        update.setLayoutY(500);
+        update.setOnAction(value -> {
+            System.out.println("update!");
+            myGrid.updateGrid();
+        });
+
+        myRoot.getChildren().add(update);
     }
 
     /**
@@ -75,6 +87,10 @@ public class UISetup {
      */
     public Scene getScene() {
         return myScene;
+    }
+
+    public simGrid getMyGrid() {
+        return myGrid;
     }
 
     /**
