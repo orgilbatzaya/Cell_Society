@@ -58,7 +58,5 @@ public abstract class Grid {
 
     public abstract void updateEveryCell();
 
-//    public abstract double checkStats();
-
 
 }
