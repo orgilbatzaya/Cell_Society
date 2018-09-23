@@ -52,14 +52,7 @@ public class XMLParser {
                     System.out.println(mySim);
                 }
             }
-            String tempSpeed = getTextValue("simSpeed", elem);
-            if(tempSpeed != null) {
-                if(!tempSpeed.isEmpty()) {
-                    mySimSpeed = Integer.parseInt(tempSpeed);
-                    System.out.println(mySimSpeed);
-                }
-            }
-            String tempSize = getTextValue("gridSize", elem);
+            String tempSize = getTextValue("size", elem);
             if(tempSize != null) {
                 if(!tempSize.isEmpty()) {
                     myGridSize = Integer.parseInt(tempSize);

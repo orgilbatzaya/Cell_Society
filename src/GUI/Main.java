@@ -1,5 +1,6 @@
 package GUI;
 
+import XML.XMLParser;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
@@ -31,6 +32,7 @@ public class Main extends Application {
 
     private UISetup myDisplay;
     private simGrid myGridDisplay;
+    private XMLParser myParser;
 
     @Override
     /**
@@ -46,6 +48,9 @@ public class Main extends Application {
         stage.show();
 
         myGridDisplay = myDisplay.getMyGrid();
+
+        myParser = new XMLParser("life");
+        myParser.readFile("data/GameOfLife.xml");
 
         var frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> step(SECOND_DELAY));
         var animation = new Timeline();
