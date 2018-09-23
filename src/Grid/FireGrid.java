@@ -1,5 +1,5 @@
 /*
-@author yk154
+@author Amy Kim
  */
 
 package Grid;
