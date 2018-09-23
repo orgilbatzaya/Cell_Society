@@ -1,6 +1,8 @@
 package Cell;
 
 import Grid.Grid;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class  Cell {
@@ -8,6 +10,8 @@ public abstract class  Cell {
     private int nextState;
     private int xPos;
     private int yPos;
+    private int gridSize;
+
     protected List<Cell> myNeighbors;
 
     public Cell(int stateOne, int stateTwo, int x, int y){
@@ -55,6 +59,12 @@ public abstract class  Cell {
     public void getNeighbors(Grid g){
         myNeighbors = g.getCellsNear(this);
     }
+
+
+
+
+
+
 
     public abstract void checkNeighbors(Grid g);
 }
