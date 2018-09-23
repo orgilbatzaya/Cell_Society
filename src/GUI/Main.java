@@ -1,5 +1,6 @@
 package GUI;
 
+import Simulation.Simulation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
@@ -52,7 +53,6 @@ public class Main extends Application {
         animation.setCycleCount(Timeline.INDEFINITE);
         animation.getKeyFrames().add(frame);
         animation.play();
-
     }
 
     /**
@@ -61,7 +61,7 @@ public class Main extends Application {
      * @param elapsedTime
      */
     private void step(double elapsedTime) {
-
+        myDisplay.tickTock(elapsedTime);
     }
 
     public static void main(String[] args) {

@@ -4,7 +4,7 @@
 
 package Cell;
 
-import Grid.Grid;
+import Grid.LifeGrid;
 
 public class LifeCell extends Cell {
     public static final int ALIVE = 0;
@@ -15,7 +15,7 @@ public class LifeCell extends Cell {
     }
 
     @Override
-    public void checkNeighbors(Grid g) {
+    public void checkNeighbors(LifeGrid g) {
         var cnt = 0;
         this.getNeighbors(g);
         for(var neighbor : this.getMyNeighbors()) {

@@ -11,11 +11,11 @@ import java.util.List;
 import java.util.Random;
 
 public class LifeGrid extends Grid {
-    ArrayList<ArrayList<LifeCell>> myCells;
+    ArrayList<ArrayList<LifeCell>> myLifeCells;
 
     public LifeGrid(int size){
         super(size);
-        myCells = new ArrayList<ArrayList<LifeCell>>();
+        myLifeCells = new ArrayList<ArrayList<LifeCell>>();
         initializeCells();
     }
 
@@ -27,12 +27,12 @@ public class LifeGrid extends Grid {
                 var cell = new LifeCell(random.nextInt(2), i, j);
                 row.add(cell);
             }
-            myCells.add(row);
+            myLifeCells.add(row);
         }
     }
 
     public ArrayList<ArrayList<LifeCell>> getGrid(){
-        return myCells;
+        return myLifeCells;
     }
 
 
@@ -57,16 +57,25 @@ public class LifeGrid extends Grid {
         return positions;
     }
 
+    public List<Cell> getCellsNear(Cell cell){
+        List<Cell> nearCells = new ArrayList<Cell>();
+        List<int[]> positions = getNearCellPositions(cell);
+        for(int[] pos:positions){
+            if(inBounds(pos[0], pos[1])){
+                nearCells.add(myLifeCells.get(pos[0]).get(pos[1]));
+            }
+        }
+        return nearCells;
+    }
 
     @Override
     public void updateEveryCell(){
         for(int x = 0; x < size; x++){
             for(int y = 0; y < size; y++){
-                var cell = myCells.get(x).get(y);
+                var cell = myLifeCells.get(x).get(y);
                 cell.checkNeighbors(this);
                 cell.setCurrentState(cell.getNextState());
             }
         }
     }
-
 }
