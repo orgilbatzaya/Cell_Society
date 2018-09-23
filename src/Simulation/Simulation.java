@@ -1,49 +1,36 @@
 /*
-@author yk154
+@author Amy Kim
  */
 
 package Simulation;
 
-import Grid.Grid;
-
-import java.util.Timer;
-import java.util.TimerTask;
+import GUI.simGrid;
 
 public class Simulation {
-    private Grid grid;
-    private Timer timer;
+    private simGrid grid;
     private boolean playing;
-    private long interval; // in milliseconds
+    private double interval; // in seconds
+    private double timer;
 
-    public Simulation(int row, int col, long interval) {
+    public Simulation(simGrid grid, double interval) {
+        this.grid = grid;
         this.interval = interval;
-        timer = new Timer();
+        this.timer = 0;
         playing = false;
-        initializeGrid(row, col);
     }
 
-    public void setInterval(long newInterval) {
-        interval = newInterval;
-        if(playing) { stop(); start(); }
+    public void ticktock(double duration) {
+        if(playing) {
+            timer += duration;
+            if(interval < timer) {
+                timer = 0;
+                step();
+            }
+        }
     }
 
-    /**
-     * @param row
-     * @param col
-     */
-    public void initializeGrid(int row, int col){
-        // instantiate new grid of (row, col)
-    }
-
-
-    public void start() {
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() { step(); }
-        }, 0, interval);
-    }
-    public void stop(){ timer.cancel(); }
-
-    public void step() { grid.updateEveryCell(); }
-
+    public void start() { playing = true; }
+    public void stop(){ playing = false; timer = 0; }
+    public void step() { grid.updateGrid(); }
+    public void reset() { grid.resetGrid(); }
 }

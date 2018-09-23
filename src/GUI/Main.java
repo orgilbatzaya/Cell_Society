@@ -1,6 +1,5 @@
 package GUI;
 
-import XML.XMLParser;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
@@ -32,7 +31,6 @@ public class Main extends Application {
 
     private UISetup myDisplay;
     private simGrid myGridDisplay;
-    private XMLParser myParser;
 
     @Override
     /**
@@ -57,7 +55,6 @@ public class Main extends Application {
         animation.setCycleCount(Timeline.INDEFINITE);
         animation.getKeyFrames().add(frame);
         animation.play();
-
     }
 
     /**
@@ -66,6 +63,7 @@ public class Main extends Application {
      * @param elapsedTime
      */
     private void step(double elapsedTime) {
+        myDisplay.tickTock(elapsedTime);
 
     }
 

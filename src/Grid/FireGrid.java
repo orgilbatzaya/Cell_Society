@@ -1,5 +1,5 @@
 /*
-@author yk154
+@author Amy Kim
  */
 
 package Grid;
@@ -11,24 +11,24 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class FireGrid extends Grid {
-    List<List<FireCell>> myCells;
-    private double prob; // will be changed
+    List<List<FireCell>> myFireCells;
+    private double prob;
 
-    public FireGrid(int size, int x, int y, double prob){
+    public FireGrid(int size, double prob){
         super(size);
-        initializeCells(x,y);
         this.prob = prob;
+        initializeCells();
     }
 
-    public void initializeCells(int x, int y){
+    public void initializeCells(){
         for(int i = 0; i < size; i++){
             var row = new ArrayList<FireCell>();
             for(int j = 0; j < size; j++){
                 var random = new Random();
-                var cell = new FireCell(random.nextInt(3), x, y, prob);
+                var cell = new FireCell(random.nextInt(3), i, j, prob);
                 row.add(cell);
             }
-            myCells.add(row);
+            myFireCells.add(row);
         }
     }
 
@@ -52,10 +52,20 @@ public class FireGrid extends Grid {
     public void updateEveryCell(){
         for(int x = 0; x < size; x++){
             for(int y = 0; y < size; y++){
-                var cell = myCells.get(x).get(y);
+                var cell = myFireCells.get(x).get(y);
                 cell.setCurrentState(cell.getNextState());
             }
         }
     }
 
+    public List<Cell> getCellsNear(Cell cell){
+        List<Cell> nearCells = new ArrayList<Cell>();
+        List<int[]> positions = getNearCellPositions(cell);
+        for(int[] pos:positions){
+            if(inBounds(pos[0], pos[1])){
+                nearCells.add(myFireCells.get(pos[0]).get(pos[1]));
+            }
+        }
+        return nearCells;
+    }
 }

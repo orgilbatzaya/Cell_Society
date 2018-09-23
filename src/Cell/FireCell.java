@@ -1,10 +1,11 @@
 /*
-@author yk154
+@author Amy Kim
  */
 
 package Cell;
 
-import Grid.Grid;
+import Grid.FireGrid;
+import Grid.LifeGrid;
 
 import java.util.Random;
 
@@ -21,12 +22,11 @@ public class FireCell extends Cell {
         this.prob = prob;
     }
 
-    @Override
-    public void checkNeighbors(Grid g) {
+    public void checkNeighbors(FireGrid g) {
         if(getCurrentState() == GROUND || getCurrentState() == FIRE) setNextState(GROUND);
         else {
             var cnt = 0;
-            for(var neighbor : getMyNeighbors()) {
+            for(var neighbor : g.getCellsNear(this)) {
                 if(neighbor.getCurrentState() == FIRE) cnt ++;
             }
 

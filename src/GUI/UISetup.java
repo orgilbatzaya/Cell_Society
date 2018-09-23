@@ -2,6 +2,8 @@ package GUI;
 
 import GUI.simGrid;
 import java.io.File;
+
+import Simulation.Simulation;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -24,12 +26,15 @@ public class UISetup {
     public static final String RESOURCE_PACKAGE = "resources/";
     public static final String UI_TEXT = "English";
     public static final String STYLESHEET = "default.css";
+    public static final double DEFAULT_INTERVAL = 0.5;
 
     private Stage myStage;
     private Scene myScene;
     private Group myRoot;
     private BorderPane myBorder;
 
+
+    private Simulation mySimulation;
     private simControls myControls;
     private simSelectMenu myMenu;
     private simGrid myGrid;
@@ -61,23 +66,25 @@ public class UISetup {
 
         this.makeBorderPane();
 
-        myControls = new simControls(myBorder, myResources);
-        myControls.addButtons();
-
         myMenu = new simSelectMenu(myStage, myBorder, myResources);
         myMenu.makeSideMenu();
 
-        myGrid = new simGrid(4, "life", myBorder);
+        myGrid = new simGrid(10, "life", myBorder);
 
         Button update = new Button("Update Grid");
         update.setLayoutX(600);
         update.setLayoutY(500);
-        update.setOnAction(value -> {
-            System.out.println("update!");
-            myGrid.updateGrid();
-        });
+
+        mySimulation = new Simulation(myGrid, DEFAULT_INTERVAL);
+
+        myControls = new simControls(mySimulation, myBorder, myResources);
+        myControls.addButtons();
 
         myRoot.getChildren().add(update);
+    }
+
+    public void tickTock(double duration) {
+        mySimulation.ticktock(duration);
     }
 
     /**
