@@ -81,7 +81,7 @@ public class SegGrid extends Grid {
     }
 
 
-    
+
 
     public List<Cell> getEmptyCellsNear(){
         List<Cell> res = new ArrayList<>();
