@@ -63,6 +63,7 @@ public class LifeGrid extends Grid {
         for(int x = 0; x < size; x++){
             for(int y = 0; y < size; y++){
                 var cell = myCells.get(x).get(y);
+                cell.checkNeighbors(this);
                 cell.setCurrentState(cell.getNextState());
             }
         }
