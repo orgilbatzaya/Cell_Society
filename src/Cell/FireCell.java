@@ -5,7 +5,6 @@
 package Cell;
 
 import Grid.FireGrid;
-import Grid.LifeGrid;
 
 import java.util.Random;
 
