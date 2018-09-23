@@ -30,13 +30,12 @@ public class Main extends Application {
     public static final String UI_TEXT = "English";
 
     private UISetup myDisplay;
-    private String simulation;
 
     @Override
     public void start(Stage stage) {
         // use resources for labels
         ResourceBundle myResources = ResourceBundle.getBundle(RESOURCE_PACKAGE + UI_TEXT);
-        myDisplay = new UISetup(WIDTH, HEIGHT, BACKGROUND);
+        myDisplay = new UISetup(WIDTH, HEIGHT, BACKGROUND, stage);
         myDisplay.initializeUI();
         stage.setScene(myDisplay.getScene());
         stage.setTitle(myResources.getString("Title"));
