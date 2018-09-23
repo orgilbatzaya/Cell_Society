@@ -6,11 +6,20 @@
     -fx-border-radius: 4px;
     -fx-background-radius: 4px;
     -fx-padding: 8;
+    -fx-opacity: 0.9;
 }
 
 .button:hover {
-    -fx-background-color: #1616CE;
+    -fx-opacity: 1;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
+}
+
+#cellBtn {
+    -fx-background-color: #D3D3D3;  /* Grey */
+    -fx-border: 1px;
+    -fx-border-color: #FFFFFF;
+    -fx-border-radius: 0px;
+    -fx-background-radius: 0px;
 }
 
 .slider {
