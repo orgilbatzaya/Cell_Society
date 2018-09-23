@@ -1,11 +1,9 @@
 package Cell;
 
-import Grid.Grid;
-
-import java.util.ArrayList;
+import Grid.LifeGrid;
 import java.util.List;
 
-public abstract class  Cell {
+public abstract class Cell {
     protected int currentState;
     private int nextState;
     private int xPos;
@@ -51,20 +49,4 @@ public abstract class  Cell {
     public void setNextState(int state) {
         nextState = state;
     }
-
-    public List<Cell> getMyNeighbors(){
-        return myNeighbors;
-    }
-
-    public void getNeighbors(Grid g){
-        myNeighbors = g.getCellsNear(this);
-    }
-
-
-
-
-
-
-
-    public abstract void checkNeighbors(Grid g);
 }

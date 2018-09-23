@@ -31,16 +31,7 @@ public abstract class Grid {
     }
 
 
-    public List<Cell> getCellsNear(Cell cell){
-        List<Cell> nearCells = new ArrayList<Cell>();
-        List<int[]> positions = getNearCellPositions(cell);
-        for(int[] pos:positions){
-            if(inBounds(pos[0], pos[1])){
-                nearCells.add(myCells.get(pos[0]).get(pos[1]));
-            }
-        }
-        return nearCells;
-    }
+
 
     public boolean inBounds(int x, int y) {
         if(x < 0 || x >= size){
@@ -51,13 +42,8 @@ public abstract class Grid {
         }
         return true;
     }
-//    public ArrayList<ArrayList<Cell>> getGrid(){
-//        return myCells;
-//    }
 
     public abstract List<int[]> getNearCellPositions(Cell cell);
 
     public abstract void updateEveryCell();
-
-
 }

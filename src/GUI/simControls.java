@@ -1,5 +1,6 @@
 package GUI;
 
+import Simulation.Simulation;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -25,15 +26,18 @@ public class simControls {
     private Button resetBtn;
     private int buttonPadding = 20;
 
+    private Simulation mySim;
+
     /**
      * Constructor
      *
      * @param border BorderPane, where buttons should be added
      * @param resources ResourceBundle, contains keys for button text
      */
-    public simControls(BorderPane border, ResourceBundle resources) {
+    public simControls(Simulation sim, BorderPane border, ResourceBundle resources) {
         myResources = resources;
         myBorder = border;
+        mySim = sim;
     }
 
     /**
@@ -60,17 +64,16 @@ public class simControls {
      */
     private void setButtonFunctionality() {
         startBtn.setOnAction(value ->  {
-            System.out.println("Clicked Start!");
+            mySim.start();
         });
         stopBtn.setOnAction(value ->  {
-            System.out.println("Clicked Stop!");
+            mySim.stop();
         });
         stepBtn.setOnAction(value ->  {
-            System.out.println("Clicked Step!");
-            //TODO: updateGrid
+           mySim.step();
         });
         resetBtn.setOnAction(value ->  {
-            System.out.println("Clicked Reset!");
+            mySim.reset();
         });
     }
 }

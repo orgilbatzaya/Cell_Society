@@ -1,10 +1,10 @@
 /*
-@author yk154
+@author Amy Kim
  */
 
 package Cell;
 
-import Grid.Grid;
+import Grid.LifeGrid;
 
 public class LifeCell extends Cell {
     public static final int ALIVE = 0;
@@ -14,11 +14,10 @@ public class LifeCell extends Cell {
         super(alive, alive, x, y);
     }
 
-    @Override
-    public void checkNeighbors(Grid g) {
+    public void checkNeighbors(LifeGrid g) {
         var cnt = 0;
-        this.getNeighbors(g);
-        for(var neighbor : this.getMyNeighbors()) {
+        g.getCellsNear(this);
+        for(var neighbor : g.getCellsNear(this)) {
             if(neighbor.getCurrentState() == ALIVE) cnt ++;
         }
 
