@@ -1,13 +1,9 @@
-/*
 package Grid;
 import Cell.Cell;
 import Cell.FishCell;
 import Cell.SharkCell;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Stack;
-import java.util.Collections;
+import java.util.*;
 
 
 public class WatorGrid extends Grid {
@@ -26,13 +22,13 @@ public class WatorGrid extends Grid {
         int numWater = (int) empty*(size*size);
         int numShark = (int) sharkRatio*(size*size - numWater);
         int numFish = (size*size) - numWater - numShark;
-        var states = randomizeStates(numWater,numShark,numShark);
+        var states = randomizeStates(numWater,numShark,numFish);
 
         for(int i = 0; i < size; i++){
             var row = new ArrayList<FishCell>();
             for(int j = 0; j < size; j++){
                 int state = (int) states.pop();
-                var cell = new FishCell(state,state,i,j);
+                var cell = new FishCell(state,state,i,j);//can be empty or fish
                 if(state == SHARK){
                     cell = new SharkCell(state,state,i,j);
                 }
@@ -56,6 +52,17 @@ public class WatorGrid extends Grid {
         return bagOfStates;
     }
 
+    public List<Cell> getCellsNear(Cell cell){
+        List<Cell> nearCells = new ArrayList<Cell>();
+        List<int[]> positions = getNearCellPositions(cell);
+        for(int[] pos:positions){
+            if(inBounds(pos[0], pos[1])){
+                nearCells.add(myCells.get(pos[0]).get(pos[1]));
+            }
+        }
+        return nearCells;
+    }
+
     public List<int[]> getNearCellPositions(Cell cell){
         List<int[]> nearCellPositions = new ArrayList<>();
         int xPos = cell.getX();
@@ -72,17 +79,99 @@ public class WatorGrid extends Grid {
         for(int x = 0; x < size; x++){
             for(int y = 0; y < size; y++){
                 var cell = myCells.get(x).get(y);
-                cell.checkNeighbors(this);
-                if(!cell.isSatisfied()){
-                    swapRandomEmptyCell(cell);
+                if(cell instanceof FishCell){
+                    move(cell);
                 }
+                else if (cell instanceof SharkCell){
+                    move(cell);
+                }
+                cell.checkNeighbors(this);
+
             }
         }
         updateStates();
         checkStats();
     }
 
+    /**
+     * turns next state into current one
+     */
+    public void updateStates(){
+        for(int x = 0; x < size; x++){
+            for(int y = 0; y < size; y++){
+                var cell = myCells.get(x).get(y);
+                int nextState = cell.getNextState();
+                cell.setCurrentState(nextState);
+            }
+        }
+    }
+
+    /**
+     * swaps the next states of current cell and random empty cell
+     * removes formerly empty cell from emptyCells
+     * @param cell
+     */
+
+    public void move(FishCell cell){
+        List<Cell> tempNeighbors;
+        Random random = new Random();
+        tempNeighbors = cell.getMyNeighbors();
+        int neighborSize = tempNeighbors.size();
+
+        if(neighborSize >= 1){
+            moveToAdjacentWater(cell, tempNeighbors);
+        }
+
+        cell.lowerBreedingTime();
+        breed(cell, tempNeighbors);
+    }
+
+    public void move(SharkCell cell){
+        List<Cell> tempNeighbors;
+        Random random = new Random();
+        tempNeighbors = cell.getMyNeighbors();
+        int neighborSize = tempNeighbors.size();
+        if(cell.checkFishNear()){
+            int f = random.nextInt(neighborSize);
+            cell.setNextState(WATER);
+            tempNeighbors.get(f)
+            tempNeighbors.get(f).setNextState(cell.getCurrentState());
+            tempNeighbors.remove(f);
+        }
+        if(neighborSize >= 1) {
+            moveToAdjacentWater(cell, tempNeighbors);
+        }
+        cell.lowerBreedingTime();
+        breed(cell, tempNeighbors);
+
+    }
+
+    public void breed(FishCell cell, List<Cell> tempNeighbors){
+        Random random = new Random();
+        if(cell.checkBreeding() && tempNeighbors.size() >= 1){
+            int b = random.nextInt(tempNeighbors.size());
+            tempNeighbors.get(b).setNextState(cell.getCurrentState());
+            tempNeighbors.remove(b);
+        }
+    }
+
+    public void moveToAdjacentWater(FishCell cell, List<Cell> tempNeighbors){
+        Random random = new Random();
+        int w = random.nextInt(tempNeighbors.size());
+        cell.setNextState(WATER);
+        tempNeighbors.get(w).setNextState(cell.getCurrentState());
+        tempNeighbors.remove(w);
+    }
+
+
+    public void eatFish() {
+        int f = random.nextInt(neighborSize);
+        cell.setNextState(WATER);
+        tempNeighbors.get(f)
+        tempNeighbors.get(f).setNextState(cell.getCurrentState());
+        tempNeighbors.remove(f);
+    }
+
 
 
 }
-*/
