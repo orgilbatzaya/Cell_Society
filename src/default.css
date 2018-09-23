@@ -38,6 +38,14 @@
     -fx-background-radius: 0px;
 }
 
+#otherCell {
+    -fx-background-color: #000000;
+    -fx-border: 1px;
+    -fx-border-color: #FFFFFF;
+    -fx-border-radius: 0px;
+    -fx-background-radius: 0px;
+}
+
 .slider {
     -fx-background: #D3D3D3;
     -fx-outline: none;

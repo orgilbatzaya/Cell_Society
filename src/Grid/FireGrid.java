@@ -81,4 +81,6 @@ public class FireGrid extends Grid {
         }
         return nearCells;
     }
+
+
 }

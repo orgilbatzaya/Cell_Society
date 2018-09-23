@@ -2,7 +2,9 @@ package GUI;
 
 import Cell.Cell;
 import Cell.LifeCell;
+import Cell.FireCell;
 import Grid.LifeGrid;
+import Grid.FireGrid;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -20,8 +22,11 @@ public class simGrid {
     private BorderPane myBorder;
     private String myType;
     private int gridDim;
-    private ArrayList<ArrayList<LifeCell>> myCells;
+    //private ArrayList<ArrayList<LifeCell>> myCells;
+    private ArrayList<ArrayList<FireCell>> myCells;
+
     private LifeGrid myLifeGrid;
+    private FireGrid myFireGrid;
 
     private double gridSpace = 500.00;
 
@@ -48,8 +53,11 @@ public class simGrid {
 //        if(myType.equals("fire")) {
 //            myLifeGrid = new FireGrid();
 //        }
-        myLifeGrid = new LifeGrid(gridDim);
-        myCells = myLifeGrid.getGrid();
+        //myLifeGrid= new LifeGrid(gridDim);
+        //myCells = myLifeGrid.getGrid();
+
+        myFireGrid= new FireGrid(gridDim, .7);
+        myCells = myFireGrid.getGrid();
     }
 
     // TODO: make it more general?????
@@ -63,11 +71,20 @@ public class simGrid {
                 temp.setPrefWidth(gridSpace/gridDim);
                 Cell tempCell = myCells.get(row).get(col);
                 tempCell.getCurrentState();
-                if(tempCell.getCurrentState() == LifeCell.DEAD) {
+//                if(tempCell.getCurrentState() == LifeCell.DEAD) {
+//                    temp.setId("deadCell");
+//                }
+//                else {
+//                    temp.setId("aliveCell");
+//                }
+                if(tempCell.getCurrentState() == 0){
                     temp.setId("deadCell");
                 }
-                else {
+                else if(tempCell.getCurrentState() == 1){
                     temp.setId("aliveCell");
+                }
+                else if(tempCell.getCurrentState() == 2){
+                    temp.setId("otherCell");
                 }
 
                 myGP.add(temp, col, row, 1, 1);
@@ -76,15 +93,20 @@ public class simGrid {
         myBorder.setCenter(myGP);
     }
 
+
     public void updateGrid() {
         myBorder.setCenter(null);
-        myLifeGrid.updateEveryCell();
-        myCells = myLifeGrid.getGrid();
+        //myLifeGrid.updateEveryCell();
+        //myCells = myLifeGrid.getGrid();
+        myFireGrid.updateEveryCell();
+        myCells = myFireGrid.getGrid();
+
         this.makeGrid();
     }
 
     public void resetGrid() {
-        myLifeGrid.reset();
+        //myLifeGrid.reset();
+        myFireGrid.reset();
         updateGrid();
     }
 }

@@ -69,7 +69,9 @@ public class UISetup {
         myMenu = new simSelectMenu(myStage, myBorder, myResources);
         myMenu.makeSideMenu();
 
-        myGrid = new simGrid(10, "life", myBorder);
+        //myGrid = new simGrid(10, "life", myBorder);
+        myGrid = new simGrid(10, "fire", myBorder);
+
 
         Button update = new Button("Update Grid");
         update.setLayoutX(600);
