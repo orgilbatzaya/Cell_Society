@@ -10,6 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * grid for life of game
+ */
 public class LifeGrid extends Grid {
 
     public LifeGrid(int size){
@@ -23,17 +26,13 @@ public class LifeGrid extends Grid {
             var row = new ArrayList<Cell>();
             for(int j = 0; j < size; j++){
                 var random = new Random();
-                var cell = new LifeCell(random.nextInt(2), i, j);
+                var cell = new LifeCell(random.nextInt(2), i, j); //random state
                 row.add(cell);
             }
             myCells.add(row);
         }
     }
 
-//    @Override
-//    public ArrayList<ArrayList<LifeCell>> getGrid(){
-//        return myLifeCells;
-//    }
 
     public void reset() {
         myCells.clear();

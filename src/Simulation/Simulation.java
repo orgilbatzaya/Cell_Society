@@ -4,6 +4,9 @@
 
 package Simulation;
 
+/**
+ * This is Simulation class for handling the buttons and Timer
+ */
 public class Simulation {
     private boolean playing;
     private double timer;

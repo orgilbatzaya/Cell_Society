@@ -9,7 +9,9 @@ import Cell.WaTorCell;
 import java.lang.reflect.Array;
 import java.util.*;
 
-
+/**
+ * WaTor Grid
+ */
 public class WatorGrid extends Grid {
     private int breedingTime;
     private int energy;
@@ -33,23 +35,24 @@ public class WatorGrid extends Grid {
             myCells.add(row);
         }
     }
-//
-//    public ArrayList<ArrayList<Cell>> getGrid(){
-//        return myCells;
-//    }
 
-    public void reset() {
+    public void reset() { //reset
         myCells.clear();
         initializeCells();
     }
 
+    /**
+     *
+     * @param cell WaTor cell
+     * @return position of grid
+     */
     @Override
     public List<int[]> getNearCellPositions(Cell cell) {
         List<int[]> positions = new ArrayList<>();
         int xPos = cell.getX();
         int yPos = cell.getY();
 
-        if(inBounds(cell.getX(), cell.getY())){
+        if(inBounds(cell.getX(), cell.getY())){ //store all neighbors
             positions.add(new int[]{xPos -1, yPos});
             positions.add(new int[]{xPos +1, yPos});
             positions.add(new int[]{xPos, yPos-1});
@@ -58,17 +61,6 @@ public class WatorGrid extends Grid {
 
         return positions;
     }
-
-//    @Override
-//    public void updateEveryCell() {
-//        for(int x = 0; x < size; x++){
-//            for(int y = 0; y < size; y++){
-//                var cell = myCells.get(x).get(y);
-//                cell.checkNeighbors(this);
-//                cell.setCurrentState(cell.getNextState());
-//            }
-//        }
-//    }
 
 
     public List<Cell> getCellsNear(Cell cell){

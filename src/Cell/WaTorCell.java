@@ -8,6 +8,12 @@ import Grid.*;
 import java.util.ArrayList;
 import java.util.List;
 
+
+/**
+ * WaTor Cell extending cell.
+ * This is for WaTor.
+ */
+
 public class WaTorCell extends Cell{
     FishCell fish = new FishCell();
     SharkCell shark = new SharkCell();
@@ -32,20 +38,14 @@ public class WaTorCell extends Cell{
 
     @Override
     public void checkNeighbors(Grid g){
-        if(getCurrentState() == FISH){
-            System.out.println("fish!");
+        if(getCurrentState() == FISH){ //set Next state for fish
             fishMove(g);
-            System.out.println("fish!!");
-        }else if(getCurrentState() == SHARK){
+        }else if(getCurrentState() == SHARK){ //set Next state fo shark
             sharkMove(g);
             sharkDead(g); // checks energy of shark
-        }else if(getCurrentState() == WATER){
-            if((fishHead[0] == getX() && fishHead[1] == getY())){
-                this.setNextState(FISH);
-            }else{
-                this.setNextState(WATER);
-            }
-//            this.setNextState((fishHead[0] == getX() && fishHead[1] == getY()) ? FISH : WATER); //fish moves to this block of water OR nothing comes, still water
+        }else if(getCurrentState() == WATER){ //set Next state for water
+            // This is chosen random position for fish that can moves. This is coming from fish.move
+            this.setNextState((fishHead[0] == getX() && fishHead[1] == getY()) ? FISH : WATER); //fish moves to this block of water OR nothing comes, still water
         }
     }
 
@@ -99,6 +99,12 @@ public class WaTorCell extends Cell{
         this.setNextState((shark.dead(energy, g)) ? WATER : SHARK);
     }
 
+
+    /**
+     *
+     * @param g WaTor grid
+     * @return boolean value if fish reproduces or not
+     */
     public boolean fishBreed(Grid g){
         if(getCurrentState() == FISH){
             if(getNextState() == WATER || getNextState() == FISH) fishChronons ++;
@@ -111,6 +117,11 @@ public class WaTorCell extends Cell{
         return false;
     }
 
+    /**
+     *
+     * @param g WaTor grid
+     * @return boolean value if shark reproduces or not
+     */
     public boolean sharkBreed(Grid g){
         if(getCurrentState() == SHARK){
             if(getNextState() == WATER || getNextState() == SHARK) sharkChronons ++;

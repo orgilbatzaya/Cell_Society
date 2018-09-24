@@ -11,7 +11,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-
+/**
+ * This is class to choose random water position so that fish can move.
+ */
 
 public class FishCell {
 
