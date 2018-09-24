@@ -16,12 +16,15 @@ Start Date: September 15, 2018
 
 Finish Date: September 24, 2018
 
-Hours Spent: 50+
+Hours Spent: 50+hrs
 
 ### Primary Roles
-* Amy: Back-end
-* Brooke: Front-end and XML
-* Orgil: Back-end
+
+Amy Kim - Simulation; implementing Game of Life, Spreading of Fire and WaTor.
+Brooke Keene - Frontend; GUI and XML
+Orgil Batzaya - Simulation; implementing Segregation,  and GUI.
+ 
+
 
 ### Resources Used
 GUI:
