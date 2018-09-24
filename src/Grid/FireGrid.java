@@ -11,12 +11,13 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class FireGrid extends Grid {
-    List<List<FireCell>> myFireCells;
+    ArrayList<ArrayList<FireCell>> myFireCells;
     private double prob;
 
     public FireGrid(int size, double prob){
         super(size);
         this.prob = prob;
+        myFireCells = new ArrayList<ArrayList<FireCell>>();
         initializeCells();
     }
 
@@ -31,6 +32,18 @@ public class FireGrid extends Grid {
             myFireCells.add(row);
         }
     }
+
+
+    public ArrayList<ArrayList<FireCell>> getGrid(){
+        return myFireCells;
+    }
+
+    public void reset() {
+        myFireCells.clear();
+        initializeCells();
+    }
+
+
 
     @Override
     public List<int[]> getNearCellPositions(Cell cell) {
@@ -53,6 +66,7 @@ public class FireGrid extends Grid {
         for(int x = 0; x < size; x++){
             for(int y = 0; y < size; y++){
                 var cell = myFireCells.get(x).get(y);
+                cell.checkNeighbors(this);
                 cell.setCurrentState(cell.getNextState());
             }
         }
