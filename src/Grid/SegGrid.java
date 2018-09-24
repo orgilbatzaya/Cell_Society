@@ -2,11 +2,11 @@ package Grid;
 
 import Cell.Cell;
 import Cell.SegregationCell;
-
 import java.util.*;
 
-/*
-@author ob29
+/**
+ * @author ob29
+ * Sub Grid class for Segregation simulation.
  */
 
 public class SegGrid extends Grid {
@@ -14,9 +14,9 @@ public class SegGrid extends Grid {
     public static final int BLUE = 2;
     public static final int EMPTY = 0;
     List<Cell> emptyCells;
-    int similar;
-    double rbRatio;
-    double empty;
+    private final int similar;
+    private final double rbRatio;
+    private final double empty;
 
     public SegGrid(int size, int similar, double rbRatio, double empty ){
         super(size);
@@ -28,7 +28,7 @@ public class SegGrid extends Grid {
     }
 
     /**
-     * Fills myFireCells with new Segregation Cells, with random placement of
+     * Fills myCells with new Segregation Cells, with random placement of
      * red/blue/empty cells depending on User input, along with a
      * similarity/satisfaction threshold for all non-empty cells
      * @param similar
@@ -52,6 +52,13 @@ public class SegGrid extends Grid {
         }
     }
 
+    /**
+     * Randomizes the orderings of red, blue, and empty cells
+     * @param empty
+     * @param red
+     * @param blue
+     * @return Stack
+     */
     private Stack randomizeStates(int empty, int red, int blue){
         Stack<Integer> bagOfStates = new Stack<>();
 
@@ -77,7 +84,7 @@ public class SegGrid extends Grid {
     public  void updateEveryCell(){
         emptyCells = getEmptyCells(EMPTY);
         for(Cell t: emptyCells){
-            t.unTaken();
+            t.unTaken(); //at each step, "untake" empty cells
         }
         Random random = new Random();
         List<Cell> unsatisfied = getUnsatisfiedCells();
@@ -86,8 +93,6 @@ public class SegGrid extends Grid {
         for(Cell cell: unsatisfied){
             swapRandomEmptyCell(cell);
         }
-
-
         updateStates();
         checkStats();
     }
