@@ -3,7 +3,7 @@
  */
 package Cell;
 
-import Grid.WatorGrid;
+import Grid.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +30,8 @@ public class WaTorCell extends Cell{
         this.energy = energy;
     }
 
-    public void checkNeighbors(WatorGrid g){
+    @Override
+    public void checkNeighbors(Grid g){
         if(getCurrentState() == FISH){
             fishMove(g);
         }else if(getCurrentState() == SHARK){
@@ -41,7 +42,7 @@ public class WaTorCell extends Cell{
         }
     }
 
-    public void fishMove(WatorGrid g){
+    public void fishMove(Grid g){
         List<int[]> positions = new ArrayList<>();
         var cnt =0;
         for(var neighbor : g.getCellsNear(this)) {
@@ -59,7 +60,7 @@ public class WaTorCell extends Cell{
         }
     }
 
-    public void sharkMove(WatorGrid g){
+    public void sharkMove(Grid g){
         List<int[]> positions = new ArrayList<>();
         var cnt =0;
         for(var neighbor : g.getCellsNear(this)) {
@@ -80,11 +81,11 @@ public class WaTorCell extends Cell{
 
     }
 
-    public void sharkDead(WatorGrid g){
+    public void sharkDead(Grid g){
         this.setNextState((shark.dead(energy, g)) ? WATER : SHARK);
     }
 
-    public boolean fishBreed(WatorGrid g){
+    public boolean fishBreed(Grid g){
         if(getCurrentState() == FISH){
             if(getNextState() == WATER || getNextState() == FISH) fishChronons ++;
             else fishChronons --;
@@ -96,7 +97,7 @@ public class WaTorCell extends Cell{
         return false;
     }
 
-    public boolean sharkBreed(WatorGrid g){
+    public boolean sharkBreed(Grid g){
         if(getCurrentState() == SHARK){
             if(getNextState() == WATER || getNextState() == SHARK) sharkChronons ++;
         }else sharkChronons --;

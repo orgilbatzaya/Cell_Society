@@ -1,6 +1,5 @@
 package GUI;
 
-import Simulation.Simulation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
@@ -62,8 +61,12 @@ public class Main extends Application {
      */
     private void step(double elapsedTime) {
         myDisplay.tickTock(elapsedTime);
-
+        //TODO: if new file, reset grid
+//        if() {
+//            myDisplay.initializeUI();
+//        }
     }
+
 
     public static void main(String[] args) {
         launch(args);

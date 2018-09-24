@@ -5,8 +5,7 @@
 package Cell;
 
 import Cell.Cell;
-import Grid.Grid;
-import Grid.WatorGrid;
+import Grid.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -19,7 +18,7 @@ public class SharkCell{
         return nextLoc;
     }
 
-    public boolean dead(int energy, WatorGrid g){
+    public boolean dead(int energy, Grid g){
         return (energy == 0) ? true: false;
     }
 
