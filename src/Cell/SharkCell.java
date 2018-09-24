@@ -24,12 +24,8 @@ public class SharkCell{
     }
 
 
-    public ArrayList<Cell> findFish(){
+    public ArrayList<Cell> checkFish(WatorGrid g){
         return moveOptions;
-    }
-
-    public void reproduce(){
-
     }
 
     public void energy(){

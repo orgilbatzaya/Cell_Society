@@ -8,33 +8,17 @@ import Cell.Cell;
 import Grid.Grid;
 import Grid.WatorGrid;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 
 
-public class FishCell{
-    private ArrayList<Cell> moveOptions;
+public class FishCell {
 
-    public void setFishMove(ArrayList<Cell> moveOptions){
-        this.moveOptions = moveOptions;
+    public int[] move(List<int[]> positions, int cnt) {
+        var random = new Random();
+        int[] nextLoc = positions.get(random.nextInt(cnt-1)); //store where this fish will move to
+        return nextLoc;
     }
-
-    public ArrayList<Cell> getFishMove() {
-
-
-
-        return moveOptions;
-    }
-
-
-    public ArrayList<Cell> findWater(){
-        return moveOptions;
-    }
-
-    public void reproduce(){
-
-    }
-
-
 }
 
