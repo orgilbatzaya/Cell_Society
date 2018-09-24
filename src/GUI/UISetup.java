@@ -3,6 +3,7 @@ package GUI;
 import java.io.File;
 import Simulation.Simulation;
 import XML.XMLParser;
+import javafx.scene.control.Button;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.paint.Paint;
@@ -38,6 +39,7 @@ public class UISetup {
     private simGrid myGrid;
     private simControls myControls;
     private Simulation mySimulation;
+    private Button myStepBtn;
 
     private String simType;
     private int gridSize;
@@ -68,13 +70,15 @@ public class UISetup {
     public void initializeUI() {
         this.makeBorderPane();
 
-
-
         mySimulation = new Simulation();
 
         myControls = new simControls(mySimulation, myStage, myBorder, myResources);
         myControls.addButtons();
         myControls.makeSideMenu();
+        myStepBtn = myControls.getStepBtn();
+        myStepBtn.setOnAction(value ->  {
+            myGrid.updateGrid();
+        });
 
         myGrid = new simGrid(gridSize, simType, myBorder);
     }
