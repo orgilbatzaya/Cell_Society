@@ -47,9 +47,6 @@ public class Main extends Application {
 
         myGridDisplay = myDisplay.getMyGrid();
 
-        myParser = new XMLParser("life");
-        myParser.readFile("data/GameOfLife.xml");
-
         var frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> step(SECOND_DELAY));
         var animation = new Timeline();
         animation.setCycleCount(Timeline.INDEFINITE);
@@ -64,7 +61,10 @@ public class Main extends Application {
      */
     private void step(double elapsedTime) {
         myDisplay.tickTock(elapsedTime);
-
+        //TODO: if new file, reset grid
+//        if() {
+//            myDisplay.initializeUI();
+//        }
     }
 
     public static void main(String[] args) {

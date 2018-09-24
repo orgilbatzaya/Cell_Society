@@ -22,7 +22,7 @@
 //    }
 //
 //    /**
-//     * Fills myFireCells with new Segregation Cells, with random placement of
+//     * Fills myFireCells with new Segregation.xml Cells, with random placement of
 //     * red/blue/empty cells depending on User input, along with a
 //     * similarity/satisfaction threshold for all non-empty cells
 //     * @param similar
