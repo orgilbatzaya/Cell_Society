@@ -13,11 +13,17 @@ public class SegGrid extends Grid {
     public static final int RED = 1;
     public static final int BLUE = 2;
     public static final int EMPTY = 0;
-    List<List<SegregationCell>> myFireCells;
-    List<Cell> emptyCells;
+    ArrayList<ArrayList<SegregationCell>> myCells = new ArrayList<ArrayList<SegregationCell>>();
+    List<SegregationCell> emptyCells;
+    int similar;
+    double rbRatio;
+    double empty;
 
     public SegGrid(int size,int similar, double rbRatio, double empty ){
         super(size);
+        this.similar = similar;
+        this.rbRatio = rbRatio;
+        this.empty = empty;
         initializeCells(similar,rbRatio,empty);
     }
 
@@ -30,8 +36,8 @@ public class SegGrid extends Grid {
      * @param empty percentage of empty cells (user input)
      */
     public void initializeCells(double similar, double rbRatio, double empty){
-        int numEmpty = (int) empty*(size*size);
-        int numRed = (int) rbRatio*(size*size - numEmpty);
+        int numEmpty = (int) (empty*size*size);
+        int numRed = (int) (rbRatio*(size*size - numEmpty));
         int numBlue = (size*size) - numEmpty - numRed;
         var states = randomizeStates(numEmpty,numRed,numBlue);
 
@@ -42,20 +48,21 @@ public class SegGrid extends Grid {
                 var cell = new SegregationCell(state,state,i,j,similar);
                 row.add(cell);
             }
-            myFireCells.add(row);
+            myCells.add(row);
         }
     }
 
     private Stack randomizeStates(int empty, int red, int blue){
         Stack<Integer> bagOfStates = new Stack<>();
+
         for(int i = 0; i < empty; i++){
-            bagOfStates.push(EMPTY);
+            bagOfStates.add(EMPTY);
         }
         for(int i = 0; i < red; i++){
-            bagOfStates.push(RED);
+            bagOfStates.add(RED);
         }
         for(int i = 0; i < blue; i++){
-            bagOfStates.push(BLUE);
+            bagOfStates.add(BLUE);
         }
         Collections.shuffle(bagOfStates);
         return bagOfStates;
@@ -66,7 +73,7 @@ public class SegGrid extends Grid {
         List<int[]> positions = getNearCellPositions(cell);
         for(int[] pos:positions){
             if(inBounds(pos[0], pos[1])){
-                nearCells.add(myFireCells.get(pos[0]).get(pos[1]));
+                nearCells.add(myCells.get(pos[0]).get(pos[1]));
             }
         }
         return nearCells;
@@ -92,10 +99,7 @@ public class SegGrid extends Grid {
 
 
 
-    public List<Cell> getEmptyCellsNear(){
-        List<Cell> res = new ArrayList<>();
-        return res;
-    }
+
 
     /**
      * first passes through grid to find unsatisfied cells and setNextState
@@ -103,17 +107,38 @@ public class SegGrid extends Grid {
      */
     public  void updateEveryCell(){
         emptyCells = getEmptyCells(EMPTY);
-        for(int x = 0; x < size; x++){
-            for(int y = 0; y < size; y++){
-                var cell = myFireCells.get(x).get(y);
-                cell.checkNeighbors(this);
-                if(!cell.isSatisfied()){
-                    swapRandomEmptyCell(cell);
-                }
-            }
+        for(SegregationCell t: emptyCells){
+            t.unTaken();
         }
+        Random random = new Random();
+        List<SegregationCell> unsatisfied = getUnsatisfiedCells();
+
+        Collections.shuffle(unsatisfied);
+        for(SegregationCell cell: unsatisfied){
+            swapRandomEmptyCell(cell);
+        }
+
+
         updateStates();
         checkStats();
+    }
+
+    public List<SegregationCell> getUnsatisfiedCells() {
+        List<SegregationCell> unsatisfied = new ArrayList<>();
+        for (int x = 0; x < size; x++) {
+            for (int y = 0; y < size; y++) {
+                var cell = myCells.get(x).get(y);
+                if (cell.getCurrentState() != EMPTY) {
+                    cell.getNeighbors(this);
+                    cell.checkNeighbors(this);
+                    if(!cell.isSatisfied()){
+                        unsatisfied.add(cell);
+                    }
+                }
+                cell.clearNeighbors();
+            }
+        }
+        return unsatisfied;
     }
 
     /**
@@ -122,7 +147,7 @@ public class SegGrid extends Grid {
     public void updateStates(){
         for(int x = 0; x < size; x++){
             for(int y = 0; y < size; y++){
-                var cell = myFireCells.get(x).get(y);
+                var cell = myCells.get(x).get(y);
                 int nextState = cell.getNextState();
                 cell.setCurrentState(nextState);
             }
@@ -135,12 +160,22 @@ public class SegGrid extends Grid {
      * @param cell
      */
 
-    public void swapRandomEmptyCell(Cell cell){
+    public void swapRandomEmptyCell(SegregationCell cell){
         Random random = new Random();
-        int e = random.nextInt(size);
-        cell.setNextState(EMPTY);
-        emptyCells.get(e).setNextState(cell.getCurrentState());
-        emptyCells.remove(e);
+        int emptySize = emptyCells.size();
+        int cnt = 0;
+        for(SegregationCell c: emptyCells){
+            if(!c.checkTaken()){
+                cnt++;
+            }
+        }
+        if(emptySize > 0 && cnt > 0) {
+            int e = random.nextInt(emptySize);
+            cell.setNextState(EMPTY);
+            emptyCells.get(e).setNextState(cell.getCurrentState());
+            emptyCells.get(e).setTaken();
+            emptyCells.remove(e);
+        }
     }
 
     /**
@@ -151,12 +186,33 @@ public class SegGrid extends Grid {
         int numSatisfied = 0;
         for (int x = 0; x < size; x++) {
             for (int y = 0; y < size; y++) {
-                if(myFireCells.get(x).get(y).isSatisfied()){
+                if(myCells.get(x).get(y).isSatisfied()){
                     numSatisfied++;
                 }
             }
         }
         return (1.0*numSatisfied)/(size*size);
+    }
+
+    public ArrayList<ArrayList<SegregationCell>> getGrid(){
+        return myCells;
+    }
+
+    public void reset() {
+        myCells.clear();
+        initializeCells(similar,rbRatio,empty);
+    }
+
+    public List<SegregationCell> getEmptyCells(int emptyVal){ //get all the empty cells
+        List<SegregationCell> requiredCells = new ArrayList<>();
+        for(ArrayList<SegregationCell> row: myCells){
+            for(SegregationCell c: row){
+                if(c.getCurrentState() == emptyVal){
+                    requiredCells.add(c);
+                }
+            }
+        }
+        return requiredCells;
     }
 
 

@@ -69,18 +69,13 @@ public class UISetup {
         myMenu = new simSelectMenu(myStage, myBorder, myResources);
         myMenu.makeSideMenu();
 
-        myGrid = new simGrid(10, "life", myBorder);
-
-        Button update = new Button("Update Grid");
-        update.setLayoutX(600);
-        update.setLayoutY(500);
+        myGrid = new simGrid(8, "life", myBorder);
 
         mySimulation = new Simulation(myGrid, DEFAULT_INTERVAL);
 
         myControls = new simControls(mySimulation, myBorder, myResources);
         myControls.addButtons();
 
-        myRoot.getChildren().add(update);
     }
 
     public void tickTock(double duration) {
