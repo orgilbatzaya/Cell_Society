@@ -24,7 +24,7 @@ public class UISetup {
     public static final String RESOURCE_PACKAGE = "resources/";
     public static final String UI_TEXT = "English";
     public static final String STYLESHEET = "default.css";
-    public static final String DEFAULT_TYPE = "life";
+    public static final String DEFAULT_TYPE = "Life";
     public static final int DEFAULT_GRID = 4;
     public static final double DEFAULT_INTERVAL = 1.0;
 
@@ -41,7 +41,6 @@ public class UISetup {
 
     private String simType;
     private int gridSize;
-//    private double interval = 0.5; // Simulation speed
     private int borderSpace = 10;
 
     /**
@@ -75,8 +74,12 @@ public class UISetup {
         myControls = new simControls(mySimulation, myStage, myBorder, myResources);
         myControls.addButtons();
         myControls.makeSideMenu();
+<<<<<<< HEAD
+        System.out.println(simType);
+=======
 
 
+>>>>>>> a89239736821d91a307afbfa67e0e8fbaa7fd13f
         myGrid = new simGrid(gridSize, simType, myBorder);
     }
 

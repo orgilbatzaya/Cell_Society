@@ -1,5 +1,9 @@
 package GUI;
 
+<<<<<<< HEAD
+import Cell.*;
+import Grid.*;
+=======
 import Cell.Cell;
 import Cell.LifeCell;
 import Cell.FireCell;
@@ -7,6 +11,7 @@ import Cell.SegregationCell;
 import Grid.LifeGrid;
 import Grid.FireGrid;
 import Grid.SegGrid;
+>>>>>>> a89239736821d91a307afbfa67e0e8fbaa7fd13f
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -24,10 +29,15 @@ public class simGrid {
     private BorderPane myBorder;
     private String myType;
     private int gridDim;
+<<<<<<< HEAD
+    private ArrayList<ArrayList<Cell>> myCells;
+    private Grid myGrid;
+=======
 
     private ArrayList<ArrayList<LifeCell>> myCells;
     //TODO: figure out why just Grid doesn't work
     private LifeGrid myLifeGrid;
+>>>>>>> a89239736821d91a307afbfa67e0e8fbaa7fd13f
 
 
     //private LifeGrid myLifeGrid;
@@ -51,15 +61,21 @@ public class simGrid {
      * depending on type of simulation, creates appropriate grid
      */
     private void choseGrid() {
-//        if(myType.equals("life")) {
-//            myLifeGrid = new LifeGrid(gridDim);
-//        }
-//        if(myType.equals("seg")) {
-//            myLifeGrid = new SegGrid();
-//        }
+        if(myType.equals("Life")) {
+            myGrid = new LifeGrid(gridDim);
+        }
+        else if(myType.equals("Fire")) {
+            myGrid = new FireGrid(gridDim, 0.7);
+        }
+        else if(myType.equals("Seg")) {
+            myGrid = new SegGrid(gridDim, 60, 0.5, 0.3);
+        }
 //        if(myType.equals("wat")) {
 //            myLifeGrid = WatorGrid();
 //        }
+<<<<<<< HEAD
+        myCells = myGrid.getGrid();
+=======
 //        if(myType.equals("fire")) {
 //            myLifeGrid = new FireGrid();
 //        }
@@ -71,6 +87,7 @@ public class simGrid {
 
         mySegGrid = new SegGrid(gridDim, 60, .50, .40);
         myCells = mySegGrid.getGrid();
+>>>>>>> a89239736821d91a307afbfa67e0e8fbaa7fd13f
     }
 
     // TODO: make it more general
@@ -81,6 +98,13 @@ public class simGrid {
         for(int row = 0; row < gridDim; row++) {
             for(int col = 0; col < gridDim; col++) {
                 Button temp = new Button();
+<<<<<<< HEAD
+                temp.setPrefSize(gridSpace/gridDim, gridSpace/gridDim);
+                temp.setMaxSize(gridSpace/gridDim, gridSpace/gridDim);
+                Cell tempCell = myCells.get(row).get(col);
+
+                setCellColor(tempCell, temp);
+=======
                 //temp.setPrefHeight(gridSpace/gridDim);
                 //temp.setPrefWidth(gridSpace/gridDim);
                 temp.setPrefSize(gridSpace/gridDim, gridSpace/gridDim);
@@ -97,6 +121,7 @@ public class simGrid {
                     temp.setId("otherCell");
                 }
 
+>>>>>>> a89239736821d91a307afbfa67e0e8fbaa7fd13f
 
                 myGP.add(temp, col, row, 1, 1);
             }
@@ -109,6 +134,67 @@ public class simGrid {
      */
     public void updateGrid() {
         myBorder.setCenter(null);
+<<<<<<< HEAD
+        myGrid.updateEveryCell();
+        myCells = myGrid.getGrid();
+        this.makeGrid();
+    }
+
+//    /**
+//     * resets simulation grid
+//     */
+//    public void resetGrid() {
+//        myGrid.reset();
+//        //TODO: does this actually reset? or just change the simulation?
+//        updateGrid();
+//    }
+
+    private void setCellColor(Cell tempCell, Button temp) {
+        if(myType.equals("Life")) {
+            if(tempCell.getCurrentState() == LifeCell.DEAD) {
+                temp.setId("greyCell");
+            }
+            else {
+                temp.setId("blueCell");
+            }
+        }
+        else if(myType.equals("Fire")) {
+            if(tempCell.getCurrentState() == FireCell.TREE) {
+                temp.setId("greenCell");
+            }
+            else if(tempCell.getCurrentState() == FireCell.FIRE) {
+                temp.setId("redCell");
+            }
+            else {
+                temp.setId("brownCell");
+            }
+        }
+        else if(myType.equals("Seg")) {
+            if(tempCell.getCurrentState() == SegregationCell.RED) {
+                temp.setId("redCell");
+            }
+            else if(tempCell.getCurrentState() == SegregationCell.BLUE) {
+                temp.setId("blueCell");
+            }
+            else {
+                temp.setId("greyCell");
+            }
+        }
+//        else if(myType.equals("WaTor")) {
+//            if(tempCell.getCurrentState() == ) {
+//                temp.setId("redCell");
+//            }
+//            else if(tempCell.getCurrentState() == ) {
+//                temp.setId("blueCell");
+//            }
+//            else {
+//                temp.setId("greyCell");
+//            }
+//        }
+        else {
+            temp.setId("deadCell");
+        }
+=======
         //myLifeGrid.updateEveryCell();
         //myCells = myLifeGrid.getGrid();
 
@@ -129,5 +215,6 @@ public class simGrid {
         myLifeGrid.reset();
         //TODO: does this actually reset? or just change the simulation?
         updateGrid();
+>>>>>>> a89239736821d91a307afbfa67e0e8fbaa7fd13f
     }
 }
