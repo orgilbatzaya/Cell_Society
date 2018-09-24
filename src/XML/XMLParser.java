@@ -8,11 +8,6 @@ import org.xml.sax.SAXException;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-//TODO: remove unused packages and instance variables
-//import org.w3c.dom.Text;
-//import javax.xml.transform.*;
-//import javax.xml.transform.dom.*;
-//import javax.xml.transform.stream.*;
 
 /**
  * XMLParser
@@ -23,7 +18,6 @@ import javax.xml.parsers.ParserConfigurationException;
  * @author Brooke Keene
  */
 public class XMLParser {
-//    public static final String ERROR_MESSAGE = "XML file does not represent %s";
     private final DocumentBuilder DOC_BUILDER;
 
     private Document DOM;
@@ -53,10 +47,11 @@ public class XMLParser {
      * @return String representing the simulation to run
      */
     public String getSimulation() {
-        String mySim = getTextValue("simulation", rootElem);
-        if(mySim != null) {
-            if(!mySim.isEmpty()) {
-                System.out.println(mySim);
+        String tempSim = getTextValue("simulation", rootElem);
+        String mySim = "";
+        if(tempSim != null) {
+            if(!tempSim.isEmpty()) {
+                mySim = tempSim;
             }
         }
         return mySim;
@@ -72,7 +67,6 @@ public class XMLParser {
         if(tempSize != null) {
             if(!tempSize.isEmpty()) {
                 myGridSize = Integer.parseInt(tempSize);
-                System.out.println(myGridSize);
             }
         }
         return myGridSize;
@@ -114,7 +108,7 @@ public class XMLParser {
     }
 
     /**
-     * note: from Duvall's code
+     * note: from Robert Duvall's code
      *
      * @return
      */

@@ -29,23 +29,22 @@ public class simControls {
     private Stage myStage;
     private ResourceBundle myResources;
     private BorderPane myBorder;
+
     private Button startBtn;
     private Button stopBtn;
     private Button stepBtn;
-    private Button newBtn;
     private Button fileBtn;
-    private File myFile;
+
     private int buttonPadding = 20;
     private int borderPadding = 10;
     private int sideMenuPadding = 200;
-    private int mySimSpeed;
-    private Label speedLabel;
-    private Label fileName;
-    private VBox myVbox;
+    private int mySimSpeed = 1; // starting simulation speed
 
-    private Simulation mySim;
     private boolean fileFlag;   // flag for if user has uploaded a new file
-    private boolean newFlag;    // flag for if user clicks New button
+    private File myFile;
+    private Label fileName;
+    private Simulation mySim;
+    private VBox myVbox;
 
     /**
      * Constructor
@@ -60,7 +59,6 @@ public class simControls {
         mySim = sim;
 
         fileFlag = false;
-        newFlag = false;
     }
 
     /**
@@ -73,15 +71,6 @@ public class simControls {
         return fileFlag;
     }
 
-    /**
-     * returns whether user clicked New button
-     *
-     * @return newFlag, true if user has clicked New,
-     * otherwise false
-     */
-    public boolean getNewFlag() {
-        return newFlag;
-    }
 
     /**
      * returns File uploaded by user
@@ -92,8 +81,21 @@ public class simControls {
         return myFile;
     }
 
+    /**
+     * returns the user specified simulation speed
+     *
+     * @return
+     */
     public int getSimSpeed() {
         return mySimSpeed;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public Button getStepBtn() {
+        return stepBtn;
     }
 
     /**
@@ -123,10 +125,9 @@ public class simControls {
         startBtn = new Button(myResources.getString("Start"));
         stopBtn = new Button(myResources.getString("Stop"));
         stepBtn = new Button(myResources.getString("Step"));
-        newBtn = new Button(myResources.getString("New"));
         setButtonFunctionality();
 
-        bottomRow.getChildren().addAll(startBtn, stopBtn, stepBtn, newBtn);
+        bottomRow.getChildren().addAll(startBtn, stopBtn, stepBtn);
         myBorder.setBottom(bottomRow);
     }
 
@@ -135,7 +136,6 @@ public class simControls {
      */
     public void addSliders() {
         Slider simSpeed = new Slider(1, 100, 1);
-        mySimSpeed = 1;
         simSpeed.setMajorTickUnit(1);
         Label speedLabel = new Label(Double.toString(simSpeed.getValue()));
         speedLabel.setId("speedLbl");
@@ -170,13 +170,6 @@ public class simControls {
         });
         stopBtn.setOnAction(value ->  {
             mySim.stop();
-        });
-        stepBtn.setOnAction(value ->  {
-            mySim.stop();
-        });
-        newBtn.setOnAction(value ->  {
-            mySim.stop();
-            newFlag = true;
         });
     }
 
