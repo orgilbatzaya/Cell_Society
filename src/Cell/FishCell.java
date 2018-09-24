@@ -17,7 +17,7 @@ public class FishCell {
 
     public int[] move(List<int[]> positions, int cnt) {
         var random = new Random();
-        int[] nextLoc = positions.get(random.nextInt(cnt-1)); //store where this fish will move to
+        int[] nextLoc = positions.get(random.nextInt(cnt)); //store where this fish will move to
         return nextLoc;
     }
 }

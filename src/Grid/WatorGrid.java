@@ -33,10 +33,10 @@ public class WatorGrid extends Grid {
             myCells.add(row);
         }
     }
-
-    public ArrayList<ArrayList<Cell>> getGrid(){
-        return myCells;
-    }
+//
+//    public ArrayList<ArrayList<Cell>> getGrid(){
+//        return myCells;
+//    }
 
     public void reset() {
         myCells.clear();
@@ -59,16 +59,16 @@ public class WatorGrid extends Grid {
         return positions;
     }
 
-    @Override
-    public void updateEveryCell() {
-        for(int x = 0; x < size; x++){
-            for(int y = 0; y < size; y++){
-                var cell = myCells.get(x).get(y);
-                cell.checkNeighbors(this);
-                cell.setCurrentState(cell.getNextState());
-            }
-        }
-    }
+//    @Override
+//    public void updateEveryCell() {
+//        for(int x = 0; x < size; x++){
+//            for(int y = 0; y < size; y++){
+//                var cell = myCells.get(x).get(y);
+//                cell.checkNeighbors(this);
+//                cell.setCurrentState(cell.getNextState());
+//            }
+//        }
+//    }
 
 
     public List<Cell> getCellsNear(Cell cell){

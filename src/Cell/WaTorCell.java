@@ -33,12 +33,19 @@ public class WaTorCell extends Cell{
     @Override
     public void checkNeighbors(Grid g){
         if(getCurrentState() == FISH){
+            System.out.println("fish!");
             fishMove(g);
+            System.out.println("fish!!");
         }else if(getCurrentState() == SHARK){
             sharkMove(g);
             sharkDead(g); // checks energy of shark
         }else if(getCurrentState() == WATER){
-            this.setNextState((fishHead[0] == getX() && fishHead[1] == getY()) ? FISH : WATER); //fish moves to this block of water OR nothing comes, still water
+            if((fishHead[0] == getX() && fishHead[1] == getY())){
+                this.setNextState(FISH);
+            }else{
+                this.setNextState(WATER);
+            }
+//            this.setNextState((fishHead[0] == getX() && fishHead[1] == getY()) ? FISH : WATER); //fish moves to this block of water OR nothing comes, still water
         }
     }
 
@@ -49,14 +56,21 @@ public class WaTorCell extends Cell{
             if(neighbor.getCurrentState() == WATER){
                 positions.add(new int[]{neighbor.getX(), neighbor.getY()});
                 cnt ++;
+                System.out.println(cnt);
             }
         }
+        System.out.println(cnt);
         if(cnt > 0) { //check if fish can move or not
             fishHead = fish.move(positions, cnt); //if can move, assign where to move in fishHead.
+//            System.out.println(fishHead);
             if(fishBreed(g)) this.setNextState(FISH);
             else this.setNextState(WATER); //if movable, it becomes Water state.
         }else {
-            this.setNextState((SharkHead[0] == getX() && SharkHead[1] == getY()) ? SHARK : FISH);//Fish is eaten by shark or not
+            if((SharkHead[0] == getX() && SharkHead[1] == getY())){
+                this.setNextState(SHARK);
+            }else{
+                this.setNextState(WATER);
+            }
         }
     }
 
