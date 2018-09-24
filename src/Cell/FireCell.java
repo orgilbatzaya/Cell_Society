@@ -4,7 +4,7 @@
 
 package Cell;
 
-import Grid.FireGrid;
+import Grid.*;
 
 import java.util.Random;
 
@@ -21,7 +21,8 @@ public class FireCell extends Cell {
         this.prob = prob;
     }
 
-    public void checkNeighbors(FireGrid g) {
+    @Override
+    public void checkNeighbors(Grid g) {
         if(getCurrentState() == GROUND || getCurrentState() == FIRE) setNextState(GROUND);
         else {
             var cnt = 0;

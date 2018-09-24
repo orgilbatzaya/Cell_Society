@@ -1,9 +1,9 @@
 package Cell;
 
-import Grid.LifeGrid;
+import Grid.*;
 import java.util.List;
 
-public abstract class Cell {
+public class Cell {
     protected int currentState;
     private int nextState;
     private int xPos;
@@ -49,4 +49,9 @@ public abstract class Cell {
     public void setNextState(int state) {
         nextState = state;
     }
+
+    public void checkNeighbors(Grid g) {
+
+    }
+
 }

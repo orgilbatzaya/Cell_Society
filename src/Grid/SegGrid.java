@@ -19,7 +19,7 @@ public class SegGrid extends Grid {
     double rbRatio;
     double empty;
 
-    public SegGrid(int size,int similar, double rbRatio, double empty ){
+    public SegGrid(int size, int similar, double rbRatio, double empty ){
         super(size);
         this.similar = similar;
         this.rbRatio = rbRatio;
@@ -42,7 +42,7 @@ public class SegGrid extends Grid {
         var states = randomizeStates(numEmpty,numRed,numBlue);
 
         for(int i = 0; i < size; i++){
-            var row = new ArrayList<SegregationCell>();
+            var row = new ArrayList<Cell>();
             for(int j = 0; j < size; j++){
                 int state = (int) states.pop();
                 var cell = new SegregationCell(state,state,i,j,similar);
