@@ -1,3 +1,7 @@
+/**
+ * @author Amy Kim
+ */
+
 package Grid;
 import Cell.Cell;
 import Cell.WaTorCell;
@@ -15,7 +19,6 @@ public class WatorGrid extends Grid {
        this.breedingTime = breedingTime;
        myWaTorCells = new ArrayList<ArrayList<WaTorCell>>();
        initializeCells();
-
     }
 
     public void initializeCells(){
