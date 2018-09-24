@@ -8,28 +8,15 @@ import Cell.Cell;
 import Grid.Grid;
 import Grid.WatorGrid;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
-
-
 public class SharkCell{
-    private ArrayList<Cell> moveOptions;
 
-    public void setSharkMove(ArrayList<Cell> moveOptions){
-        this.moveOptions = moveOptions;
-    }
-
-    public ArrayList<Cell> getSharkMove() {
-        return moveOptions;
-    }
-
-
-    public ArrayList<Cell> checkFish(WatorGrid g){
-        return moveOptions;
-    }
-
-    public void energy(){
-
+    public int[] move(List<int[]> positions, int cnt) {
+        var random = new Random();
+        int[] nextLoc = positions.get(random.nextInt(cnt-1)); //store where this shark will move to
+        return nextLoc;
     }
 
 
