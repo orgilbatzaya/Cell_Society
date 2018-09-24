@@ -18,17 +18,17 @@ public class Grid {
         this.size = size;
     }
 
-    public List<Cell> getEmptyCells(int emptyVal){ //get all the empty cells
-        List<Cell> requiredCells = new ArrayList<>();
-        for(List<Cell> row: myCells){
-            for(Cell c: row){
-                if(c.getCurrentState() == emptyVal){
-                    requiredCells.add(c);
-                }
-            }
-        }
-        return requiredCells;
-    }
+//    public List<Cell> getEmptyCells(int emptyVal){ //get all the empty cells
+//        List<Cell> requiredCells = new ArrayList<>();
+//        for(List<Cell> row: myCells){
+//            for(Cell c: row){
+//                if(c.getCurrentState() == emptyVal){
+//                    requiredCells.add(c);
+//                }
+//            }
+//        }
+//        return requiredCells;
+//    }
 
     public boolean inBounds(int x, int y) {
         if(x < 0 || x >= size){

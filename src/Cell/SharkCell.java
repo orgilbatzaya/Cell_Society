@@ -17,8 +17,8 @@
 //    private int energy;
 //    private int breedingTime;
 //
-//    public SharkCell(int stateOne, int stateTwo, int x, int y) {
-//        super(stateOne, stateTwo, x, y);
+//    public SharkCell(int stateOne, int stateTwo, int x, int y, int breedingTime) {
+//        super(stateOne, stateTwo, x, y, breedingTime);
 //        energy = 5;
 //    }
 //
