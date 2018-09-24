@@ -69,11 +69,13 @@ public class UISetup {
     public void initializeUI() {
         this.makeBorderPane();
 
+
         mySimulation = new Simulation();
 
         myControls = new simControls(mySimulation, myStage, myBorder, myResources);
         myControls.addButtons();
         myControls.makeSideMenu();
+
 
         myGrid = new simGrid(gridSize, simType, myBorder);
     }
