@@ -72,12 +72,20 @@ Known Bugs:
 * Simulation specific parameters are hardcoded into our grid initialization rather than being read in from the XML file
 * Grid configurations are initialized randomly every time a new Grid object is created instead of reading the initial 
 states for each cell from an XML file 
+* WaTor.Cell method checkNeighbors() not functioning fully
+* Step button only works when animation is paused
+* Grid size cannot exceed 15 or the grid will cover the buttons
 
 Extra credit:
 
 
 ### Notes
-
+* See Known Bugs
 
 ### Impressions
-
+    Brooke: Connecting front and back end was much harder than I expected and took a lot longer. There where aspects of
+    animating the grid that I never considered when first creating the GUI.
+    
+    Orgil: "Abstraction is hard."
+    
+    Amy: The project was very hard. All of the rules were very different, so we had a hard time making an abstract class.
