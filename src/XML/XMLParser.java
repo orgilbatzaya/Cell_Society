@@ -2,18 +2,17 @@ package XML;
 
 import java.io.File;
 import java.io.IOException;
-
-import Simulation.Simulation;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.Text;
 import org.xml.sax.SAXException;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.*;
-import javax.xml.transform.dom.*;
-import javax.xml.transform.stream.*;
+//TODO: remove unused packages and instance variables
+//import org.w3c.dom.Text;
+//import javax.xml.transform.*;
+//import javax.xml.transform.dom.*;
+//import javax.xml.transform.stream.*;
 
 /**
  * XMLParser
@@ -24,87 +23,76 @@ import javax.xml.transform.stream.*;
  * @author Brooke Keene
  */
 public class XMLParser {
-    public static final String ERROR_MESSAGE = "XML file does not represent %s";
-    private final String TYPE;
+//    public static final String ERROR_MESSAGE = "XML file does not represent %s";
     private final DocumentBuilder DOC_BUILDER;
 
-    private File myFile;
     private Document DOM;
     private Element rootElem;
+    private String myFile;
 
-    private String mySim;
-    private int mySimSpeed;
-    private int myGridSize;
-
-    public XMLParser(String type) {
+    public XMLParser(File file) {
         DOC_BUILDER = getDocumentBuilder();
-        TYPE = type;
+        myFile = file.toString();
     }
 
-    public boolean readFile(String xml) {
+    public void readFile() {
         try {
-            DOM = DOC_BUILDER.parse(xml);
-            Element elem = DOM.getDocumentElement();
-
-            mySim = getTextValue("simulation", elem);
-            if(mySim != null) {
-                if(!mySim.isEmpty()) {
-                    System.out.println(mySim);
-                }
-            }
-            String tempSpeed = getTextValue("simSpeed", elem);
-            if(tempSpeed != null) {
-                if(!tempSpeed.isEmpty()) {
-                    mySimSpeed = Integer.parseInt(tempSpeed);
-                    System.out.println(mySimSpeed);
-                }
-            }
-            String tempSize = getTextValue("gridSize", elem);
-            if(tempSize != null) {
-                if(!tempSize.isEmpty()) {
-                    myGridSize = Integer.parseInt(tempSize);
-                    System.out.println(myGridSize);
-                }
-            }
-
-            //TODO: depending on type call another method that looks for simulation specific info
-
-            return true;
+            DOM = DOC_BUILDER.parse(myFile);
+            rootElem = DOM.getDocumentElement();
         }
-//        catch (ParserConfigurationException pce) {
-//            System.out.println(pce.getMessage());
-//        }
         catch (SAXException se) {
             System.out.println(se.getMessage());
         }
         catch (IOException ioe) {
             System.err.println(ioe.getMessage());
         }
-        return false;
     }
 
     /**
      *
-     * @return String representing the user-specified simulation to run
+     * @return String representing the simulation to run
      */
     public String getSimulation() {
+        String mySim = getTextValue("simulation", rootElem);
+        if(mySim != null) {
+            if(!mySim.isEmpty()) {
+                System.out.println(mySim);
+            }
+        }
         return mySim;
     }
 
     /**
      *
-     * @return
+     * @return int representing the size of the grid
      */
-    public int getSimSpeed() {
-        return mySimSpeed;
+    public int getGridSize() {
+        String tempSize = getTextValue("size", rootElem);
+        int myGridSize = -1;
+        if(tempSize != null) {
+            if(!tempSize.isEmpty()) {
+                myGridSize = Integer.parseInt(tempSize);
+                System.out.println(myGridSize);
+            }
+        }
+        return myGridSize;
     }
 
     /**
      *
-     * @return
+     * @param tag, tag of the specific data to look for
+     * @return the parameter specified by tag
      */
-    public int getGridSize() {
-        return myGridSize;
+    public double getParameter(String tag) {
+        String temp = getTextValue(tag, rootElem);
+        double param = -1.0;
+        if(temp != null) {
+            if(!temp.isEmpty()) {
+                param = Double.parseDouble(temp);
+                System.out.println(param);
+            }
+        }
+        return param;
     }
 
     /**
@@ -127,6 +115,7 @@ public class XMLParser {
 
     /**
      * note: from Duvall's code
+     *
      * @return
      */
     private String getTextValue(String tag, Element e) {

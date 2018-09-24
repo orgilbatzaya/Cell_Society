@@ -21,6 +21,7 @@ public class simGrid {
     private String myType;
     private int gridDim;
     private ArrayList<ArrayList<LifeCell>> myCells;
+    //TODO: figure out why just Grid doesn't work
     private LifeGrid myLifeGrid;
 
     private double gridSpace = 500.00;
@@ -35,6 +36,9 @@ public class simGrid {
         this.makeGrid();
     }
 
+    /**
+     * depending on type of simulation, creates appropriate grid
+     */
     private void choseGrid() {
 //        if(myType.equals("life")) {
 //            myLifeGrid = new LifeGrid(gridDim);
@@ -52,7 +56,7 @@ public class simGrid {
         myCells = myLifeGrid.getGrid();
     }
 
-    // TODO: make it more general?????
+    // TODO: make it more general
     private void makeGrid() {
         myGP = new GridPane();
         myGP.setPrefSize(gridSpace, gridSpace);
@@ -76,6 +80,9 @@ public class simGrid {
         myBorder.setCenter(myGP);
     }
 
+    /**
+     * updates simulation grid
+     */
     public void updateGrid() {
         myBorder.setCenter(null);
         myLifeGrid.updateEveryCell();
@@ -83,8 +90,12 @@ public class simGrid {
         this.makeGrid();
     }
 
+    /**
+     * resets simulation grid
+     */
     public void resetGrid() {
         myLifeGrid.reset();
+        //TODO: does this actually reset? or just change the simulation?
         updateGrid();
     }
 }

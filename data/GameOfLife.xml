@@ -1,0 +1,6 @@
+<root>
+    <simulation>Life</simulation>
+    <grid>
+        <size>10</size>
+    </grid>
+</root>

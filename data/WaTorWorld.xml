@@ -1,0 +1,10 @@
+<root>
+    <simulation>WaTor</simulation>
+    <grid>
+        <size>10</size>
+    </grid>
+    <special>
+        <empty>0.40</empty>
+        <shark>0.25</shark>
+    </special>
+</root>

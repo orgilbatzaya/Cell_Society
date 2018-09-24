@@ -57,3 +57,9 @@
 #speedLbl {
     -fx-text-fill: #00009C;
 }
+
+#fileName {
+    -fx-font-size: 12pt;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-text-fill: #00009C;
+}
