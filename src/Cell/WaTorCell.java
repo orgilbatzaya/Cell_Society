@@ -1,3 +1,6 @@
+/**
+ * @author Amy Kim
+ */
 package Cell;
 
 import Grid.WatorGrid;
@@ -17,7 +20,7 @@ public class WaTorCell extends Cell{
     private int breedingTime;
     private int[] fishHead;
     private int[] SharkHead;
-    private int turns = 0;
+    private int turns = 0; //to compare with breeding
 
     public WaTorCell(int stateOne, int x, int y, int breedingTime, int energy) {
         super(stateOne, stateOne, x, y);
