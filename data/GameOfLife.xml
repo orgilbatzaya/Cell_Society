@@ -1,17 +1,5 @@
 <root>
-    <simulation>Game Of Life</simulation>
-    <cells>
-        <cell>
-            <status>DEAD</status>
-            <value>0</value>
-            <color>Grey</color>
-        </cell>
-        <cell>
-            <status>ALIVE</status>
-            <value>1</value>
-            <color>Blue</color>
-        </cell>
-    </cells>
+    <simulation>Life</simulation>
     <grid>
         <size>10</size>
     </grid>
