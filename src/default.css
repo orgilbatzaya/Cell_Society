@@ -23,7 +23,7 @@
 }
 
 #deadCell {
-    -fx-background-color: #D3D3D3;  /* Grey */
+    -fx-background-color: #000000;  /* Grey */
     -fx-border: 1px;
     -fx-border-color: #FFFFFF;
     -fx-border-radius: 0px;
@@ -31,7 +31,7 @@
 }
 
 #aliveCell {
-    -fx-background-color: #00009C;
+    -fx-background-color: #FF0000;
     -fx-border: 1px;
     -fx-border-color: #FFFFFF;
     -fx-border-radius: 0px;
@@ -39,12 +39,23 @@
 }
 
 #otherCell {
+    -fx-background-color: #0000FF;
+    -fx-border: 1px;
+    -fx-border-color: #FFFFFF;
+    -fx-border-radius: 0px;
+    -fx-background-radius: 0px;
+}
+
+<<<<<<< HEAD
+#otherCell {
     -fx-background-color: #000000;
     -fx-border: 1px;
     -fx-border-color: #FFFFFF;
     -fx-border-radius: 0px;
     -fx-background-radius: 0px;
 }
+=======
+>>>>>>> b4d438213bda418d8322e8ac6ff63e3b031a77d3
 
 .slider {
     -fx-background: #D3D3D3;
@@ -63,5 +74,11 @@
 }
 
 #speedLbl {
+    -fx-text-fill: #00009C;
+}
+
+#fileName {
+    -fx-font-size: 12pt;
+    -fx-font-family: "Segoe UI Semibold";
     -fx-text-fill: #00009C;
 }

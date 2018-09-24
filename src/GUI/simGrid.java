@@ -3,8 +3,11 @@ package GUI;
 import Cell.Cell;
 import Cell.LifeCell;
 import Cell.FireCell;
+
+import Cell.SegregationCell;
 import Grid.LifeGrid;
 import Grid.FireGrid;
+import Grid.SegGrid;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -22,13 +25,20 @@ public class simGrid {
     private BorderPane myBorder;
     private String myType;
     private int gridDim;
-    //private ArrayList<ArrayList<LifeCell>> myCells;
-    private ArrayList<ArrayList<FireCell>> myCells;
 
+
+    private ArrayList<ArrayList<LifeCell>> myCells;
+    //TODO: figure out why just Grid doesn't work
     private LifeGrid myLifeGrid;
     private FireGrid myFireGrid;
 
-    private double gridSpace = 500.00;
+
+    //private LifeGrid myLifeGrid;
+    //private FireGrid myFireGrid;
+    private SegGrid mySegGrid;
+
+
+    public final double gridSpace = 500.00;
 
     public simGrid(int n, String type, BorderPane border) {
         gridDim = n;
@@ -40,6 +50,9 @@ public class simGrid {
         this.makeGrid();
     }
 
+    /**
+     * depending on type of simulation, creates appropriate grid
+     */
     private void choseGrid() {
 //        if(myType.equals("life")) {
 //            myLifeGrid = new LifeGrid(gridDim);
@@ -53,31 +66,34 @@ public class simGrid {
 //        if(myType.equals("fire")) {
 //            myLifeGrid = new FireGrid();
 //        }
-        //myLifeGrid= new LifeGrid(gridDim);
+
+        //myLifeGrid = new LifeGrid(gridDim);
         //myCells = myLifeGrid.getGrid();
 
-        myFireGrid= new FireGrid(gridDim, .7);
-        myCells = myFireGrid.getGrid();
+        //myFireGrid = new FireGrid(gridDim, .7);
+        //myCells = myFireGrid.getGrid();
+
+        mySegGrid = new SegGrid(gridDim, 60, .50, .40);
+        myCells = mySegGrid.getGrid();
+
     }
 
-    // TODO: make it more general?????
+    // TODO: make it more general
     private void makeGrid() {
         myGP = new GridPane();
-        myGP.setPrefSize(gridSpace, gridSpace);
+        myGP.setPrefSize(gridSpace,gridSpace);
+        myGP.setMaxSize(gridSpace, gridSpace);
         for(int row = 0; row < gridDim; row++) {
             for(int col = 0; col < gridDim; col++) {
                 Button temp = new Button();
-                temp.setPrefHeight(gridSpace/gridDim);
-                temp.setPrefWidth(gridSpace/gridDim);
+                //temp.setPrefHeight(gridSpace/gridDim);
+                //temp.setPrefWidth(gridSpace/gridDim);
+                temp.setPrefSize(gridSpace/gridDim, gridSpace/gridDim);
+                temp.setMaxSize(gridSpace/gridDim,gridSpace/gridDim);
                 Cell tempCell = myCells.get(row).get(col);
                 tempCell.getCurrentState();
-//                if(tempCell.getCurrentState() == LifeCell.DEAD) {
-//                    temp.setId("deadCell");
-//                }
-//                else {
-//                    temp.setId("aliveCell");
-//                }
-                if(tempCell.getCurrentState() == 0){
+
+                if(tempCell.getCurrentState() == 0) {
                     temp.setId("deadCell");
                 }
                 else if(tempCell.getCurrentState() == 1){
@@ -87,6 +103,8 @@ public class simGrid {
                     temp.setId("otherCell");
                 }
 
+
+
                 myGP.add(temp, col, row, 1, 1);
             }
         }
@@ -94,19 +112,32 @@ public class simGrid {
     }
 
 
+    /**
+     * updates simulation grid
+     */
     public void updateGrid() {
         myBorder.setCenter(null);
         //myLifeGrid.updateEveryCell();
         //myCells = myLifeGrid.getGrid();
-        myFireGrid.updateEveryCell();
-        myCells = myFireGrid.getGrid();
+
+
+        //myFireGrid.updateEveryCell();
+        //myCells = myFireGrid.getGrid();
+
+        mySegGrid.updateEveryCell();
+        myCells = mySegGrid.getGrid();
 
         this.makeGrid();
     }
 
+    /**
+     * resets simulation grid
+     */
     public void resetGrid() {
-        //myLifeGrid.reset();
-        myFireGrid.reset();
+
+
+        myLifeGrid.reset();
+        //TODO: does this actually reset? or just change the simulation?
         updateGrid();
     }
 }

@@ -1,12 +1,10 @@
 package GUI;
 
-import GUI.simGrid;
 import java.io.File;
-
 import Simulation.Simulation;
+import XML.XMLParser;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.paint.Paint;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
@@ -26,21 +24,24 @@ public class UISetup {
     public static final String RESOURCE_PACKAGE = "resources/";
     public static final String UI_TEXT = "English";
     public static final String STYLESHEET = "default.css";
-    public static final double DEFAULT_INTERVAL = 0.5;
+    public static final String DEFAULT_TYPE = "life";
+    public static final int DEFAULT_GRID = 4;
+    public static final double DEFAULT_INTERVAL = 1.0;
 
     private Stage myStage;
     private Scene myScene;
     private Group myRoot;
     private BorderPane myBorder;
 
-
-    private Simulation mySimulation;
-    private simControls myControls;
-    private simSelectMenu myMenu;
-    private simGrid myGrid;
-
     private ResourceBundle myResources;
 
+    private simGrid myGrid;
+    private simControls myControls;
+    private Simulation mySimulation;
+
+    private String simType;
+    private int gridSize;
+//    private double interval = 0.5; // Simulation speed
     private int borderSpace = 10;
 
     /**
@@ -55,38 +56,52 @@ public class UISetup {
         myStage = stage;
         myScene = new Scene(myRoot, width, height, color);
         myBorder = new BorderPane();
+        myResources = ResourceBundle.getBundle(RESOURCE_PACKAGE + UI_TEXT);
+        myScene.getStylesheets().add(STYLESHEET);
+
+        simType = DEFAULT_TYPE;
+        gridSize = DEFAULT_GRID;
     }
 
     /**
      * initializes the GUI when called by Main
      */
     public void initializeUI() {
-        myResources = ResourceBundle.getBundle(RESOURCE_PACKAGE + UI_TEXT);
-        myScene.getStylesheets().add(STYLESHEET);
-
         this.makeBorderPane();
 
-        myMenu = new simSelectMenu(myStage, myBorder, myResources);
-        myMenu.makeSideMenu();
-
-        //myGrid = new simGrid(10, "life", myBorder);
-        myGrid = new simGrid(10, "fire", myBorder);
 
 
-        Button update = new Button("Update Grid");
-        update.setLayoutX(600);
-        update.setLayoutY(500);
+        mySimulation = new Simulation();
 
-        mySimulation = new Simulation(myGrid, DEFAULT_INTERVAL);
-
-        myControls = new simControls(mySimulation, myBorder, myResources);
+        myControls = new simControls(mySimulation, myStage, myBorder, myResources);
         myControls.addButtons();
+        myControls.makeSideMenu();
 
-        myRoot.getChildren().add(update);
+
+        myGrid = new simGrid(gridSize, simType, myBorder);
     }
 
+    /**
+     * animates GUI when called in Main game loop
+     *
+     * @param duration
+     */
     public void tickTock(double duration) {
-        mySimulation.ticktock(duration);
+        // checks if new xml file has been added by user
+        if(myControls.getFileFlag()) {
+            this.resetGUI();
+            this.getXMLParameters();
+            initializeUI();
+        }
+        // checks if simulation should be playing
+        if(mySimulation.isPlaying()) {
+            double interval = DEFAULT_INTERVAL/(double) myControls.getSimSpeed();
+            mySimulation.incrementTimer(duration);
+            if(interval < mySimulation.getTimer()) {
+                mySimulation.resetTimer();
+                myGrid.updateGrid();
+            }
+        }
     }
 
     /**
@@ -98,16 +113,13 @@ public class UISetup {
         return myScene;
     }
 
+    /**
+     * returns simGrid object when called by Main
+     *
+     * @return myGrid, the simulation Grid created by simGrid
+     */
     public simGrid getMyGrid() {
         return myGrid;
-    }
-
-    /**
-     *
-     * @return the File selected by the user
-     */
-    public File getUserFile() {
-        return myMenu.getFile();
     }
 
     /**
@@ -118,5 +130,39 @@ public class UISetup {
         myBorder.prefWidthProperty().bind(myScene.widthProperty());
         myBorder.setPadding(new Insets(borderSpace));
         myRoot.getChildren().add(myBorder);
+    }
+
+    /**
+     * resets GUI by removing children of myRoot
+     */
+    private void resetGUI() {
+        myRoot.getChildren().remove(myBorder);
+    }
+
+    /**
+     * parses XML file given to GUI by user
+     */
+    private void getXMLParameters() {
+        File file = myControls.getFile();
+        XMLParser xmlParser = new XMLParser(file);
+        xmlParser.readFile();
+        simType = xmlParser.getSimulation();
+        gridSize = xmlParser.getGridSize();
+//        if(simType.equals("Life")) {
+//
+//        }
+//        else if(simType.equals("Seg")) {
+//
+//        }
+//        else if(simType.equals("Fire")) {
+//
+//        }
+//        else if(simType.equals("WaTor")) {
+//
+//        }
+//        else {
+//            //TODO: throw exception
+//            System.out.println("Exception");
+//        }
     }
 }
