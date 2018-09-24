@@ -18,9 +18,11 @@ public class WaTorCell extends Cell{
 
     private int energy;
     private int breedingTime;
+    private int fishChronons = 0; //reproduce
+    private int sharkChronons = 0; //reproduce
     private int[] fishHead;
     private int[] SharkHead;
-    private int turns = 0; //to compare with breeding
+
 
     public WaTorCell(int stateOne, int x, int y, int breedingTime, int energy) {
         super(stateOne, stateOne, x, y);
@@ -29,7 +31,6 @@ public class WaTorCell extends Cell{
     }
 
     public void checkNeighbors(WatorGrid g){
-        turns ++;
         if(getCurrentState() == FISH){
             fishMove(g);
         }else if(getCurrentState() == SHARK){
@@ -51,8 +52,11 @@ public class WaTorCell extends Cell{
         }
         if(cnt > 0) { //check if fish can move or not
             fishHead = fish.move(positions, cnt); //if can move, assign where to move in fishHead.
-            this.setNextState(WATER); //if movable, it becomes Water state.
-        }else this.setNextState((SharkHead[0] == getX() && SharkHead[1] == getY()) ? SHARK : WATER);//Fish is eaten by shark or not
+            if(fishBreed(g)) this.setNextState(FISH);
+            else this.setNextState(WATER); //if movable, it becomes Water state.
+        }else {
+            this.setNextState((SharkHead[0] == getX() && SharkHead[1] == getY()) ? SHARK : FISH);//Fish is eaten by shark or not
+        }
     }
 
     public void sharkMove(WatorGrid g){
@@ -67,15 +71,40 @@ public class WaTorCell extends Cell{
         if(cnt > 0) { //check if shark can move or not
             SharkHead = shark.move(positions, cnt); //if can move, assign where to move in sharkHead.
             this.setNextState(WATER); //if movable, it becomes Water state.
+            if(sharkBreed(g)) this.setNextState(SHARK);
             energy ++; //shark eats fish so energy up
         } else {
             this.setNextState(SHARK); //shark cannot move so just stay current state.
-            energy --; //shark lost its energy cuz it doesnt eat fish
+            energy --; //shark lost its energy cuz it doesn't eat fish
         }
 
     }
 
     public void sharkDead(WatorGrid g){
         this.setNextState((shark.dead(energy, g)) ? WATER : SHARK);
+    }
+
+    public boolean fishBreed(WatorGrid g){
+        if(getCurrentState() == FISH){
+            if(getNextState() == WATER || getNextState() == FISH) fishChronons ++;
+            else fishChronons --;
+        }
+        if(fishChronons == breedingTime) {
+            fishChronons = 0;
+            return true;
+        }
+        return false;
+    }
+
+    public boolean sharkBreed(WatorGrid g){
+        if(getCurrentState() == SHARK){
+            if(getNextState() == WATER || getNextState() == SHARK) sharkChronons ++;
+        }else sharkChronons --;
+
+        if(sharkChronons == breedingTime){
+            sharkChronons =0;
+            return true;
+        }
+        return false;
     }
 }
