@@ -13,10 +13,9 @@ public class SegGrid extends Grid {
     public static final int RED = 1;
     public static final int BLUE = 2;
     public static final int EMPTY = 0;
-    List<List<SegregationCell>> myFireCells;
     List<Cell> emptyCells;
 
-    public SegGrid(int size,int similar, double rbRatio, double empty ){
+    public SegGrid(int size, int similar, double rbRatio, double empty ){
         super(size);
         initializeCells(similar,rbRatio,empty);
     }
@@ -36,13 +35,13 @@ public class SegGrid extends Grid {
         var states = randomizeStates(numEmpty,numRed,numBlue);
 
         for(int i = 0; i < size; i++){
-            var row = new ArrayList<SegregationCell>();
+            var row = new ArrayList<Cell>();
             for(int j = 0; j < size; j++){
                 int state = (int) states.pop();
                 var cell = new SegregationCell(state,state,i,j,similar);
                 row.add(cell);
             }
-            myFireCells.add(row);
+            myCells.add(row);
         }
     }
 
@@ -66,7 +65,7 @@ public class SegGrid extends Grid {
         List<int[]> positions = getNearCellPositions(cell);
         for(int[] pos:positions){
             if(inBounds(pos[0], pos[1])){
-                nearCells.add(myFireCells.get(pos[0]).get(pos[1]));
+                nearCells.add(myCells.get(pos[0]).get(pos[1]));
             }
         }
         return nearCells;
@@ -105,7 +104,7 @@ public class SegGrid extends Grid {
         emptyCells = getEmptyCells(EMPTY);
         for(int x = 0; x < size; x++){
             for(int y = 0; y < size; y++){
-                var cell = myFireCells.get(x).get(y);
+                var cell = myCells.get(x).get(y);
                 cell.checkNeighbors(this);
                 if(!cell.isSatisfied()){
                     swapRandomEmptyCell(cell);
@@ -122,7 +121,7 @@ public class SegGrid extends Grid {
     public void updateStates(){
         for(int x = 0; x < size; x++){
             for(int y = 0; y < size; y++){
-                var cell = myFireCells.get(x).get(y);
+                var cell = myCells.get(x).get(y);
                 int nextState = cell.getNextState();
                 cell.setCurrentState(nextState);
             }
@@ -151,7 +150,7 @@ public class SegGrid extends Grid {
         int numSatisfied = 0;
         for (int x = 0; x < size; x++) {
             for (int y = 0; y < size; y++) {
-                if(myFireCells.get(x).get(y).isSatisfied()){
+                if(myCells.get(x).get(y).isSatisfied()){
                     numSatisfied++;
                 }
             }

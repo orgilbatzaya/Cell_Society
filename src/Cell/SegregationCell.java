@@ -24,7 +24,7 @@ public class SegregationCell extends Cell {
 
     }
 
-    public void getNeighbors(SegGrid g){
+    public void getNeighbors(Grid g){
         List<Cell> temp;
         temp = g.getCellsNear(this);
         for(Cell c:temp){
