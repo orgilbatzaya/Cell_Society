@@ -14,11 +14,16 @@ Names:
 
 Start Date: September 15, 2018
 
-Finish Date: 
+Finish Date: September 24, 2018
 
-Hours Spent:
+Hours Spent: 50+hrs
 
 ### Primary Roles
+
+Amy Kim - Simulation; implementing Game of Life, Spreading of Fire and WaTor.
+Brooke Keene - Frontend; GUI and XML
+Orgil Batzaya - Simulation; implementing Segregation,  and GUI.
+ 
 
 
 ### Resources Used
@@ -39,25 +44,51 @@ XML:
 
 File:
 * JavaFX Tutorial - JavaFX FileChooser http://www.java2s.com/Tutorials/Java/JavaFX/0555__JavaFX_FileChooser.htm
+
 ### Running the Program
 
 Main class: Main.java
 
 Data files needed: 
+* All .xml files in data folder
+* English.properties in src/resources folder
+* CSS styling file default.css in src folder
 
-Interesting data files:
+Interesting data files: 
+* GameOfLife.xml
+* Segregation.xml
+* SpreadingOfFire.xml
+* WatorWorld.xml
 
 Features implemented:
 
+    Buttons: Start, Stop, and Step control simulation
+    Slider: Slider controls simulation speed
+    Choose File Button: Allows you to select which .xml file you want to run the simulation on 
+
 Assumptions or Simplifications:
+* Assumed that all our simulations Cell and Grid objects would be similar enough that we could simply extend a general
+Cell and Grid class rather than using abstraction
+* Assumed all XML files would be of the same format with the same tags that we used when writing test files
 
 Known Bugs:
+* Simulation specific parameters are hardcoded into our grid initialization rather than being read in from the XML file
+* Grid configurations are initialized randomly every time a new Grid object is created instead of reading the initial 
+states for each cell from an XML file 
+* WaTor.Cell method checkNeighbors() not functioning fully
+* Step button only works when animation is paused
+* Grid size cannot exceed 15 or the grid will cover the buttons
 
 Extra credit:
 
 
 ### Notes
-
+* See Known Bugs
 
 ### Impressions
-
+    Brooke: Connecting front and back end was much harder than I expected and took a lot longer. There where aspects of
+    animating the grid that I never considered when first creating the GUI.
+    
+    Orgil: "Abstraction is hard."
+    
+    Amy: The project was very hard. All of the rules were very different, so we had a hard time making an abstract class.

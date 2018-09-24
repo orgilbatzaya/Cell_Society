@@ -47,9 +47,9 @@ public class SegregationCell extends Cell {
     public void checkNeighbors(Grid g) {
         int happyCells = 0;
         for(int i = 0; i < myNeighbors.size(); i++) {
-             if(currentState == myNeighbors.get(i).getCurrentState()){
-                 happyCells ++;
-             }
+            if(currentState == myNeighbors.get(i).getCurrentState()){
+                happyCells ++;
+            }
         }
         if(myNeighbors.size() > 0) {
             currentSatisfied = 100.0*happyCells / myNeighbors.size();

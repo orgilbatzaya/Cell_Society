@@ -22,9 +22,15 @@ public class simGrid {
     private ArrayList<ArrayList<Cell>> myCells;
     private Grid myGrid;
 
-
     public final double gridSpace = 500.00;
 
+    /**
+     * Constructor
+     *
+     * @param n, dimensions of grid
+     * @param type, type of simulation to run
+     * @param border, BorderPane object to add Grid to
+     */
     public simGrid(int n, String type, BorderPane border) {
         gridDim = n;
         myType = type;
@@ -48,13 +54,15 @@ public class simGrid {
         else if(myType.equals("Seg")) {
             myGrid = new SegGrid(gridDim, 60, 0.50, 0.40);
         }
-//        if(myType.equals("wat")) {
-//            myLifeGrid = WatorGrid();
-//        }
+        if(myType.equals("WaTor")) {
+            myGrid = new WatorGrid(gridDim, 20, 10);
+        }
         myCells = myGrid.getGrid();
     }
 
-    // TODO: make it more general
+    /**
+     * creates GridPane object containing cells for cell automata
+     */
     private void makeGrid() {
         myGP = new GridPane();
         myGP.setPrefSize(gridSpace,gridSpace);
@@ -87,15 +95,13 @@ public class simGrid {
         this.makeGrid();
     }
 
-//    /**
-//     * resets simulation grid
-//     */
-//    public void resetGrid() {
-//        myGrid.reset();
-//        //TODO: does this actually reset? or just change the simulation?
-//        updateGrid();
-//    }
-
+    /**
+     * chooses the color of a cell when initialized based on
+     * the simulation and its initialized state
+     *
+     * @param tempCell
+     * @param temp
+     */
     private void setCellColor(Cell tempCell, Button temp) {
         if(myType.equals("Life")) {
             if(tempCell.getCurrentState() == LifeCell.DEAD) {
@@ -127,17 +133,17 @@ public class simGrid {
                 temp.setId("greyCell");
             }
         }
-//        else if(myType.equals("WaTor")) {
-//            if(tempCell.getCurrentState() == ) {
-//                temp.setId("redCell");
-//            }
-//            else if(tempCell.getCurrentState() == ) {
-//                temp.setId("blueCell");
-//            }
-//            else {
-//                temp.setId("greyCell");
-//            }
-//        }
+        else if(myType.equals("WaTor")) {
+            if(tempCell.getCurrentState() == WaTorCell.SHARK ) {
+                temp.setId("greyCell");
+            }
+            else if(tempCell.getCurrentState() == WaTorCell.WATER) {
+                temp.setId("blueCell");
+            }
+            else {
+                temp.setId("greenCell");
+            }
+        }
         else {
             temp.setId("deadCell");
         }
