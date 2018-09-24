@@ -14,12 +14,14 @@ Names:
 
 Start Date: September 15, 2018
 
-Finish Date: 
+Finish Date: September 24, 2018
 
-Hours Spent:
+Hours Spent: 50+
 
 ### Primary Roles
-
+* Amy: Back-end
+* Brooke: Front-end and XML
+* Orgil: Back-end
 
 ### Resources Used
 GUI:
@@ -39,19 +41,37 @@ XML:
 
 File:
 * JavaFX Tutorial - JavaFX FileChooser http://www.java2s.com/Tutorials/Java/JavaFX/0555__JavaFX_FileChooser.htm
+
 ### Running the Program
 
 Main class: Main.java
 
 Data files needed: 
+* All .xml files in data folder
+* English.properties in src/resources folder
+* CSS styling file default.css in src folder
 
-Interesting data files:
+Interesting data files: 
+* GameOfLife.xml
+* Segregation.xml
+* SpreadingOfFire.xml
+* WatorWorld.xml
 
 Features implemented:
 
+    Buttons: Start, Stop, and Step control simulation
+    Slider: Slider controls simulation speed
+    Choose File Button: Allows you to select which .xml file you want to run the simulation on 
+
 Assumptions or Simplifications:
+* Assumed that all our simulations Cell and Grid objects would be similar enough that we could simply extend a general
+Cell and Grid class rather than using abstraction
+* Assumed all XML files would be of the same format with the same tags that we used when writing test files
 
 Known Bugs:
+* Simulation specific parameters are hardcoded into our grid initialization rather than being read in from the XML file
+* Grid configurations are initialized randomly every time a new Grid object is created instead of reading the initial 
+states for each cell from an XML file 
 
 Extra credit:
 
