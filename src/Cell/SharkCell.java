@@ -1,76 +1,40 @@
-package Cell;
-
-import Grid.Grid;
-import Grid.WatorGrid;
-
-import java.util.List;
-
 /**
- * @author ob29
+ * @author Amy Kim
  */
 
+package Cell;
 
-public class SharkCell extends FishCell {
-    public static final int SHARK = 2;
-    public static final int FISH = 1;
-    public static final int WATER = 0;
-    private int energy;
-    private int breedingTime;
+import Cell.Cell;
+import Grid.Grid;
+import Grid.WatorGrid;
+import java.util.ArrayList;
+import java.util.Random;
 
-    public SharkCell(int stateOne, int stateTwo, int x, int y) {
-        super(stateOne, stateTwo, x, y);
-        energy = 5;
+
+
+public class SharkCell{
+    private ArrayList<Cell> moveOptions;
+
+    public void setSharkMove(ArrayList<Cell> moveOptions){
+        this.moveOptions = moveOptions;
     }
 
-    //@Override
-    public void getNeighbors(WatorGrid g){
-        List<Cell> temp;
-        temp = g.getCellsNear(this);
-        for(Cell c:temp){
-            if(c.getCurrentState() != SHARK){
-                myNeighbors.add(c);
-            }
-        }
-    }
-
-    public List<Cell> getMyNeighbors(){
-        return myNeighbors;
+    public ArrayList<Cell> getSharkMove() {
+        return moveOptions;
     }
 
 
-    public void checkNeighbors(WatorGrid g) {
-        int happyCells = 0;
-        this.getNeighbors(g);
-        for(int i = 0; i < myNeighbors.size(); i++) {
-            if(currentState == myNeighbors.get(i).getCurrentState()){
-                happyCells ++;
-            }
-        }
+    public ArrayList<Cell> findFish(){
+        return moveOptions;
     }
 
-    public void lowerBreedingTime(){
-        breedingTime -= 1;
+    public void reproduce(){
+
     }
 
-    public boolean checkBreeding(){
-        return breedingTime == 0;
+    public void energy(){
+
     }
-
-    public boolean checkFishNear(){
-        for(Cell c: myNeighbors){
-            if(c instanceof FishCell) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-
-
-
-
-
 
 
 }
-
