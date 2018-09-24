@@ -1,10 +1,6 @@
 package GUI;
 
-import Cell.Cell;
-import Cell.LifeCell;
-import Cell.FireCell;
-
-import Cell.SegregationCell;
+import Cell.*;
 import Grid.*;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
@@ -23,16 +19,7 @@ public class simGrid {
     private BorderPane myBorder;
     private String myType;
     private int gridDim;
-
-
     private ArrayList<ArrayList<Cell>> myCells;
-    //TODO: figure out why just Grid doesn't work
-    private LifeGrid myLifeGrid;
-    private FireGrid myFireGrid;
-
-
-    //private LifeGrid myLifeGrid;
-    //private FireGrid myFireGrid;
     private Grid myGrid;
 
 
@@ -52,28 +39,19 @@ public class simGrid {
      * depending on type of simulation, creates appropriate grid
      */
     private void choseGrid() {
-//        if(myType.equals("life")) {
-//            myLifeGrid = new LifeGrid(gridDim);
-//        }
-//        if(myType.equals("seg")) {
-//            myLifeGrid = new SegGrid();
-//        }
+        if(myType.equals("Life")) {
+            myGrid = new LifeGrid(gridDim);
+        }
+        else if(myType.equals("Fire")) {
+            myGrid = new FireGrid(gridDim, 0.7);
+        }
+        else if(myType.equals("Seg")) {
+            myGrid = new SegGrid(gridDim, 60, 0.50, 0.40);
+        }
 //        if(myType.equals("wat")) {
 //            myLifeGrid = WatorGrid();
 //        }
-//        if(myType.equals("fire")) {
-//            myLifeGrid = new FireGrid();
-//        }
-
-        //myLifeGrid = new LifeGrid(gridDim);
-        //myCells = myLifeGrid.getGrid();
-
-        //myFireGrid = new FireGrid(gridDim, .7);
-        //myCells = myFireGrid.getGrid();
-
-        myGrid = new SegGrid(gridDim, 60, .50, .40);
         myCells = myGrid.getGrid();
-
     }
 
     // TODO: make it more general
@@ -84,23 +62,12 @@ public class simGrid {
         for(int row = 0; row < gridDim; row++) {
             for(int col = 0; col < gridDim; col++) {
                 Button temp = new Button();
-                //temp.setPrefHeight(gridSpace/gridDim);
-                //temp.setPrefWidth(gridSpace/gridDim);
+
                 temp.setPrefSize(gridSpace/gridDim, gridSpace/gridDim);
-                temp.setMaxSize(gridSpace/gridDim,gridSpace/gridDim);
+                temp.setMaxSize(gridSpace/gridDim, gridSpace/gridDim);
                 Cell tempCell = myCells.get(row).get(col);
-                tempCell.getCurrentState();
 
-                if(tempCell.getCurrentState() == 0) {
-                    temp.setId("deadCell");
-                }
-                else if(tempCell.getCurrentState() == 1){
-                    temp.setId("aliveCell");
-                }
-                else if(tempCell.getCurrentState() == 2){
-                    temp.setId("otherCell");
-                }
-
+                setCellColor(tempCell, temp);
 
 
                 myGP.add(temp, col, row, 1, 1);
@@ -115,27 +82,64 @@ public class simGrid {
      */
     public void updateGrid() {
         myBorder.setCenter(null);
-        //myLifeGrid.updateEveryCell();
-        //myCells = myLifeGrid.getGrid();
-
-
-        //myFireGrid.updateEveryCell();
-        //myCells = myFireGrid.getGrid();
-
         myGrid.updateEveryCell();
         myCells = myGrid.getGrid();
-
         this.makeGrid();
     }
 
-    /**
-     * resets simulation grid
-     */
-    public void resetGrid() {
+//    /**
+//     * resets simulation grid
+//     */
+//    public void resetGrid() {
+//        myGrid.reset();
+//        //TODO: does this actually reset? or just change the simulation?
+//        updateGrid();
+//    }
 
-
-        myLifeGrid.reset();
-        //TODO: does this actually reset? or just change the simulation?
-        updateGrid();
+    private void setCellColor(Cell tempCell, Button temp) {
+        if(myType.equals("Life")) {
+            if(tempCell.getCurrentState() == LifeCell.DEAD) {
+                temp.setId("greyCell");
+            }
+            else {
+                temp.setId("blueCell");
+            }
+        }
+        else if(myType.equals("Fire")) {
+            if(tempCell.getCurrentState() == FireCell.TREE) {
+                temp.setId("greenCell");
+            }
+            else if(tempCell.getCurrentState() == FireCell.FIRE) {
+                temp.setId("redCell");
+            }
+            else {
+                temp.setId("brownCell");
+            }
+        }
+        else if(myType.equals("Seg")) {
+            if(tempCell.getCurrentState() == SegregationCell.RED) {
+                temp.setId("redCell");
+            }
+            else if(tempCell.getCurrentState() == SegregationCell.BLUE) {
+                temp.setId("blueCell");
+            }
+            else {
+                temp.setId("greyCell");
+            }
+        }
+//        else if(myType.equals("WaTor")) {
+//            if(tempCell.getCurrentState() == ) {
+//                temp.setId("redCell");
+//            }
+//            else if(tempCell.getCurrentState() == ) {
+//                temp.setId("blueCell");
+//            }
+//            else {
+//                temp.setId("greyCell");
+//            }
+//        }
+        else {
+            temp.setId("deadCell");
+        }
     }
 }

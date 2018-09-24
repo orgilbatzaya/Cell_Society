@@ -14,7 +14,8 @@
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
 }
 
-#cellBtn {
+/* Game of Life Cells */
+#greyCell {
     -fx-background-color: #D3D3D3;  /* Grey */
     -fx-border: 1px;
     -fx-border-color: #FFFFFF;
@@ -22,40 +23,42 @@
     -fx-background-radius: 0px;
 }
 
-#deadCell {
-    -fx-background-color: #000000;  /* Grey */
+#blueCell {
+    -fx-background-color: #00009C; /* Blue */
     -fx-border: 1px;
     -fx-border-color: #FFFFFF;
     -fx-border-radius: 0px;
     -fx-background-radius: 0px;
 }
 
-#aliveCell {
-    -fx-background-color: #FF0000;
+/* Spreading of Fire Cells */
+#greenCell {
+    -fx-background-color: #006009; /* Green */
     -fx-border: 1px;
     -fx-border-color: #FFFFFF;
     -fx-border-radius: 0px;
     -fx-background-radius: 0px;
 }
 
-#otherCell {
-    -fx-background-color: #0000FF;
+#redCell {
+    -fx-background-color: #EF3F00; /* Red/Orange */
     -fx-border: 1px;
     -fx-border-color: #FFFFFF;
     -fx-border-radius: 0px;
     -fx-background-radius: 0px;
 }
 
-<<<<<<< HEAD
-#otherCell {
-    -fx-background-color: #000000;
+#brownCell {
+    -fx-background-color: #3D3333; /* Brown */
     -fx-border: 1px;
     -fx-border-color: #FFFFFF;
     -fx-border-radius: 0px;
     -fx-background-radius: 0px;
 }
-=======
->>>>>>> b4d438213bda418d8322e8ac6ff63e3b031a77d3
+
+/* Segregation Cells */
+
+/* Wa-Tor World Cells */
 
 .slider {
     -fx-background: #D3D3D3;
