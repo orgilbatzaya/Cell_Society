@@ -5,9 +5,7 @@ import Cell.LifeCell;
 import Cell.FireCell;
 
 import Cell.SegregationCell;
-import Grid.LifeGrid;
-import Grid.FireGrid;
-import Grid.SegGrid;
+import Grid.*;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -27,7 +25,7 @@ public class simGrid {
     private int gridDim;
 
 
-    private ArrayList<ArrayList<LifeCell>> myCells;
+    private ArrayList<ArrayList<Cell>> myCells;
     //TODO: figure out why just Grid doesn't work
     private LifeGrid myLifeGrid;
     private FireGrid myFireGrid;
@@ -35,7 +33,7 @@ public class simGrid {
 
     //private LifeGrid myLifeGrid;
     //private FireGrid myFireGrid;
-    private SegGrid mySegGrid;
+    private Grid myGrid;
 
 
     public final double gridSpace = 500.00;
@@ -73,8 +71,8 @@ public class simGrid {
         //myFireGrid = new FireGrid(gridDim, .7);
         //myCells = myFireGrid.getGrid();
 
-        mySegGrid = new SegGrid(gridDim, 60, .50, .40);
-        myCells = mySegGrid.getGrid();
+        myGrid = new SegGrid(gridDim, 60, .50, .40);
+        myCells = myGrid.getGrid();
 
     }
 
@@ -124,8 +122,8 @@ public class simGrid {
         //myFireGrid.updateEveryCell();
         //myCells = myFireGrid.getGrid();
 
-        mySegGrid.updateEveryCell();
-        myCells = mySegGrid.getGrid();
+        myGrid.updateEveryCell();
+        myCells = myGrid.getGrid();
 
         this.makeGrid();
     }

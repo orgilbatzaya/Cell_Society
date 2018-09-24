@@ -25,7 +25,7 @@ public class UISetup {
     public static final String UI_TEXT = "English";
     public static final String STYLESHEET = "default.css";
     public static final String DEFAULT_TYPE = "life";
-    public static final int DEFAULT_GRID = 4;
+    public static final int DEFAULT_GRID = 8;
     public static final double DEFAULT_INTERVAL = 1.0;
 
     private Stage myStage;

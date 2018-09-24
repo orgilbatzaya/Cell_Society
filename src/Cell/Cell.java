@@ -1,14 +1,15 @@
 package Cell;
 
-import Grid.LifeGrid;
+import Grid.*;
 import java.util.List;
 
-public abstract class Cell {
+public class Cell {
     protected int currentState;
     private int nextState;
     private int xPos;
     private int yPos;
     private int gridSize;
+    public static final int EMPTY = 0;
 
     protected List<Cell> myNeighbors;
 
@@ -49,4 +50,38 @@ public abstract class Cell {
     public void setNextState(int state) {
         nextState = state;
     }
+
+    public void checkNeighbors(Grid g) {
+
+    }
+
+    public void getNeighbors(Grid g){
+        List<Cell> temp;
+        temp = g.getCellsNear(this);
+        for(Cell c:temp){
+            if(c.getCurrentState() != EMPTY){
+                myNeighbors.add(c);
+            }
+        }
+    }
+
+    public boolean isSatisfied(){
+        return false;
+    }
+
+    public void clearNeighbors(){
+        myNeighbors.clear();
+    }
+
+    public void unTaken(){
+    }
+    public void setTaken(){
+
+    }
+
+    public boolean checkTaken(){
+        return false;
+    }
+
+
 }
