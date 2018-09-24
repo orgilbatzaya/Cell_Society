@@ -28,25 +28,14 @@ public class SegregationCell extends Cell {
 
     }
 
-    public void getNeighbors(Grid g){
-        List<Cell> temp;
-        temp = g.getCellsNear(this);
-        for(Cell c:temp){
-            if(c.getCurrentState() != EMPTY){
-                myNeighbors.add(c);
-            }
-        }
-    }
+
     public List<Cell> getMyNeighbors(){
         return myNeighbors;
     }
 
-    public void clearNeighbors(){
-        myNeighbors.clear();
-    }
 
-
-    public void checkNeighbors(SegGrid g) {
+    @Override
+    public void checkNeighbors(Grid g) {
         int happyCells = 0;
         for(int i = 0; i < myNeighbors.size(); i++) {
              if(currentState == myNeighbors.get(i).getCurrentState()){
@@ -61,19 +50,19 @@ public class SegregationCell extends Cell {
         }
     }
 
-
+    @Override
     public boolean isSatisfied(){
         return currentSatisfied >= mySatisfaction;
     }
-
+    @Override
     public void setTaken(){
         taken = true;
     }
-
+    @Override
     public void unTaken(){
         taken = false;
     }
-
+    @Override
     public boolean checkTaken(){
         return taken;
     }

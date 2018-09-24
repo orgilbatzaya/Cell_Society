@@ -52,4 +52,5 @@ public class FireGrid extends Grid {
 
         return positions;
     }
+
 }

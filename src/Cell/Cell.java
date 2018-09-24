@@ -9,6 +9,7 @@ public class Cell {
     private int xPos;
     private int yPos;
     private int gridSize;
+    public static final int EMPTY = 0;
 
     protected List<Cell> myNeighbors;
 
@@ -53,5 +54,34 @@ public class Cell {
     public void checkNeighbors(Grid g) {
 
     }
+
+    public void getNeighbors(Grid g){
+        List<Cell> temp;
+        temp = g.getCellsNear(this);
+        for(Cell c:temp){
+            if(c.getCurrentState() != EMPTY){
+                myNeighbors.add(c);
+            }
+        }
+    }
+
+    public boolean isSatisfied(){
+        return false;
+    }
+
+    public void clearNeighbors(){
+        myNeighbors.clear();
+    }
+
+    public void unTaken(){
+    }
+    public void setTaken(){
+
+    }
+
+    public boolean checkTaken(){
+        return false;
+    }
+
 
 }

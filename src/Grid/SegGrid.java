@@ -13,14 +13,14 @@ public class SegGrid extends Grid {
     public static final int RED = 1;
     public static final int BLUE = 2;
     public static final int EMPTY = 0;
-    ArrayList<ArrayList<SegregationCell>> myCells = new ArrayList<ArrayList<SegregationCell>>();
-    List<SegregationCell> emptyCells;
+    List<Cell> emptyCells;
     int similar;
     double rbRatio;
     double empty;
 
     public SegGrid(int size, int similar, double rbRatio, double empty ){
         super(size);
+        myCells = new ArrayList<ArrayList<Cell>>();
         this.similar = similar;
         this.rbRatio = rbRatio;
         this.empty = empty;
@@ -68,53 +68,22 @@ public class SegGrid extends Grid {
         return bagOfStates;
     }
 
-    public List<Cell> getCellsNear(Cell cell){
-        List<Cell> nearCells = new ArrayList<Cell>();
-        List<int[]> positions = getNearCellPositions(cell);
-        for(int[] pos:positions){
-            if(inBounds(pos[0], pos[1])){
-                nearCells.add(myCells.get(pos[0]).get(pos[1]));
-            }
-        }
-        return nearCells;
-    }
-
-
-    public List<int[]> getNearCellPositions(Cell cell){
-        List<int[]> nearCellPositions = new ArrayList<>();
-        int xPos = cell.getX();
-        int yPos = cell.getY();
-        nearCellPositions.add(new int[]{xPos - 1, yPos});
-        nearCellPositions.add(new int[]{xPos + 1, yPos});
-        nearCellPositions.add(new int[]{xPos, yPos - 1});
-        nearCellPositions.add(new int[]{xPos, yPos + 1});
-
-        nearCellPositions.add(new int[]{xPos - 1, yPos - 1});
-        nearCellPositions.add(new int[]{xPos - 1, yPos + 1});
-        nearCellPositions.add(new int[]{xPos + 1, yPos - 1});
-        nearCellPositions.add(new int[]{xPos + 1, yPos + 1});
-        return nearCellPositions;
-    }
-
-
-
-
-
 
     /**
      * first passes through grid to find unsatisfied cells and setNextState
      * then passes again to actually update states
      */
+    @Override
     public  void updateEveryCell(){
         emptyCells = getEmptyCells(EMPTY);
-        for(SegregationCell t: emptyCells){
+        for(Cell t: emptyCells){
             t.unTaken();
         }
         Random random = new Random();
-        List<SegregationCell> unsatisfied = getUnsatisfiedCells();
+        List<Cell> unsatisfied = getUnsatisfiedCells();
 
         Collections.shuffle(unsatisfied);
-        for(SegregationCell cell: unsatisfied){
+        for(Cell cell: unsatisfied){
             swapRandomEmptyCell(cell);
         }
 
@@ -123,8 +92,8 @@ public class SegGrid extends Grid {
         checkStats();
     }
 
-    public List<SegregationCell> getUnsatisfiedCells() {
-        List<SegregationCell> unsatisfied = new ArrayList<>();
+    public List<Cell> getUnsatisfiedCells() {
+        List<Cell> unsatisfied = new ArrayList<>();
         for (int x = 0; x < size; x++) {
             for (int y = 0; y < size; y++) {
                 var cell = myCells.get(x).get(y);
@@ -160,11 +129,11 @@ public class SegGrid extends Grid {
      * @param cell
      */
 
-    public void swapRandomEmptyCell(SegregationCell cell){
+    public void swapRandomEmptyCell(Cell cell){
         Random random = new Random();
         int emptySize = emptyCells.size();
         int cnt = 0;
-        for(SegregationCell c: emptyCells){
+        for(Cell c: emptyCells){
             if(!c.checkTaken()){
                 cnt++;
             }
@@ -194,26 +163,13 @@ public class SegGrid extends Grid {
         return (1.0*numSatisfied)/(size*size);
     }
 
-    public ArrayList<ArrayList<SegregationCell>> getGrid(){
-        return myCells;
-    }
 
     public void reset() {
         myCells.clear();
         initializeCells(similar,rbRatio,empty);
     }
 
-    public List<SegregationCell> getEmptyCells(int emptyVal){ //get all the empty cells
-        List<SegregationCell> requiredCells = new ArrayList<>();
-        for(ArrayList<SegregationCell> row: myCells){
-            for(SegregationCell c: row){
-                if(c.getCurrentState() == emptyVal){
-                    requiredCells.add(c);
-                }
-            }
-        }
-        return requiredCells;
-    }
+
 
 
 
