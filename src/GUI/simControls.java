@@ -39,6 +39,7 @@ public class simControls {
     private int borderPadding = 10;
     private int sideMenuPadding = 200;
     private int mySimSpeed = 1; // starting simulation speed
+    private Label speedLabel;
 
     private boolean fileFlag;   // flag for if user has uploaded a new file
     private File myFile;
@@ -137,7 +138,7 @@ public class simControls {
     public void addSliders() {
         Slider simSpeed = new Slider(1, 100, 1);
         simSpeed.setMajorTickUnit(1);
-        Label speedLabel = new Label(Double.toString(simSpeed.getValue()));
+        speedLabel = new Label(Double.toString(simSpeed.getValue()));
         speedLabel.setId("speedLbl");
         simSpeed.valueProperty().addListener(this.addSliderListener());
 
@@ -195,7 +196,7 @@ public class simControls {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
                 mySimSpeed = newValue.intValue();
-                //speedLabel.setText(String.format("%.0f", newValue));
+                speedLabel.setText(String.format("%.0f", newValue));
             }
         };
     }
