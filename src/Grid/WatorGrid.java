@@ -12,11 +12,13 @@ import java.util.*;
 
 public class WatorGrid extends Grid {
     ArrayList<ArrayList<WaTorCell>> myWaTorCells;
-    public int breedingTime;
+    private int breedingTime;
+    private int energy;
 
-    public WatorGrid(int size, int breedingTime) {
+    public WatorGrid(int size, int breedingTime, int energy) {
        super(size);
        this.breedingTime = breedingTime;
+       this.energy = energy;
        myWaTorCells = new ArrayList<ArrayList<WaTorCell>>();
        initializeCells();
     }
@@ -26,7 +28,7 @@ public class WatorGrid extends Grid {
             var row = new ArrayList<WaTorCell>();
             for(int j = 0; j < size; j++){
                 var random = new Random();
-                var cell = new WaTorCell(random.nextInt(3), i, j, breedingTime);
+                var cell = new WaTorCell(random.nextInt(3), i, j, breedingTime, energy);
                 row.add(cell);
             }
             myWaTorCells.add(row);

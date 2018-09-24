@@ -19,5 +19,8 @@ public class SharkCell{
         return nextLoc;
     }
 
+    public boolean dead(int energy, WatorGrid g){
+        return (energy == 0) ? true: false;
+    }
 
 }
