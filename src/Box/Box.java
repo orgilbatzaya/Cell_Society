@@ -5,13 +5,6 @@ import Grid.Grid;
 
 import java.util.List;
 
-
-/**
- * @author ob29
- * Containing shared fields/methods among all Cells
- * getNeighbors() and checkNeighbors() require a Grid object
- */
-
 public abstract class Box{
     protected int currentState;
     private int nextState;
