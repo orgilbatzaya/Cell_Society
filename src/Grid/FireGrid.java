@@ -40,20 +40,5 @@ public class FireGrid extends Grid {
         initializeCells();
     }
 
-    @Override
-    public List<int[]> getNearCellPositions(Cell cell) {
-        List<int[]> positions = new ArrayList<>();
-        int xPos = cell.getX();
-        int yPos = cell.getY();
-
-        if(inBounds(cell.getX(), cell.getY())){
-            positions.add(new int[]{xPos -1, yPos});
-            positions.add(new int[]{xPos +1, yPos});
-            positions.add(new int[]{xPos, yPos-1});
-            positions.add(new int[]{xPos, yPos+1});
-        }
-
-        return positions;
-    }
 
 }

@@ -41,26 +41,6 @@ public class WatorGrid extends Grid {
         initializeCells();
     }
 
-    /**
-     *
-     * @param cell WaTor cell
-     * @return position of grid
-     */
-    @Override
-    public List<int[]> getNearCellPositions(Cell cell) {
-        List<int[]> positions = new ArrayList<>();
-        int xPos = cell.getX();
-        int yPos = cell.getY();
-
-        if(inBounds(cell.getX(), cell.getY())){ //store all neighbors
-            positions.add(new int[]{xPos -1, yPos});
-            positions.add(new int[]{xPos +1, yPos});
-            positions.add(new int[]{xPos, yPos-1});
-            positions.add(new int[]{xPos, yPos+1});
-        }
-
-        return positions;
-    }
 
 
     public List<Cell> getCellsNear(Cell cell){

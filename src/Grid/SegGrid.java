@@ -112,6 +112,7 @@ public class SegGrid extends Grid {
                 cell.clearNeighbors();
             }
         }
+
         return unsatisfied;
     }
 
