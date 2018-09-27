@@ -2,6 +2,7 @@
 package Grid;
 
 import Cell.Cell;
+import Box.Box;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +15,9 @@ import java.util.List;
 
 public class Grid {
     protected int size;
+    protected ArrayList<ArrayList<Box>> myBoxes;
     protected ArrayList<ArrayList<Cell>> myCells;
+
 
     //dummy constructor
     public Grid(int size) {
@@ -30,8 +33,12 @@ public class Grid {
      */
     public List<Cell> getEmptyCells(int emptyVal){ //get all the empty cells
         List<Cell> requiredCells = new ArrayList<>();
-        for(List<Cell> row: myCells){
+        for(List<Cell> row: myBoxes){
             for(Cell c: row){
+//                if (c instanceof Cell.WaTorCell) {
+//                    System.out.println("WATOR");
+//
+//                }
                 if(c.getCurrentState() == emptyVal){
                     requiredCells.add(c);
                 }
@@ -59,15 +66,15 @@ public class Grid {
     /**
      * Given some Cell in the Grid, finds and stores all (8) adjacent positions
      * regardless of whether these positions are bounded
-     * @param cell Cell object
+     * @param box Box object
      * @return List of int arrays
      */
-    public List<int[]> getNearCellPositions(Cell cell) {
+    public List<int[]> getNearCellPositions(Box box) {
         List<int[]> positions = new ArrayList<>();
-        int xPos = cell.getX();
-        int yPos = cell.getY();
+        int xPos = box.getX();
+        int yPos = box.getY();
 
-        if(inBounds(cell.getX(), cell.getY())){
+        if(inBounds(box.getX(), box.getY())){
             positions.add(new int[]{xPos -1, yPos});//sides
             positions.add(new int[]{xPos +1, yPos});
             positions.add(new int[]{xPos, yPos-1});
@@ -84,18 +91,18 @@ public class Grid {
     /**
      * Given some Cell in the Grid, finds and stores Adjacent Cell objects.
      * Depends on getNearCellPositions() and if these positions are bounded
-     * @param cell Cell object
+     * @param box Box object
      * @return List of Cell objects
      */
-    public List<Cell> getCellsNear(Cell cell){
-        List<Cell> nearCells = new ArrayList<Cell>();
-        List<int[]> positions = getNearCellPositions(cell);
+    public List<Cell> getBoxesNear(Box box){
+        List<Cell> nearBoxes = new ArrayList<Cell>();
+        List<int[]> positions = getNearCellPositions(box);
         for(int[] pos:positions){
             if(inBounds(pos[0], pos[1])){
-                nearCells.add(myCells.get(pos[0]).get(pos[1]));
+                nearBoxes.add(myBoxes.get(pos[0]).get(pos[1]));
             }
         }
-        return nearCells;
+        return nearBoxes;
     }
 
     /**
@@ -106,12 +113,12 @@ public class Grid {
     public void updateEveryCell() {
         for(int x = 0; x < size; x++){
             for(int y = 0; y < size; y++){
-                Cell cell = myCells.get(x).get(y);
-                cell.checkNeighbors(this);
-                cell.setCurrentState(cell.getNextState());
+                Box box = myBoxes.get(x).get(y);
+                box.checkNeighbors(this);
+                box.setCurrentState(box.getNextState());
             }
         }
-    };
+    }
 
     public ArrayList<ArrayList<Cell>> getGrid() {
         return myCells;

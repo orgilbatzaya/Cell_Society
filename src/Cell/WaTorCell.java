@@ -1,34 +1,27 @@
+package Cell;
+
+import Grid.Grid;
+
+import java.util.List;
+import java.util.Random;
+import java.util.stream.Collectors;
+
+
 /**
  * @author Amy Kim
  */
-package Cell;
+public class WaTorCell extends Cell {
+    public static final int WATER = 1 << 0;
+    public static final int FISH = 1 << 1;
+    public static final int SHARK = 1 << 2;
+    public static final int MOVE = 1 << 3;
+    public static final int DIE = 1 << 4;
+    public static final int BREED = 1 << 5;
 
-import Grid.*;
+    private int breedingTime, nextBreedingTime;
+    private int energy, nextEnergy;
 
-import java.util.ArrayList;
-import java.util.List;
-
-
-/**
- * WaTor Cell extending cell.
- * This is for WaTor.
- */
-
-public class WaTorCell extends Cell{
-    FishCell fish = new FishCell();
-    SharkCell shark = new SharkCell();
-
-    public static final int SHARK = 2;
-    public static final int FISH = 1;
-    public static final int WATER = 0;
-
-    private int energy;
-    private int breedingTime;
-    private int fishChronons = 0; //reproduce
-    private int sharkChronons = 0; //reproduce
-    private int[] fishHead;
-    private int[] SharkHead;
-
+    private Cell nextLocation;
 
     public WaTorCell(int stateOne, int x, int y, int breedingTime, int energy) {
         super(stateOne, stateOne, x, y);
@@ -36,101 +29,72 @@ public class WaTorCell extends Cell{
         this.energy = energy;
     }
 
-    @Override
-    public void checkNeighbors(Grid g){
-        if(getCurrentState() == FISH){ //set Next state for fish
-            fishMove(g);
-        }else if(getCurrentState() == SHARK){ //set Next state fo shark
-            sharkMove(g);
-            sharkDead(g); // checks energy of shark
-        }else if(getCurrentState() == WATER){ //set Next state for water
-            // This is chosen random position for fish that can moves. This is coming from fish.move
-            this.setNextState((fishHead[0] == getX() && fishHead[1] == getY()) ? FISH : WATER); //fish moves to this block of water OR nothing comes, still water
-        }
-    }
 
-    public void fishMove(Grid g){
-        List<int[]> positions = new ArrayList<>();
-        var cnt =0;
-        for(var neighbor : g.getCellsNear(this)) {
-            if(neighbor.getCurrentState() == WATER){
-                positions.add(new int[]{neighbor.getX(), neighbor.getY()});
-                cnt ++;
-                System.out.println(cnt);
+    public void checkNeighbors(Grid g) {
+        nextLocation = null;
+
+        if((currentState & SHARK) > 0) {
+            // STARVE
+            energy --;
+            if(energy <= 0) setNextState(WATER + DIE);
+
+            var fishes = pickFishCells(g);
+            var waters = pickWaterCells(g);
+
+            if(fishes.size() > 0) {
+                var randomFishCell = fishes.get(new Random().nextInt(fishes.size()));
+                setNextState(WATER + MOVE);
+                nextLocation = randomFishCell;
+            } else if(waters.size() > 0){
+                var randomWaterCell = waters.get(new Random().nextInt(waters.size()));
+                setNextState(WATER + MOVE);
+                nextLocation = randomWaterCell;
+            } else {
+                nextLocation = this;
             }
-        }
-        System.out.println(cnt);
-        if(cnt > 0) { //check if fish can move or not
-            fishHead = fish.move(positions, cnt); //if can move, assign where to move in fishHead.
-//            System.out.println(fishHead);
-            if(fishBreed(g)) this.setNextState(FISH);
-            else this.setNextState(WATER); //if movable, it becomes Water state.
-        }else {
-            if((SharkHead[0] == getX() && SharkHead[1] == getY())){
-                this.setNextState(SHARK);
-            }else{
-                this.setNextState(WATER);
+        } else if((currentState & FISH) > 0) {
+            var waters = pickWaterCells(g);
+            if(waters.size() > 0){
+                var randomWaterCell = waters.get(new Random().nextInt(waters.size()));
+                setNextState(WATER + MOVE);
+                nextLocation = randomWaterCell;
+            } else {
+                nextLocation = this;
             }
-        }
+        } else nextLocation = this;
     }
 
-    public void sharkMove(Grid g){
-        List<int[]> positions = new ArrayList<>();
-        var cnt =0;
-        for(var neighbor : g.getCellsNear(this)) {
-            if(neighbor.getCurrentState() == FISH){
-                positions.add(new int[]{neighbor.getX(), neighbor.getY()});
-                cnt ++;
-            }
-        }
-        if(cnt > 0) { //check if shark can move or not
-            SharkHead = shark.move(positions, cnt); //if can move, assign where to move in sharkHead.
-            this.setNextState(WATER); //if movable, it becomes Water state.
-            if(sharkBreed(g)) this.setNextState(SHARK);
-            energy ++; //shark eats fish so energy up
-        } else {
-            this.setNextState(SHARK); //shark cannot move so just stay current state.
-            energy --; //shark lost its energy cuz it doesn't eat fish
-        }
-
+    private List<Cell> pickFishCells(Grid g) {
+        var neighbors = g.getCellsNear(this);
+        neighbors.removeIf(p -> p.getCurrentState() != FISH);
+        return neighbors;
     }
 
-    public void sharkDead(Grid g){
-        this.setNextState((shark.dead(energy, g)) ? WATER : SHARK);
+    private List<Cell> pickWaterCells(Grid g) {
+        var neighbors = g.getCellsNear(this);
+        neighbors.removeIf(p -> p.getCurrentState() != WATER);
+        return neighbors;
     }
 
+    public Cell getNextLocation() { return nextLocation; }
+    public int getEnergy() { return energy; }
+    public void setEnergy(int energy) { this.energy = energy; }
+    public int getBreedingTime() {return breedingTime;}
+    public void setBreedingTime(int breedingTime) { this.breedingTime = breedingTime;}
 
-    /**
-     *
-     * @param g WaTor grid
-     * @return boolean value if fish reproduces or not
-     */
-    public boolean fishBreed(Grid g){
-        if(getCurrentState() == FISH){
-            if(getNextState() == WATER || getNextState() == FISH) fishChronons ++;
-            else fishChronons --;
-        }
-        if(fishChronons == breedingTime) {
-            fishChronons = 0;
-            return true;
-        }
-        return false;
+    public int getNextBreedingTime() {
+        return nextBreedingTime;
     }
 
-    /**
-     *
-     * @param g WaTor grid
-     * @return boolean value if shark reproduces or not
-     */
-    public boolean sharkBreed(Grid g){
-        if(getCurrentState() == SHARK){
-            if(getNextState() == WATER || getNextState() == SHARK) sharkChronons ++;
-        }else sharkChronons --;
+    public void setNextBreedingTime(int nextBreedingTime) {
+        this.nextBreedingTime = nextBreedingTime;
+    }
 
-        if(sharkChronons == breedingTime){
-            sharkChronons =0;
-            return true;
-        }
-        return false;
+    public int getNextEnergy() {
+        return nextEnergy;
+    }
+
+    public void setNextEnergy(int nextEnergy) {
+        this.nextEnergy = nextEnergy;
     }
 }

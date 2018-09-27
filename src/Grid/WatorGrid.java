@@ -20,7 +20,7 @@ public class WatorGrid extends Grid {
         super(size);
         this.breedingTime = breedingTime;
         this.energy = energy;
-        myCells = new ArrayList<ArrayList<Cell>>();
+         myCells = new ArrayList<ArrayList<WaTorCell>>();
         initializeCells();
     }
 
@@ -35,7 +35,28 @@ public class WatorGrid extends Grid {
             myCells.add(row);
         }
     }
+    @Override
+    public void updateEveryCell() {
+        for(int x = 0; x < size; x++){
+            for(int y = 0; y < size; y++){
+                var cell = myCells.get(x).get(y);
+                cell.checkNeighbors(this);
+                WaTorCell nextLocation = (WaTorCell) ((WaTorCell) cell).getNextLocation();
 
+                nextLocation.setNextState(cell.getNextState());
+                nextLocation.setNextBreedingTime(cell.getBree);
+                if( c instanceof WaTorCell){
+                    nextLocation.setNextBreedingTime(c.ge);
+                }
+            }
+        }
+
+        for(int x = 0; x < size; x++){
+            for(int y = 0; y < size; y++){
+
+            }
+        }
+    }
     public void reset() { //reset
         myCells.clear();
         initializeCells();
@@ -61,7 +82,6 @@ public class WatorGrid extends Grid {
 
         return positions;
     }
-
 
     public List<Cell> getCellsNear(Cell cell){
         List<Cell> nearCells = new ArrayList<Cell>();
