@@ -29,6 +29,7 @@ public class Main extends Application {
     public static final String UI_TEXT = "English";
 
     private UISetup myDisplay;
+    private simGrid myGridDisplay;
 
     @Override
     /**
@@ -43,12 +44,13 @@ public class Main extends Application {
         stage.setTitle(myResources.getString("Title"));
         stage.show();
 
+        myGridDisplay = myDisplay.getMyGrid();
+
         var frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> step(SECOND_DELAY));
         var animation = new Timeline();
         animation.setCycleCount(Timeline.INDEFINITE);
         animation.getKeyFrames().add(frame);
         animation.play();
-
     }
 
     /**
@@ -57,8 +59,9 @@ public class Main extends Application {
      * @param elapsedTime
      */
     private void step(double elapsedTime) {
-
+        myDisplay.tickTock(elapsedTime);
     }
+
 
     public static void main(String[] args) {
         launch(args);

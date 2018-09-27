@@ -1,49 +1,43 @@
 /*
-@author yk154
+@author Amy Kim
  */
 
 package Simulation;
 
-import Grid.Grid;
-
-import java.util.Timer;
-import java.util.TimerTask;
-
+/**
+ * This is Simulation class for handling the buttons and Timer
+ */
 public class Simulation {
-    private Grid grid;
-    private Timer timer;
     private boolean playing;
-    private long interval; // in milliseconds
+    private double timer;
 
-    public Simulation(int row, int col, long interval) {
-        this.interval = interval;
-        timer = new Timer();
+    public Simulation() {
+        timer = 0;
         playing = false;
-        initializeGrid(row, col);
     }
 
-    public void setInterval(long newInterval) {
-        interval = newInterval;
-        if(playing) { stop(); start(); }
+    public boolean isPlaying() {
+        return playing;
     }
 
-    /**
-     * @param row
-     * @param col
-     */
-    public void initializeGrid(int row, int col){
-        // instantiate new grid of (row, col)
+    public void incrementTimer(double duration) {
+        timer += duration;
     }
 
+    public double getTimer() {
+        return timer;
+    }
+
+    public void resetTimer() {
+        timer = 0;
+    }
 
     public void start() {
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() { step(); }
-        }, 0, interval);
+        playing = true;
     }
-    public void stop(){ timer.cancel(); }
 
-    public void step() { grid.updateEveryCell(); }
-
+    public void stop(){
+        playing = false;
+        timer = 0;
+    }
 }

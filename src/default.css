@@ -14,13 +14,51 @@
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
 }
 
-#cellBtn {
+/* Game of Life Cells */
+#greyCell {
     -fx-background-color: #D3D3D3;  /* Grey */
     -fx-border: 1px;
     -fx-border-color: #FFFFFF;
     -fx-border-radius: 0px;
     -fx-background-radius: 0px;
 }
+
+#blueCell {
+    -fx-background-color: #00009C; /* Blue */
+    -fx-border: 1px;
+    -fx-border-color: #FFFFFF;
+    -fx-border-radius: 0px;
+    -fx-background-radius: 0px;
+}
+
+/* Spreading of Fire Cells */
+#greenCell {
+    -fx-background-color: #006009; /* Green */
+    -fx-border: 1px;
+    -fx-border-color: #FFFFFF;
+    -fx-border-radius: 0px;
+    -fx-background-radius: 0px;
+}
+
+#redCell {
+    -fx-background-color: #EF3F00; /* Red/Orange */
+    -fx-border: 1px;
+    -fx-border-color: #FFFFFF;
+    -fx-border-radius: 0px;
+    -fx-background-radius: 0px;
+}
+
+#brownCell {
+    -fx-background-color: #3D3333; /* Brown */
+    -fx-border: 1px;
+    -fx-border-color: #FFFFFF;
+    -fx-border-radius: 0px;
+    -fx-background-radius: 0px;
+}
+
+/* Segregation Cells */
+
+/* Wa-Tor World Cells */
 
 .slider {
     -fx-background: #D3D3D3;
@@ -39,5 +77,11 @@
 }
 
 #speedLbl {
+    -fx-text-fill: #00009C;
+}
+
+#fileName {
+    -fx-font-size: 12pt;
+    -fx-font-family: "Segoe UI Semibold";
     -fx-text-fill: #00009C;
 }

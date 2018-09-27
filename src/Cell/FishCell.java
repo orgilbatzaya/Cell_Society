@@ -1,33 +1,25 @@
 /**
- * @author yk154
+ * @author Amy Kim
  */
 
 package Cell;
 
 import Cell.Cell;
 import Grid.Grid;
+import Grid.WatorGrid;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class FishCell extends Cell {
-    public static final int WATER = 0;
-    public static final int FISH = 1;
-    public static final int SHARK = 2;
-    List<Cell> waterNeig;
+/**
+ * This is class to choose random water position so that fish can move.
+ */
 
-    public FishCell(int stateOne, int x, int y) {
-        super(stateOne, stateOne, x, y);
-    }
+public class FishCell {
 
-
-    @Override
-    public void checkNeighbors(Grid g){
-        for(var neighbor : getMyNeighbors()) {
-            if(neighbor.getCurrentState() == WATER) {
-                waterNeig.add(neighbor);
-            }
-        }
-
+    public int[] move(List<int[]> positions, int cnt) {
+        var random = new Random();
+        int[] nextLoc = positions.get(random.nextInt(cnt)); //store where this fish will move to
+        return nextLoc;
     }
 }
-
