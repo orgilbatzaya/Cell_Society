@@ -5,7 +5,7 @@ import java.util.List;
 
 
 public abstract class Cell {
-    protected int currentState;
+    private int currentState;
     private int nextState;
 
     public Cell(int current, int next){

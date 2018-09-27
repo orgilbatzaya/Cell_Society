@@ -43,6 +43,7 @@ public class FireGrid extends Grid {
         int xPos = cell.getX();
         int yPos = cell.getY();
 
+
         if(inBounds(cell.getX(), cell.getY())){
             positions.add(new int[]{xPos -1, yPos});
             positions.add(new int[]{xPos +1, yPos});

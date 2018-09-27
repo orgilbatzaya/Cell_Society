@@ -33,6 +33,10 @@ public class Grid {
         List<Cell> requiredCells = new ArrayList<>();
         for(List<Cell> row: myCells){
             for(Cell c: row){
+                if (c instanceof Cell.WaTorCell) {
+                    System.out.println("WATOR");
+
+                }
                 if(c.getCurrentState() == emptyVal){
                     requiredCells.add(c);
                 }

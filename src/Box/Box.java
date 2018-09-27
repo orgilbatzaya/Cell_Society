@@ -6,8 +6,9 @@ import Grid.Grid;
 import java.util.List;
 
 public abstract class Box{
-    protected int currentState;
-    private int nextState;
+    private Cell myCell;
+
+
     private int xPos;
     private int yPos;
     public static final int EMPTY = 0;
