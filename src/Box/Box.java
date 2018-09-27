@@ -13,27 +13,24 @@ public abstract class Box{
     private int yPos;
     public static final int EMPTY = 0;
     protected List<Cell> myNeighbors;
+    private Cell myCell;
 
     public Box(int x, int y){
         this.xPos = x;
         this.yPos = y;
+
     }
 
     public int getX(){
         return xPos;
     }
 
-    public void setX(int val){
-        xPos = val;
-    }
+
 
     public int getY(){
         return yPos;
     }
 
-    public void setY(int val){
-        yPos = val;
-    }
 
     public abstract void checkNeighbors(Grid g);
 
@@ -44,7 +41,7 @@ public abstract class Box{
      */
     public void getNeighbors(Grid g){
         List<Cell> temp;
-        temp = g.getCellsNear(this);
+        temp = g.getCellsNear(myCell);
         for(Cell c:temp){
             if(c.getCurrentState() != EMPTY){
                 myNeighbors.add(c);
@@ -86,5 +83,7 @@ public abstract class Box{
         return false;
     }
 
-
+    public Cell getMyCell() {
+        return myCell;
+    }
 }
