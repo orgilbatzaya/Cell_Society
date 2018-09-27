@@ -43,9 +43,7 @@ public class WatorGrid extends Grid {
                 WaTorCell nextLocation = ((WaTorCell) ((WaTorCell) cell).getNextLocation());
 
                 nextLocation.setNextState(cell.getNextState());
-                nextLocation.setNextBreedingTime(cell.getBree)
-
-                cell --> nextLocation
+                nextLocation.setNextBreedingTime(cell.getBree);
             }
         }
 

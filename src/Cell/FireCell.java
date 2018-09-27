@@ -4,6 +4,7 @@
 
 package Cell;
 
+import Box.Box;
 import Grid.*;
 
 import java.util.Random;
