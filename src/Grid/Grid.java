@@ -2,6 +2,7 @@
 package Grid;
 
 import Cell.Cell;
+import Box.Box;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -64,7 +65,7 @@ public class Grid {
      */
     public List<int[]> getNearCellPositions(Cell cell) {
         List<int[]> positions = new ArrayList<>();
-        int xPos = cell.getX();
+        int xPos = box.getX();
         int yPos = cell.getY();
 
         if(inBounds(cell.getX(), cell.getY())){
@@ -111,7 +112,7 @@ public class Grid {
                 cell.setCurrentState(cell.getNextState());
             }
         }
-    };
+    }
 
     public ArrayList<ArrayList<Cell>> getGrid() {
         return myCells;
