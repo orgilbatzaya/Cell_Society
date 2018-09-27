@@ -35,10 +35,10 @@ public class Grid {
         List<Cell> requiredCells = new ArrayList<>();
         for(List<Cell> row: myBoxes){
             for(Cell c: row){
-                if (c instanceof Cell.WaTorCell) {
-                    System.out.println("WATOR");
-
-                }
+//                if (c instanceof Cell.WaTorCell) {
+//                    System.out.println("WATOR");
+//
+//                }
                 if(c.getCurrentState() == emptyVal){
                     requiredCells.add(c);
                 }
