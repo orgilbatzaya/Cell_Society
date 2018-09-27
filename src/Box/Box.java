@@ -24,17 +24,12 @@ public abstract class Box{
         return xPos;
     }
 
-    public void setX(int val){
-        xPos = val;
-    }
+
 
     public int getY(){
         return yPos;
     }
 
-    public void setY(int val){
-        yPos = val;
-    }
 
     public abstract void checkNeighbors(Grid g);
 
@@ -87,5 +82,7 @@ public abstract class Box{
         return false;
     }
 
-
+    public Cell getMyCell() {
+        return myCell;
+    }
 }
