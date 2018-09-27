@@ -1,0 +1,4 @@
+Duplication Refactoring
+Checklist Refactoring
+General Refactoring
+Longest Method Refactoring
