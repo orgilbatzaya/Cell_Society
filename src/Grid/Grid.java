@@ -113,6 +113,7 @@ public class Grid {
         }
     };
 
+
     public ArrayList<ArrayList<Cell>> getGrid() {
         return myCells;
     };
