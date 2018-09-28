@@ -4,9 +4,7 @@
 
 package Grid;
 import Cell.Cell;
-import Cell.WaTorCell;
 
-import java.lang.reflect.Array;
 import java.util.*;
 
 /**
@@ -46,18 +44,25 @@ public class WatorGrid extends Grid {
     public List<Cell> getCellsNear(Cell cell){
         List<Cell> nearCells = new ArrayList<Cell>();
         List<int[]> positions = getNearCellPositions(cell);
-        for(int[] pos:positions){
-            if(inBounds(pos[0], pos[1])){
-                nearCells.add(myCells.get(pos[0]).get(pos[1]));
+        for(int[] pos:positions) {
+            if (pos[0] < 0) {
+                pos[0] = size - 1;
             }
-            else{ //Cell of outBounds goes to opposite side.
-                //Two if statements to find which is out bound btw X or Y.
-                if(pos[0] < 0) nearCells.add(myCells.get(size-1).get(pos[1]));
-                else if(pos[0] >= size) nearCells.add(myCells.get(0).get(pos[1]));
-                else if(pos[1] < 0) nearCells.add(myCells.get(pos[0]).get(size-1));
-                else if(pos[1] >= size) nearCells.add(myCells.get(pos[0]).get(0));
+            if (pos[0] >= size) {
+                pos[0] = 0;
             }
+            if (pos[1] < 0) {
+                pos[1] = size - 1;
+            }
+            if (pos[1] >= size) {
+                pos[1] = 0;
+            }
+            System.out.println(pos[0]);
+            System.out.println(pos[1]);
+            nearCells.add(myCells.get(pos[0]).get(pos[1]));
         }
+
+
         return nearCells;
     }
 

@@ -12,7 +12,7 @@ import java.util.List;
 
 public class Cell {
     protected int currentState;
-    private int nextState;
+    protected int nextState;
     private int xPos;
     private int yPos;
     private int gridSize;
@@ -109,6 +109,7 @@ public class Cell {
     public boolean checkTaken(){
         return false;
     }
+
 
 
 }
