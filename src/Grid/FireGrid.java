@@ -27,7 +27,13 @@ public class FireGrid extends Grid {
             var row = new ArrayList<Cell>();
             for(int j = 0; j < size; j++){
                 var random = new Random();
-                var cell = new FireCell(random.nextInt(2), i, j, prob); //random states
+                var x = random.nextDouble();
+                var y = 0;
+                if(x < 0.1) y = FireCell.FIRE;
+                else if (x <0.8) y = FireCell.TREE;
+                else y = FireCell.GROUND;
+                var cell = new FireCell(y, i, j, prob); //random states
+
                 row.add(cell);
             }
             myCells.add(row);
