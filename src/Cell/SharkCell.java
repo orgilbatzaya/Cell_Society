@@ -27,6 +27,7 @@ public class SharkCell extends Cell{
     private int[] nextPos;
     private int[] babyPos;
     List<Cell> openSpots;
+    private boolean taken;
 
     public SharkCell(int stateOne, int stateTwo, int x, int y, int breedingTime, int energy){
         super(stateOne, stateOne, x, y);
@@ -105,6 +106,6 @@ public class SharkCell extends Cell{
     }
 
     public void setTaken(){
-        
+        taken = true;
     }
 }

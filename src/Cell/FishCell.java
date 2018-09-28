@@ -20,27 +20,34 @@ public class FishCell extends Cell{
     public static final int FISH = 1;
     public static final int WATER = 0;
     private int breedingTime;
+    private int breedingTimeSaved;
     private Random random;
     List<Cell> openSpots;
+    private int[] nextPos;
     private int[] babyPos;
+    private boolean taken;
 
 
 
-
-    public FishCell(int stateOne, int stateTwo, int x, int y, int breedingTime, int energy){
+    public FishCell(int stateOne, int stateTwo, int x, int y, int breedingTime){
         super(stateOne, stateOne, x, y);
         this.breedingTime = breedingTime;
+        this.breedingTimeSaved = breedingTime;
         myNeighbors = new ArrayList<Cell>();
         random = new Random();
     }
 
 
-    public void fishMove(){
+    public void move(){
         breedingTime--;
+        openSpots = findOpenSpots();
+
         if(openSpots.size() > 0){
             int choice = random.nextInt(openSpots.size());
             Cell goTo = openSpots.get(choice);
             openSpots.remove(choice);
+            nextPos[0] = goTo.getX();
+            nextPos[1] = goTo.getY();
             nextState = WATER;
         }
         breed();
@@ -57,11 +64,6 @@ public class FishCell extends Cell{
         return open;
     }
 
-
-
-    /**
-     *
-     */
     public void breed(){
         int choice = random.nextInt(openSpots.size());
         if(breedingTime == 0){
@@ -69,6 +71,14 @@ public class FishCell extends Cell{
             babyPos[0] = baby.getX();
             babyPos[1] = baby.getY();
         }
+    }
+
+    public void resetEnergyAndBreed(){
+        breedingTime = breedingTimeSaved;
+    }
+
+    public void setTaken(){
+        taken = true;
     }
 
 }
