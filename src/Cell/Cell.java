@@ -58,8 +58,6 @@ public class Cell {
         nextState = state;
     }
 
-    public void checkNeighbors(Grid g) {
-    }
 
     /**
      * Currently only used by Segregation (SegGrid). Depends on Grid's getCellsNear(Cell) method.

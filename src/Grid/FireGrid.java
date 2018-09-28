@@ -35,6 +35,31 @@ public class FireGrid extends Grid {
         }
     }
 
+
+    /**
+     *
+     * @param cell
+     *
+     * it checks current State so that set Next State.
+     */
+    public void checkNeighbors(Cell cell) {
+        if(cell.getCurrentState() == FireCell.GROUND || cell.getCurrentState() == FireCell.FIRE) cell.setNextState(FireCell.GROUND);
+        else {
+            var cnt = 0; //counting how many neighbor Fire.
+            for(var neighbor : getCellsNear(cell)) {
+                if(neighbor.getCurrentState() == FireCell.FIRE) cnt ++;
+            }
+
+            if(cnt > 0) {
+                var random = new Random();
+                if(random.nextDouble() < prob) {
+                    cell.setNextState(FireCell.FIRE); //if less that probability, next state will be fire
+                    return;
+                }
+            } cell.setNextState(FireCell.TREE); //otherwise, it keeps tree state
+        }
+    }
+
     public void reset() {
         myCells.clear();
         initializeCells();
