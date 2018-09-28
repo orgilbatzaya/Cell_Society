@@ -164,7 +164,7 @@ public class UISetup {
             simParams.put("satisfaction", xmlParser.getParameter("satisfaction"));
         }
         else if(simType.equals("Fire")) {
-            // do the same shit as segregation
+            simParams.put("probability", xmlParser.getParameter("probability"));
         }
         else if(simType.equals("WaTor")) {
             // do the same

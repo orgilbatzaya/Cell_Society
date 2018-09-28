@@ -52,7 +52,7 @@ public class simGrid {
             myGrid = new LifeGrid(gridDim);
         }
         else if(myType.equals("Fire")) {
-            myGrid = new FireGrid(gridDim, 0.7);
+            myGrid = new FireGrid(gridDim, myParams.get("probability"));
         }
         else if(myType.equals("Seg")) {
             myGrid = new SegGrid(gridDim, myParams.get("satisfaction").intValue(), 0.50, 0.40);
