@@ -73,19 +73,6 @@ public class Cell {
             }
         }
     }
-    /**
-     * Currently only implemented in Segregation (SegGrid).
-     */
-    public boolean isSatisfied(){
-        return false;
-    }
-
-    /**
-     * Currently only used by Segregation (SegGrid).
-     */
-    public void clearNeighbors(){
-        myNeighbors.clear();
-    }
 
     /**
      * Currently only implemented in Segregation (SegGrid).

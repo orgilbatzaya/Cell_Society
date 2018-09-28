@@ -7,6 +7,7 @@ package Grid;
 import Cell.*;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -38,6 +39,27 @@ public class FireGrid extends Grid {
             }
             myCells.add(row);
         }
+    }
+
+    /**
+     * Given some Cell in the Grid, finds and stores all (4) adjacent positions
+     * regardless of whether these positions are bounded
+     * @param cell Cell object
+     * @return List of int arrays
+     */
+    @Override
+    public List<int[]> getNearCellPositions(Cell cell) {
+        List<int[]> positions = new ArrayList<>();
+        int xPos = cell.getX();
+        int yPos = cell.getY();
+
+        if(inBounds(cell.getX(), cell.getY())){
+            positions.add(new int[]{xPos -1, yPos});//sides
+            positions.add(new int[]{xPos +1, yPos});
+            positions.add(new int[]{xPos, yPos-1});
+            positions.add(new int[]{xPos, yPos+1});
+        }
+        return positions;
     }
 
     /**

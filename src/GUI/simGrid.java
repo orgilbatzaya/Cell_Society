@@ -6,6 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import java.util.ArrayList;
+import java.util.Map;
 
 /**
  * simGrid
@@ -21,6 +22,7 @@ public class simGrid {
     private int gridDim;
     private ArrayList<ArrayList<Cell>> myCells;
     private Grid myGrid;
+    private Map<String, Double> myParams;
 
     public final double gridSpace = 500.00;
 
@@ -31,9 +33,10 @@ public class simGrid {
      * @param type, type of simulation to run
      * @param border, BorderPane object to add Grid to
      */
-    public simGrid(int n, String type, BorderPane border) {
+    public simGrid(int n, String type, Map<String, Double> params, BorderPane border) {
         gridDim = n;
         myType = type;
+        myParams = params;
 
         this.choseGrid();
 
@@ -52,7 +55,7 @@ public class simGrid {
             myGrid = new FireGrid(gridDim, 0.7);
         }
         else if(myType.equals("Seg")) {
-            myGrid = new SegGrid(gridDim, 60, 0.50, 0.40);
+            myGrid = new SegGrid(gridDim, myParams.get("satisfaction").intValue(), 0.50, 0.40);
         }
 //        if(myType.equals("WaTor")) {
 //            myGrid = new WatorGrid(gridDim, 20, 10);

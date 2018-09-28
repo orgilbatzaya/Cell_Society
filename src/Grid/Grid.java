@@ -109,9 +109,16 @@ public abstract class Grid {
             for(int y = 0; y < size; y++){
                 Cell cell = myCells.get(x).get(y);
                 checkNeighbors(cell);
+            }
+        }
+        for(int x = 0; x < size; x++){
+            for(int y = 0; y < size; y++){
+                Cell cell = myCells.get(x).get(y);
                 cell.setCurrentState(cell.getNextState());
             }
         }
+
+
     };
 
     public abstract void checkNeighbors(Cell cell);

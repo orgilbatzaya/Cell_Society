@@ -33,21 +33,21 @@ public class SegregationCell extends Cell {
         myNeighbors = new ArrayList<Cell>();
     }
 
-    public double getCurrentSatisfied(){
-        return currentSatisfied;
-    }
-
-    public List<Cell> getMyNeighbors(){
-        return myNeighbors;
-    }
 
     /**
      * Must be at least mySatisfaction satisfied to not move itself
      * @return
      */
-    @Override
     public boolean isSatisfied(){
-        return currentSatisfied >= mySatisfaction;
+        return currentSatisfied*100 >= mySatisfaction;
+    }
+
+    public void updateSatisfaction(List<Cell> neighbors) {
+        int cnt = 0;
+        for(var n: neighbors) {
+            if(n.getCurrentState() == currentState) cnt ++;
+        }
+        currentSatisfied = cnt/((double) neighbors.size());
     }
 
     @Override
@@ -62,6 +62,4 @@ public class SegregationCell extends Cell {
     public boolean checkTaken(){
         return taken;
     }
-
-
 }
