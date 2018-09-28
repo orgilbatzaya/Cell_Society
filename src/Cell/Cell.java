@@ -58,8 +58,6 @@ public class Cell {
         nextState = state;
     }
 
-    public void checkNeighbors(Grid g) {
-    }
 
     /**
      * Currently only used by Segregation (SegGrid). Depends on Grid's getCellsNear(Cell) method.
@@ -74,19 +72,6 @@ public class Cell {
                 myNeighbors.add(c);
             }
         }
-    }
-    /**
-     * Currently only implemented in Segregation (SegGrid).
-     */
-    public boolean isSatisfied(){
-        return false;
-    }
-
-    /**
-     * Currently only used by Segregation (SegGrid).
-     */
-    public void clearNeighbors(){
-        myNeighbors.clear();
     }
 
     /**

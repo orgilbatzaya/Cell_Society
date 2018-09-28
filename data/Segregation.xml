@@ -4,7 +4,7 @@
         <size>10</size>
     </grid>
     <special>
-        <satisfaction>0.75</satisfaction>
+        <satisfaction>30</satisfaction>
         <empty>0.20</empty>
         <red>0.40</red>
     </special>

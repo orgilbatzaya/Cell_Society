@@ -33,39 +33,21 @@ public class SegregationCell extends Cell {
         myNeighbors = new ArrayList<Cell>();
     }
 
-    public List<Cell> getMyNeighbors(){
-        return myNeighbors;
-    }
-
-    /**
-     * Overrides checkNeighbors() in Cell
-     * Calculates currentSatisfied, which is the proportion of neighbor Cells
-     * having the same currentState to all neighbors Cells
-     * @param g
-     */
-    @Override
-    public void checkNeighbors(Grid g) {
-        int happyCells = 0;
-        for(int i = 0; i < myNeighbors.size(); i++) {
-            if(currentState == myNeighbors.get(i).getCurrentState()){
-                happyCells ++;
-            }
-        }
-        if(myNeighbors.size() > 0) {
-            currentSatisfied = 100.0*happyCells / myNeighbors.size();
-        }
-        if(myNeighbors.size() == 0){
-            currentSatisfied = 100;
-        }
-    }
 
     /**
      * Must be at least mySatisfaction satisfied to not move itself
      * @return
      */
-    @Override
     public boolean isSatisfied(){
-        return currentSatisfied >= mySatisfaction;
+        return currentSatisfied*100 >= mySatisfaction;
+    }
+
+    public void updateSatisfaction(List<Cell> neighbors) {
+        int cnt = 0;
+        for(var n: neighbors) {
+            if(n.getCurrentState() == currentState) cnt ++;
+        }
+        currentSatisfied = cnt/((double) neighbors.size());
     }
 
     @Override
@@ -80,12 +62,4 @@ public class SegregationCell extends Cell {
     public boolean checkTaken(){
         return taken;
     }
-
-    public double getMySatisfaction(){
-        return currentSatisfied;
-    }
-
-
-
-
 }

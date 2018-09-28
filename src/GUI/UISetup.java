@@ -10,6 +10,9 @@ import javafx.scene.paint.Paint;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.geometry.Insets;
+
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 
@@ -45,6 +48,9 @@ public class UISetup {
     private int gridSize;
     private int borderSpace = 10;
 
+    private Map<String, Double> simParams;
+
+
     /**
      * Constructor
      *
@@ -62,6 +68,7 @@ public class UISetup {
 
         simType = DEFAULT_TYPE;
         gridSize = DEFAULT_GRID;
+        simParams = new HashMap<>();
     }
 
     /**
@@ -80,7 +87,7 @@ public class UISetup {
             myGrid.updateGrid();
         });
 
-        myGrid = new simGrid(gridSize, simType, myBorder);
+        myGrid = new simGrid(gridSize, simType, simParams, myBorder);
     }
 
     /**
@@ -150,18 +157,18 @@ public class UISetup {
         xmlParser.readFile();
         simType = xmlParser.getSimulation();
         gridSize = xmlParser.getGridSize();
-//        if(simType.equals("Life")) {
-//
-//        }
-//        else if(simType.equals("Seg")) {
-//
-//        }
-//        else if(simType.equals("Fire")) {
-//
-//        }
-//        else if(simType.equals("WaTor")) {
-//
-//        }
+        if(simType.equals("Life")) {
+            // no parameters!
+        }
+        else if(simType.equals("Seg")) {
+            simParams.put("satisfaction", xmlParser.getParameter("satisfaction"));
+        }
+        else if(simType.equals("Fire")) {
+            simParams.put("probability", xmlParser.getParameter("probability"));
+        }
+        else if(simType.equals("WaTor")) {
+            // do the same
+        }
 //        else {
 //            //TODO: throw exception
 //            System.out.println("Exception");
