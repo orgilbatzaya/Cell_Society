@@ -51,9 +51,9 @@ public class simGrid {
         else if(myType.equals("Fire")) {
             myGrid = new FireGrid(gridDim, 0.7);
         }
-//        else if(myType.equals("Seg")) {
-//            myGrid = new SegGrid(gridDim, 60, 0.50, 0.40);
-//        }
+        else if(myType.equals("Seg")) {
+            myGrid = new SegGrid(gridDim, 60, 0.50, 0.40);
+        }
 //        if(myType.equals("WaTor")) {
 //            myGrid = new WatorGrid(gridDim, 20, 10);
 //        }
@@ -122,17 +122,17 @@ public class simGrid {
                 temp.setId("brownCell");
             }
         }
-//        else if(myType.equals("Seg")) {
-//            if(tempCell.getCurrentState() == SegregationCell.RED) {
-//                temp.setId("redCell");
-//            }
-//            else if(tempCell.getCurrentState() == SegregationCell.BLUE) {
-//                temp.setId("blueCell");
-//            }
-//            else {
-//                temp.setId("greyCell");
-//            }
-//        }
+        else if(myType.equals("Seg")) {
+            if(tempCell.getCurrentState() == SegregationCell.RED) {
+                temp.setId("redCell");
+            }
+            else if(tempCell.getCurrentState() == SegregationCell.BLUE) {
+                temp.setId("blueCell");
+            }
+            else {
+                temp.setId("greyCell");
+            }
+        }
 //        else if(myType.equals("WaTor")) {
 //            if(tempCell.getCurrentState() == WaTorCell.SHARK ) {
 //                temp.setId("greyCell");

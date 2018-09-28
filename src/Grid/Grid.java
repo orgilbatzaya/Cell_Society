@@ -12,7 +12,7 @@ import java.util.List;
  * Assumes existence of a collection of Cell objects
  */
 
-public class Grid {
+public abstract class Grid {
     protected int size;
     protected ArrayList<ArrayList<Cell>> myCells;
 
@@ -114,7 +114,7 @@ public class Grid {
         }
     };
 
-    public void checkNeighbors(Cell cell){}
+    public abstract void checkNeighbors(Cell cell);
 
     public ArrayList<ArrayList<Cell>> getGrid() {
         return myCells;

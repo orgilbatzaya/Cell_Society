@@ -6,7 +6,6 @@ package Grid;
 
 import Cell.*;
 
-import java.util.List;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -28,13 +27,12 @@ public class FireGrid extends Grid {
             var row = new ArrayList<Cell>();
             for(int j = 0; j < size; j++){
                 var random = new Random();
-                var cell = new FireCell(random.nextInt(3), i, j, prob); //random states
+                var cell = new FireCell(random.nextInt(2), i, j, prob); //random states
                 row.add(cell);
             }
             myCells.add(row);
         }
     }
-
 
     /**
      *
@@ -42,6 +40,7 @@ public class FireGrid extends Grid {
      *
      * it checks current State so that set Next State.
      */
+    @Override
     public void checkNeighbors(Cell cell) {
         if(cell.getCurrentState() == FireCell.GROUND || cell.getCurrentState() == FireCell.FIRE) cell.setNextState(FireCell.GROUND);
         else {
