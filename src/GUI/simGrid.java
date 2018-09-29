@@ -94,7 +94,6 @@ public class simGrid {
      */
     public void changeState(Cell tempCell){
         var user_changed = tempCell.getCurrentState() + 1;
-        System.out.println("change!");
         if(tempCell.getCurrentState() == tempCell.getMaxState()){ // when it reaches the max value of states.
             tempCell.setCurrentState(0);
             return;
@@ -113,9 +112,7 @@ public class simGrid {
    public void  updateCell(Cell tempCell, Button temp) {
        temp.setOnAction(value -> {
                    changeState(tempCell);
-                   System.out.println("clicked");
                    setCellColor(tempCell, temp);
-                   System.out.println("initialize");
                });
    }
 

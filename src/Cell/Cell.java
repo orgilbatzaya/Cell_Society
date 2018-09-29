@@ -95,6 +95,11 @@ public abstract class Cell {
         return false;
     }
 
+
+    /**
+     * currently return 0
+     * @return the max value of states.
+     */
     public int getMaxState() {return 0;}
 
 }
