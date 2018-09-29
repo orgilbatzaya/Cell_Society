@@ -52,7 +52,7 @@ public class simGrid {
             myGrid = new FireGrid(gridDim, 0.7);
         }
         else if(myType.equals("Seg")) {
-            myGrid = new SegGrid(gridDim, 100, 0.50, 0.40);
+            myGrid = new SegGrid(gridDim, 60, 0.50, 0.40);
         }
         if(myType.equals("WaTor")) {
             myGrid = new WatorGrid(gridDim, .25, .40, 4, 2);
@@ -134,10 +134,10 @@ public class simGrid {
             }
         }
         else if(myType.equals("WaTor")) {
-            if(tempCell.getCurrentState() == FishCell.FISH ) {
+            if(tempCell.getCurrentState() == WatorCell.FISH ) {
                 temp.setId("blueCell");
             }
-            else if(tempCell.getCurrentState() == FishCell.WATER) {
+            else if(tempCell.getCurrentState() == WatorCell.WATER) {
                 temp.setId("greyCell");
             }
             else {
