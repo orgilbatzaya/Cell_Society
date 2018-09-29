@@ -75,7 +75,6 @@ public abstract class Cell {
         }
     }
 
-
     /**
      * currently return 0
      * @return the max value of states.

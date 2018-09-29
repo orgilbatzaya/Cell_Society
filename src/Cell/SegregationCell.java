@@ -13,7 +13,6 @@ import java.util.List;
 public class SegregationCell extends Cell {
     private double currentSatisfied; //variable
     private double mySatisfaction; //set for all SegregationCells in a certain simulation
-    private boolean taken = false;
     public static final int RED = 1;
     public static final int BLUE = 2;
     public static final int EMPTY = 0;
@@ -51,18 +50,6 @@ public class SegregationCell extends Cell {
             if(n.getCurrentState() != EMPTY) nonEmpty ++;
         }
         currentSatisfied = cnt/((double) nonEmpty);
-    }
-
-    public void setTaken(){
-        taken = true;
-    }
-
-    public void unTaken(){
-        taken = false;
-    }
-
-    public boolean checkTaken(){
-        return taken;
     }
 
     public int getMaxState() {
