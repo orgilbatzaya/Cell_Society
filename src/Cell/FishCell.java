@@ -1,5 +1,5 @@
 /**
- * @author Amy Kim
+ * @author Orgil Batzaya, Amy Kim
  */
 
 package Cell;
@@ -29,9 +29,6 @@ public class FishCell extends Cell{
     private boolean moving = false;
     private boolean birthing = false;
 
-
-
-
     public FishCell(int stateOne, int stateTwo, int x, int y, int breedingTime){
         super(stateOne, stateOne, x, y);
         this.breedingTime = breedingTime;
@@ -42,12 +39,10 @@ public class FishCell extends Cell{
         random = new Random();
     }
 
-
     public void move(){
         breedingTime--;
         openSpots = findOpenSpots();
 
-        //System.out.println(myNeighbors.size());
         if(openSpots.size() > 0 && !taken){
             moving = true;
             int choice = random.nextInt(openSpots.size());
@@ -63,7 +58,7 @@ public class FishCell extends Cell{
 
     }
 
-    public ArrayList<Cell> findOpenSpots(){
+    private ArrayList<Cell> findOpenSpots(){
         ArrayList<Cell> open = new ArrayList<Cell>();
         for(var neighbor: myNeighbors){
             if(neighbor.getCurrentState() == WATER){
@@ -73,7 +68,7 @@ public class FishCell extends Cell{
         return open;
     }
 
-    public void breed(){
+    private void breed(){
         if (breedingTime <= 0 && openSpots.size() > 0) {
             birthing = true;
             int choice = random.nextInt(openSpots.size());
@@ -106,19 +101,16 @@ public class FishCell extends Cell{
     public int[] getBabyPos(){
         return babyPos;
     }
+
     @Override
     public void getNeighbors(Grid g){
         List<Cell> temp;
         temp = g.getCellsNear(this);
         for(Cell c:temp){
             myNeighbors.add(c);
-
         }
     }
 
-    public void resetNextState(){
-        nextState = currentState;
-    }
 
     public boolean checkTaken(){
         return taken;

@@ -1,5 +1,5 @@
 /**
- * @author Amy Kim
+ * @author Orgil Batzaya, Amy Kim
  */
 
 package Cell;
@@ -20,16 +20,16 @@ public class SharkCell extends Cell{
     public static final int FISH = 1;
     public static final int WATER = 0;
     private int energy;
-    private int breedingTime;
     private int energySaved;
+    private int breedingTime;
     private int breedingTimeSaved;
     private List<Cell> myFish;
     private Random random;
     private int[] nextPos;
     private int[] babyPos;
     List<Cell> openSpots;
-    private boolean taken = false;
     private boolean feeding;
+    private boolean taken = false;
     private boolean moving = false;
     private boolean birthing = false;
 
@@ -43,7 +43,6 @@ public class SharkCell extends Cell{
         nextPos = new int[]{x,y};
         babyPos = new int[]{x,y};
         random = new Random();
-
     }
 
     public void move(){
@@ -69,7 +68,7 @@ public class SharkCell extends Cell{
 
     }
 
-    public ArrayList<Cell> findOpenSpots(){
+    private ArrayList<Cell> findOpenSpots(){
         ArrayList<Cell> open = new ArrayList<Cell>();
         for(var neighbor: myNeighbors){
             if(neighbor.getCurrentState() == WATER){
@@ -79,7 +78,7 @@ public class SharkCell extends Cell{
         return open;
     }
 
-    public void eatFish(){
+    private void eatFish(){
         myFish = new ArrayList<Cell>();
         for(var neighbor : myNeighbors) {
             if(neighbor.getCurrentState() == FISH && !neighbor.checkTaken()){
@@ -98,7 +97,7 @@ public class SharkCell extends Cell{
         }
     }
 
-    public void breed(){
+    private void breed(){
         if (breedingTime <= 0 && openSpots.size() > 0) {
             birthing = true;
             int choice = random.nextInt(openSpots.size());
@@ -108,7 +107,16 @@ public class SharkCell extends Cell{
         }
     }
 
-    public void checkAlive(){
+    @Override
+    public void getNeighbors(Grid g){
+        List<Cell> temp;
+        temp = g.getCellsNear(this);
+        for(Cell c:temp){
+            myNeighbors.add(c);
+        }
+    }
+
+    private void checkAlive(){
         if(energy <= 0){
             nextState = WATER;
         }
@@ -119,12 +127,20 @@ public class SharkCell extends Cell{
         energy = energySaved;
     }
 
+    public int getBreedingTime(){
+        return breedingTime;
+    }
+
     public void setTaken(){
         taken = true;
     }
 
     public void unTaken(){
         taken = false;
+    }
+
+    public boolean checkTaken(){
+        return taken;
     }
 
     public int[] getNextPos(){
@@ -151,31 +167,11 @@ public class SharkCell extends Cell{
         birthing = false;
     }
 
-
-    @Override
-    public void getNeighbors(Grid g){
-        List<Cell> temp;
-        temp = g.getCellsNear(this);
-        for(Cell c:temp){
-            myNeighbors.add(c);
-        }
-    }
-
-    public void resetNextState(){
-        nextState = currentState;
-    }
-
-    public boolean checkTaken(){
-        return taken;
-    }
-
     public int getEnergy(){
         return energy;
     }
 
-    public int getBreedingTime(){
-        return breedingTime;
-    }
+
 
 
 
