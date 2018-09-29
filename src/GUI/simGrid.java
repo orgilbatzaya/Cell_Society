@@ -78,8 +78,9 @@ public class simGrid {
                 temp.setMaxSize(gridSpace/gridDim, gridSpace/gridDim);
                 Cell tempCell = myCells.get(row).get(col);
 
-                setCellColor(tempCell, temp);
+                updateCell(tempCell, temp);
 
+                setCellColor(tempCell, temp);
 
                 myGP.add(temp, col, row, 1, 1);
             }
@@ -88,23 +89,35 @@ public class simGrid {
     }
 
     /**
-     * Allow users to interact with the simulation dynamically to create or change a state at a grid location
+     *  this function helps to change a state at a grid location.
+     *  If it reaches the value which is the max int of state, it becomes the state which is 0.
      */
-    private void changeState(Cell cell){
-        var user_changed = cell.getCurrentState() + 1;
-        if(cell.getCurrentState() == cell.getMaxState() ){
-            cell.setNextState(0);
+    public void changeState(Cell tempCell){
+        var user_changed = tempCell.getCurrentState() + 1;
+        System.out.println("change!");
+        if(tempCell.getCurrentState() == tempCell.getMaxState()){ // when it reaches the max value of states.
+            tempCell.setCurrentState(0);
             return;
         }
-        cell.setNextState(user_changed);
+        tempCell.setCurrentState(user_changed);
+
     }
 
 
-//   private void  updateCell(Cell cell) {
-//        cell.setOnAction(value -> {
-//            changeState();
-//        }
-//   }
+    /**
+     * Allow users to interact with the simulation dynamically to create or change a state at a grid location
+     * @param tempCell this is Cell which the user clicked
+     * @param temp now btn but will be shape later
+     */
+    // TO DO: change btn to shape later
+   public void  updateCell(Cell tempCell, Button temp) {
+       temp.setOnAction(value -> {
+                   changeState(tempCell);
+                   System.out.println("clicked");
+                   setCellColor(tempCell, temp);
+                   System.out.println("initialize");
+               });
+   }
 
     /**
      * updates simulation grid
