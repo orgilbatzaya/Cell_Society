@@ -13,7 +13,8 @@ import java.util.Map;
  *
  * creates GridPane object
  *
- * @author Brooke Keene, Amy Kim
+ * @author Brooke Keene,
+ * @author Amy Kim
  */
 public class simGrid {
     private GridPane myGP;
