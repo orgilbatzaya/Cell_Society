@@ -13,7 +13,7 @@ import java.util.Map;
  *
  * creates GridPane object
  *
- * @author Brooke Keene
+ * @author Brooke Keene, Amy Kim
  */
 public class simGrid {
     private GridPane myGP;
@@ -87,6 +87,24 @@ public class simGrid {
         myBorder.setCenter(myGP);
     }
 
+    /**
+     * Allow users to interact with the simulation dynamically to create or change a state at a grid location
+     */
+    private void changeState(Cell cell){
+        var user_changed = cell.getCurrentState() + 1;
+        if(cell.getCurrentState() == cell.getMaxState() ){
+            cell.setNextState(0);
+            return;
+        }
+        cell.setNextState(user_changed);
+    }
+
+
+//   private void  updateCell(Cell cell) {
+//        cell.setOnAction(value -> {
+//            changeState();
+//        }
+//   }
 
     /**
      * updates simulation grid

@@ -16,4 +16,9 @@ public class LifeCell extends Cell {
     public LifeCell(int alive, int x, int y) {
         super(alive, alive, x, y);
     }
+
+    @Override
+    public int getMaxState() {
+        return DEAD;
+    }
 }

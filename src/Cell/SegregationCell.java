@@ -65,4 +65,8 @@ public class SegregationCell extends Cell {
     public boolean checkTaken(){
         return taken;
     }
+    @Override
+    public int getMaxState() {
+        return BLUE;
+    }
 }

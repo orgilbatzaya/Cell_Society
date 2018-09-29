@@ -10,7 +10,7 @@ import java.util.List;
  * getNeighbors() and checkNeighbors() require a Grid object
  */
 
-public class Cell {
+public abstract class Cell {
     protected int currentState;
     private int nextState;
     private int xPos;
@@ -95,5 +95,6 @@ public class Cell {
         return false;
     }
 
+    public int getMaxState() {return 0;}
 
 }
