@@ -1,21 +1,12 @@
-/**
- * @author Orgil Batzaya, Amy Kim
- */
-
 package Cell;
 
 import Grid.*;
-
 import java.util.Arrays;
 import java.util.Random;
 import java.util.ArrayList;
 import java.util.List;
 
-
-/**
- * SharkCell Class for choosing random fish that shark can go and eat that fish.
- */
-public class SharkCell extends Cell{
+public class WatorCell extends Cell {
     public static final int SHARK = 2;
     public static final int FISH = 1;
     public static final int WATER = 0;
@@ -33,7 +24,7 @@ public class SharkCell extends Cell{
     private boolean moving = false;
     private boolean birthing = false;
 
-    public SharkCell(int stateOne, int stateTwo, int x, int y, int breedingTime, int energy){
+    public WatorCell(int stateOne, int stateTwo, int x, int y, int breedingTime, int energy){
         super(stateOne, stateOne, x, y);
         this.breedingTime = breedingTime;
         this.breedingTimeSaved = breedingTime;
@@ -47,25 +38,16 @@ public class SharkCell extends Cell{
 
     public void move(){
         breedingTime--;
-        energy--;
-        checkAlive();
-
+        if(currentState == SHARK){
+            sharkUpdate();
+        }
         openSpots = findOpenSpots();
-        eatFish();
         if(!feeding && openSpots.size() > 0 && energy > 0){
-            moving = true;
-            int choice = random.nextInt(openSpots.size());
-            Cell goTo = openSpots.get(choice);
-            goTo.setTaken();
-            openSpots.remove(choice);
-            nextPos[0] = goTo.getX();
-            nextPos[1] = goTo.getY();
-            nextState = WATER;
+            chooseNextPos(openSpots);
         }
         breed();
         feeding = false;
         openSpots.clear();
-
     }
 
     private ArrayList<Cell> findOpenSpots(){
@@ -78,6 +60,24 @@ public class SharkCell extends Cell{
         return open;
     }
 
+    private void sharkUpdate(){
+        energy--;
+        checkAlive();
+        eatFish();
+    }
+
+    private void chooseNextPos(List<Cell> spots){
+        int choice = random.nextInt(spots.size());
+        Cell goTo = spots.get(choice);
+        goTo.setTaken();
+        moving = true;
+        nextPos[0] = goTo.getX();
+        nextPos[1] = goTo.getY();
+        nextState = WATER;
+        spots.remove(choice);
+    }
+
+
     private void eatFish(){
         myFish = new ArrayList<Cell>();
         for(var neighbor : myNeighbors) {
@@ -86,14 +86,9 @@ public class SharkCell extends Cell{
             }
         }
         if(myFish.size() > 0 && energy > 0){
-            Cell eatenFish = (FishCell) myFish.get(random.nextInt(myFish.size()));
-            eatenFish.setTaken();
-            moving = true;
-            nextPos[0] = eatenFish.getX();
-            nextPos[1] = eatenFish.getY();
+            chooseNextPos(myFish);
             feeding = true;
             energy++;
-            nextState = WATER;
         }
     }
 
@@ -170,9 +165,5 @@ public class SharkCell extends Cell{
     public int getEnergy(){
         return energy;
     }
-
-
-
-
 
 }

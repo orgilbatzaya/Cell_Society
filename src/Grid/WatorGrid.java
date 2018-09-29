@@ -4,9 +4,7 @@
 
 package Grid;
 import Cell.Cell;
-import Cell.SharkCell;
-import Cell.FishCell;
-
+import Cell.WatorCell;
 import java.util.*;
 
 /**
@@ -37,13 +35,8 @@ public class WatorGrid extends Grid {
         for(int i = 0; i < size; i++){
             var row = new ArrayList<Cell>();
             for(int j = 0; j < size; j++){
-                Cell cell;
                 int state = states.pop();
-                if(state == SHARK) {
-                    cell = new SharkCell(state, state, i, j, breedingTime, energy);
-                } else { //state is either fish or water
-                    cell = new FishCell(state, state, i, j, breedingTime);
-                }
+                Cell cell = new WatorCell(state, state, i, j, breedingTime, energy);
                 row.add(cell);
             }
             myCells.add(row);
@@ -122,11 +115,7 @@ public class WatorGrid extends Grid {
         var aliveCells = getAliveCells();
         for(Cell cell: aliveCells) {
             cell.getNeighbors(this);
-            if(cell.getCurrentState() == SHARK){
-                ((SharkCell) cell).move();
-            } else {
-                ((FishCell) cell).move();
-            }
+            ((WatorCell) cell).move();
             if (cell.isMoving()) {
                 reposition(cell);
             }
@@ -142,32 +131,17 @@ public class WatorGrid extends Grid {
     }
 
     public void reposition(Cell cell){
-        int[] newPos;
-        Cell replacement;
-        if(cell.getCurrentState() == SHARK) {
-            newPos = ((SharkCell) cell).getNextPos();
-            replacement = new SharkCell(SHARK, SHARK, newPos[0], newPos[1], ((SharkCell) cell).getBreedingTime(), ((SharkCell) cell).getEnergy());
-
-        } else {
-            newPos = ((FishCell) cell).getNextPos();
-            replacement = new FishCell(FISH, FISH, newPos[0], newPos[1], ((FishCell) cell).getBreedingTime());
-        }
+        int[] newPos = ((WatorCell) cell).getNextPos();
+        int state = cell.getCurrentState();
+        Cell replacement = new WatorCell(state, state, newPos[0], newPos[1], ((WatorCell) cell).getBreedingTime(), ((WatorCell) cell).getEnergy());
         myCells.get(newPos[0]).set(newPos[1], replacement);
     }
 
     public void birth(Cell cell){
-        int[] babyPos;
-        Cell replacement;
-        if(cell.getCurrentState() == SHARK) {
-            babyPos = ((SharkCell) cell).getBabyPos();
-            ((SharkCell) cell).resetEnergyAndBreed();
-            replacement = new SharkCell(SHARK, SHARK, babyPos[0], babyPos[1], breedingTime, energy);
-
-        } else {
-            babyPos = ((FishCell) cell).getBabyPos();
-            ((FishCell) cell).resetEnergyAndBreed();
-            replacement = new FishCell(FISH, FISH, babyPos[0], babyPos[1], breedingTime);
-        }
+        int[] babyPos = ((WatorCell) cell).getBabyPos();
+        int state = cell.getCurrentState();
+        ((WatorCell) cell).resetEnergyAndBreed();
+        Cell replacement = new WatorCell(state, state, babyPos[0], babyPos[1], breedingTime, energy);
         myCells.get(babyPos[0]).set(babyPos[1], replacement);
     }
 
