@@ -39,7 +39,6 @@ public class SegregationCell extends Cell {
      * @return
      */
     public boolean isSatisfied(){
-        System.out.println("current: " +currentSatisfied*100 + " > mySatisfaction" + mySatisfaction);
         return currentSatisfied*100 >= mySatisfaction;
     }
 
