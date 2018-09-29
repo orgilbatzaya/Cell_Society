@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author ob29
+ * @author ob29, Amy Kim
  * Superclass for Grid objects
  * Containing shared fields/methods among all Grids.
  * Assumes existence of a collection of Cell objects

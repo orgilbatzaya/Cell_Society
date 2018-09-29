@@ -96,7 +96,12 @@ public class SegGrid extends Grid {
             target.get(i).setNextState(values.get(i));
         }
 
-        super.updateEveryCell();
+        for(int x = 0 ; x < size ; x ++) {
+            for(int y = 0 ; y < size ; y ++) {
+                Cell cell = myCells.get(x).get(y);
+                cell.setCurrentState(cell.getNextState());
+            }
+        }
         checkStats();
     }
 

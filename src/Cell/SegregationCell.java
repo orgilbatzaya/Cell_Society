@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author ob29
+ * @author ob29, Amy Kim
  * Sub Cell class for Segregation Simulation
  */
 
@@ -39,15 +39,18 @@ public class SegregationCell extends Cell {
      * @return
      */
     public boolean isSatisfied(){
+        System.out.println("current: " +currentSatisfied*100 + " > mySatisfaction" + mySatisfaction);
         return currentSatisfied*100 >= mySatisfaction;
     }
 
     public void updateSatisfaction(List<Cell> neighbors) {
         int cnt = 0;
+        int nonEmpty = 0;
         for(var n: neighbors) {
             if(n.getCurrentState() == currentState) cnt ++;
+            if(n.getCurrentState() != EMPTY) nonEmpty ++;
         }
-        currentSatisfied = cnt/((double) neighbors.size());
+        currentSatisfied = cnt/((double) nonEmpty);
     }
 
     @Override
