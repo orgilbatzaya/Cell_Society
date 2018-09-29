@@ -53,19 +53,18 @@ public class SegregationCell extends Cell {
         currentSatisfied = cnt/((double) nonEmpty);
     }
 
-    @Override
     public void setTaken(){
         taken = true;
     }
-    @Override
+
     public void unTaken(){
         taken = false;
     }
-    @Override
+
     public boolean checkTaken(){
         return taken;
     }
-    @Override
+
     public int getMaxState() {
         return BLUE;
     }

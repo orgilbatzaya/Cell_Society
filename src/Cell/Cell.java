@@ -5,6 +5,7 @@ import java.util.List;
 
 /**
  * @author ob29
+ * @author Amy Kim
  * Superclass for Cell objects
  * Containing shared fields/methods among all Cells
  * getNeighbors() and checkNeighbors() require a Grid object
@@ -72,27 +73,6 @@ public abstract class Cell {
                 myNeighbors.add(c);
             }
         }
-    }
-
-    /**
-     * Currently only implemented in Segregation (SegGrid).
-     */
-    public void unTaken(){
-
-    }
-
-    /**
-     * Currently only implemented in Segregation (SegGrid).
-     */
-    public void setTaken(){
-
-    }
-
-    /**
-     * Currently only implemented in Segregation (SegGrid).
-     */
-    public boolean checkTaken(){
-        return false;
     }
 
 
