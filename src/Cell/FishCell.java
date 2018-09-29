@@ -27,6 +27,7 @@ public class FishCell extends Cell{
     private int[] babyPos;
     private boolean taken = false;
     private boolean moving = false;
+    private boolean birthing = false;
 
 
 
@@ -47,7 +48,7 @@ public class FishCell extends Cell{
         openSpots = findOpenSpots();
 
         //System.out.println(myNeighbors.size());
-        if(openSpots.size() > 0){
+        if(openSpots.size() > 0 && !taken){
             moving = true;
             int choice = random.nextInt(openSpots.size());
             Cell goTo = openSpots.get(choice);
@@ -73,13 +74,12 @@ public class FishCell extends Cell{
     }
 
     public void breed(){
-        if(openSpots.size() > 0) {
+        if (breedingTime <= 0 && openSpots.size() > 0) {
+            birthing = true;
             int choice = random.nextInt(openSpots.size());
-            if (breedingTime <= 0) {
-                Cell baby = openSpots.get(choice);
-                babyPos[0] = baby.getX();
-                babyPos[1] = baby.getY();
-            }
+            Cell baby = openSpots.get(choice);
+            babyPos[0] = baby.getX();
+            babyPos[1] = baby.getY();
         }
     }
 
@@ -127,6 +127,14 @@ public class FishCell extends Cell{
 
     public int getBreedingTime(){
         return breedingTime;
+    }
+
+    public boolean isBirthing(){
+        return birthing;
+    }
+
+    public void unBirthing(){
+        birthing = false;
     }
 
 

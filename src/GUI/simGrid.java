@@ -55,7 +55,7 @@ public class simGrid {
             myGrid = new SegGrid(gridDim, 100, 0.50, 0.40);
         }
         if(myType.equals("WaTor")) {
-            myGrid = new WatorGrid(gridDim, .25, .40, 2, 2);
+            myGrid = new WatorGrid(gridDim, .25, .40, 4, 2);
         }
         myCells = myGrid.getGrid();
     }

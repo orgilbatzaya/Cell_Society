@@ -19,6 +19,7 @@ public class Cell {
     public static final int EMPTY = 0;
     protected List<Cell> myNeighbors;
     private boolean moving;
+    private boolean birthing;
 
     public Cell(int stateOne, int stateTwo, int x, int y){
         currentState = stateOne;
@@ -117,6 +118,14 @@ public class Cell {
 
     public void unMoving(){
         moving = false;
+    }
+
+    public boolean isBirthing(){
+        return birthing;
+    }
+
+    public void unBirthing(){
+        birthing = false;
     }
 
     public void resetNextState(){

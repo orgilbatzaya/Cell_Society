@@ -31,6 +31,7 @@ public class SharkCell extends Cell{
     private boolean taken = false;
     private boolean feeding;
     private boolean moving = false;
+    private boolean birthing = false;
 
     public SharkCell(int stateOne, int stateTwo, int x, int y, int breedingTime, int energy){
         super(stateOne, stateOne, x, y);
@@ -52,7 +53,7 @@ public class SharkCell extends Cell{
 
         openSpots = findOpenSpots();
         eatFish();
-        if(!feeding && openSpots.size() > 0){
+        if(!feeding && openSpots.size() > 0 && energy > 0){
             moving = true;
             int choice = random.nextInt(openSpots.size());
             Cell goTo = openSpots.get(choice);
@@ -85,7 +86,7 @@ public class SharkCell extends Cell{
                 myFish.add(neighbor);
             }
         }
-        if(myFish.size() > 0){
+        if(myFish.size() > 0 && energy > 0){
             Cell eatenFish = (FishCell) myFish.get(random.nextInt(myFish.size()));
             eatenFish.setTaken();
             moving = true;
@@ -98,13 +99,12 @@ public class SharkCell extends Cell{
     }
 
     public void breed(){
-        if(openSpots.size() > 0) {
+        if (breedingTime <= 0 && openSpots.size() > 0) {
+            birthing = true;
             int choice = random.nextInt(openSpots.size());
-            if (breedingTime <= 0) {
-                Cell baby = openSpots.get(choice);
-                babyPos[0] = baby.getX();
-                babyPos[1] = baby.getY();
-            }
+            Cell baby = openSpots.get(choice);
+            babyPos[0] = baby.getX();
+            babyPos[1] = baby.getY();
         }
     }
 
@@ -142,15 +142,25 @@ public class SharkCell extends Cell{
     public void unMoving(){
         moving = false;
     }
+
+    public boolean isBirthing(){
+        return birthing;
+    }
+
+    public void unBirthing(){
+        birthing = false;
+    }
+
+
     @Override
     public void getNeighbors(Grid g){
         List<Cell> temp;
         temp = g.getCellsNear(this);
         for(Cell c:temp){
             myNeighbors.add(c);
-
         }
     }
+
     public void resetNextState(){
         nextState = currentState;
     }
