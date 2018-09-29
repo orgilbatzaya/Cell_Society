@@ -6,6 +6,7 @@ import java.util.*;
 
 /**
  * @author ob29
+ * @author Amy Kim
  * Sub Grid class for Segregation simulation.
  */
 

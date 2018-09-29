@@ -5,7 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author ob29, Amy Kim
+ * @author ob29
+ * @author Amy Kim
  * Sub Cell class for Segregation Simulation
  */
 
