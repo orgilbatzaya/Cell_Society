@@ -5,6 +5,8 @@
 package Cell;
 
 import Grid.*;
+
+import java.util.Arrays;
 import java.util.Random;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,13 +23,14 @@ public class SharkCell extends Cell{
     private int breedingTime;
     private int energySaved;
     private int breedingTimeSaved;
-    private boolean feeding;
     private List<Cell> myFish;
     private Random random;
     private int[] nextPos;
     private int[] babyPos;
     List<Cell> openSpots;
-    private boolean taken;
+    private boolean taken = false;
+    private boolean feeding;
+    private boolean moving = false;
 
     public SharkCell(int stateOne, int stateTwo, int x, int y, int breedingTime, int energy){
         super(stateOne, stateOne, x, y);
@@ -36,6 +39,8 @@ public class SharkCell extends Cell{
         this.energy = energy;
         this.energySaved = energy;
         myNeighbors = new ArrayList<Cell>();
+        nextPos = new int[]{x,y};
+        babyPos = new int[]{x,y};
         random = new Random();
 
     }
@@ -48,6 +53,7 @@ public class SharkCell extends Cell{
         openSpots = findOpenSpots();
         eatFish();
         if(!feeding && openSpots.size() > 0){
+            moving = true;
             int choice = random.nextInt(openSpots.size());
             Cell goTo = openSpots.get(choice);
             goTo.setTaken();
@@ -57,6 +63,9 @@ public class SharkCell extends Cell{
             nextState = WATER;
         }
         breed();
+        feeding = false;
+        openSpots.clear();
+
     }
 
     public ArrayList<Cell> findOpenSpots(){
@@ -72,25 +81,30 @@ public class SharkCell extends Cell{
     public void eatFish(){
         myFish = new ArrayList<Cell>();
         for(var neighbor : myNeighbors) {
-            if(neighbor.getCurrentState() == FISH){
+            if(neighbor.getCurrentState() == FISH && !neighbor.checkTaken()){
                 myFish.add(neighbor);
             }
         }
         if(myFish.size() > 0){
             Cell eatenFish = (FishCell) myFish.get(random.nextInt(myFish.size()));
+            eatenFish.setTaken();
+            moving = true;
             nextPos[0] = eatenFish.getX();
             nextPos[1] = eatenFish.getY();
             feeding = true;
             energy++;
+            nextState = WATER;
         }
     }
 
     public void breed(){
-        int choice = random.nextInt(openSpots.size());
-        if(breedingTime == 0){
-            Cell baby = openSpots.get(choice);
-            babyPos[0] = baby.getX();
-            babyPos[1] = baby.getY();
+        if(openSpots.size() > 0) {
+            int choice = random.nextInt(openSpots.size());
+            if (breedingTime <= 0) {
+                Cell baby = openSpots.get(choice);
+                babyPos[0] = baby.getX();
+                babyPos[1] = baby.getY();
+            }
         }
     }
 
@@ -108,4 +122,51 @@ public class SharkCell extends Cell{
     public void setTaken(){
         taken = true;
     }
+
+    public void unTaken(){
+        taken = false;
+    }
+
+    public int[] getNextPos(){
+        return nextPos;
+    }
+
+    public int[] getBabyPos(){
+        return babyPos;
+    }
+
+    public boolean isMoving(){
+        return moving;
+    }
+
+    public void unMoving(){
+        moving = false;
+    }
+    @Override
+    public void getNeighbors(Grid g){
+        List<Cell> temp;
+        temp = g.getCellsNear(this);
+        for(Cell c:temp){
+            myNeighbors.add(c);
+
+        }
+    }
+    public void resetNextState(){
+        nextState = currentState;
+    }
+
+    public boolean checkTaken(){
+        return taken;
+    }
+
+    public int getEnergy(){
+        return energy;
+    }
+
+    public int getBreedingTime(){
+        return breedingTime;
+    }
+
+
+
 }

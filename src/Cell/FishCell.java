@@ -25,7 +25,9 @@ public class FishCell extends Cell{
     List<Cell> openSpots;
     private int[] nextPos;
     private int[] babyPos;
-    private boolean taken;
+    private boolean taken = false;
+    private boolean moving = false;
+
 
 
 
@@ -34,6 +36,8 @@ public class FishCell extends Cell{
         this.breedingTime = breedingTime;
         this.breedingTimeSaved = breedingTime;
         myNeighbors = new ArrayList<Cell>();
+        nextPos = new int[]{x,y};
+        babyPos = new int[]{x,y};
         random = new Random();
     }
 
@@ -42,15 +46,19 @@ public class FishCell extends Cell{
         breedingTime--;
         openSpots = findOpenSpots();
 
+        //System.out.println(myNeighbors.size());
         if(openSpots.size() > 0){
+            moving = true;
             int choice = random.nextInt(openSpots.size());
             Cell goTo = openSpots.get(choice);
+            goTo.setTaken();
             openSpots.remove(choice);
             nextPos[0] = goTo.getX();
             nextPos[1] = goTo.getY();
             nextState = WATER;
         }
         breed();
+        openSpots.clear();
 
     }
 
@@ -65,11 +73,13 @@ public class FishCell extends Cell{
     }
 
     public void breed(){
-        int choice = random.nextInt(openSpots.size());
-        if(breedingTime == 0){
-            Cell baby = openSpots.get(choice);
-            babyPos[0] = baby.getX();
-            babyPos[1] = baby.getY();
+        if(openSpots.size() > 0) {
+            int choice = random.nextInt(openSpots.size());
+            if (breedingTime <= 0) {
+                Cell baby = openSpots.get(choice);
+                babyPos[0] = baby.getX();
+                babyPos[1] = baby.getY();
+            }
         }
     }
 
@@ -80,5 +90,44 @@ public class FishCell extends Cell{
     public void setTaken(){
         taken = true;
     }
+
+    public void unTaken(){
+        taken = false;
+    }
+
+    public boolean isMoving(){
+        return moving;
+    }
+
+    public int[] getNextPos(){
+        return nextPos;
+    }
+
+    public int[] getBabyPos(){
+        return babyPos;
+    }
+    @Override
+    public void getNeighbors(Grid g){
+        List<Cell> temp;
+        temp = g.getCellsNear(this);
+        for(Cell c:temp){
+            myNeighbors.add(c);
+
+        }
+    }
+
+    public void resetNextState(){
+        nextState = currentState;
+    }
+
+    public boolean checkTaken(){
+        return taken;
+    }
+
+
+    public int getBreedingTime(){
+        return breedingTime;
+    }
+
 
 }

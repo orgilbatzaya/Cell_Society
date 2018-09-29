@@ -111,7 +111,17 @@ public class Grid {
                 cell.setCurrentState(cell.getNextState());
             }
         }
-    };
+    }
+
+    public void updateStates(){
+        for(int x = 0; x < size; x++){
+            for(int y = 0; y < size; y++){
+                var cell = myCells.get(x).get(y);
+                int nextState = cell.getNextState();
+                cell.setCurrentState(nextState);
+            }
+        }
+    }
 
 
     public ArrayList<ArrayList<Cell>> getGrid() {

@@ -18,6 +18,7 @@ public class Cell {
     private int gridSize;
     public static final int EMPTY = 0;
     protected List<Cell> myNeighbors;
+    private boolean moving;
 
     public Cell(int stateOne, int stateTwo, int x, int y){
         currentState = stateOne;
@@ -109,6 +110,24 @@ public class Cell {
     public boolean checkTaken(){
         return false;
     }
+
+    public boolean isMoving(){
+        return moving;
+    }
+
+    public void unMoving(){
+        moving = false;
+    }
+
+    public void resetNextState(){
+        nextState = currentState;
+    }
+
+    public List<Cell> getMyNeighbors(){
+        return myNeighbors;
+    }
+
+
 
 
 

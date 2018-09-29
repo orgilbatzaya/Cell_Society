@@ -75,7 +75,28 @@ public class WatorGrid extends Grid {
         initializeCells();
     }
 
+    /**
+     * Given some Cell in the Grid, finds and stores all (4) adjacent positions
+     * regardless of whether these positions are bounded
+     * @param cell Cell object
+     * @return List of int arrays
+     */
+    @Override
+    public List<int[]> getNearCellPositions(Cell cell) {
+        List<int[]> positions = new ArrayList<>();
+        int xPos = cell.getX();
+        int yPos = cell.getY();
 
+        if(inBounds(cell.getX(), cell.getY())){
+            positions.add(new int[]{xPos -1, yPos});//sides
+            positions.add(new int[]{xPos +1, yPos});
+            positions.add(new int[]{xPos, yPos-1});
+            positions.add(new int[]{xPos, yPos+1});
+        }
+        return positions;
+    }
+
+    @Override
     public List<Cell> getCellsNear(Cell cell){
         List<Cell> nearCells = new ArrayList<Cell>();
         List<int[]> positions = getNearCellPositions(cell);
@@ -92,8 +113,6 @@ public class WatorGrid extends Grid {
             if (pos[1] >= size) {
                 pos[1] = 0;
             }
-            System.out.println(pos[0]);
-            System.out.println(pos[1]);
             nearCells.add(myCells.get(pos[0]).get(pos[1]));
         }
         return nearCells;
@@ -105,44 +124,102 @@ public class WatorGrid extends Grid {
      */
     @Override
     public  void updateEveryCell(){
-
-        var aliveCells = getAliveCells();
-        Collections.shuffle(aliveCells);
-
-        for(Cell cell: aliveCells){
-            if(cell.getCurrentState() == SHARK){
-                ((SharkCell) cell).move();
-            } else {
-                ((FishCell) cell).move();
+        for(ArrayList<Cell> row: myCells){
+            for(Cell t:row){
+                t.unTaken(); //at each step, "untake" taken cells
             }
         }
-        updateStates();
-    }
+        var sharkCells = getRequiredCells(SHARK);
+        System.out.println(sharkCells.size());
+        var FishCells = getRequiredCells(FISH);
+        Collections.shuffle(sharkCells);
+        Collections.shuffle(sharkCells);
+        for(Cell cell: sharkCells) {
+            cell.getNeighbors(this);
+            ((SharkCell) cell).move();
+            if (cell.isMoving()) {
+                reposition(cell);
+            }
+            cell.unMoving();
 
-    public List<Cell> getAliveCells(){
-        var alive = new ArrayList<Cell>();
-        for(int i = 0; i < size; i++){
-            for(int j = 0; j < size; j++){
-                var cell = myCells.get(i).get(j);
-                if(cell.getCurrentState() != WATER){
-                    alive.add(cell);
+            //birth(cell);
+            cell.clearNeighbors();
+        }
+
+        int cnt = 0;
+        for(int x = 0; x < size; x++){
+            for(int y = 0; y <size; y++){
+                if(myCells.get(x).get(y).getNextState() == SHARK){
+                    cnt++;
                 }
             }
         }
-        return alive;
+        System.out.println("nextShark count" + cnt);
+
+        for(Cell cell: FishCells){
+            cell.getNeighbors(this);
+            ((FishCell) cell).move();
+            if(cell.isMoving()){
+                reposition(cell);
+                cell.unMoving();
+            }
+           //birth(cell);
+            cell.clearNeighbors();
+        }
+        updateStates();
+
     }
 
-    /**
-     * turns next state into current one
-     */
-    public void updateStates(){
-        for(int x = 0; x < size; x++){
-            for(int y = 0; y < size; y++){
-                var cell = myCells.get(x).get(y);
-                int nextState = cell.getNextState();
-                cell.setCurrentState(nextState);
+    public void reposition(Cell cell){
+        int[] newPos;
+        if(cell.getCurrentState() == SHARK) {
+            newPos = ((SharkCell) cell).getNextPos();
+        } else{
+            newPos = ((FishCell) cell).getNextPos();
+        }
+        var next = myCells.get(newPos[0]).get(newPos[1]);
+
+        Cell replacement;
+        if(cell.getCurrentState() == SHARK) {
+            replacement = new SharkCell(SHARK, SHARK, next.getX(), next.getY(), ((SharkCell) cell).getBreedingTime(), ((SharkCell) cell).getEnergy());
+        }
+        else{
+            replacement = new FishCell(FISH, FISH, next.getX(), next.getY(), ((FishCell) cell).getBreedingTime());
+
+        }
+        myCells.get(newPos[0]).set(newPos[1], replacement);
+        
+    }
+
+    public void birth(Cell cell){
+        int[] babyPos;
+        if(cell.getCurrentState() == SHARK) {
+            babyPos = ((SharkCell) cell).getBabyPos();
+            ((SharkCell) cell).resetEnergyAndBreed();
+        } else{
+            babyPos = ((FishCell) cell).getBabyPos();
+            ((FishCell) cell).resetEnergyAndBreed();
+        }
+        myCells.get(babyPos[0]).set(babyPos[1], cell);
+    }
+
+
+
+    public List<Cell> getRequiredCells(int state){
+        var required = new ArrayList<Cell>();
+        for(int i = 0; i < size; i++){
+            for(int j = 0; j < size; j++){
+                var cell = myCells.get(i).get(j);
+                if(cell.getCurrentState() == state){
+                    required.add(cell);
+                }
             }
         }
+        return required;
     }
+
+
+
+
 
 }

@@ -116,18 +116,7 @@ public class SegGrid extends Grid {
         return unsatisfied;
     }
 
-    /**
-     * turns next state into current one
-     */
-    public void updateStates(){
-        for(int x = 0; x < size; x++){
-            for(int y = 0; y < size; y++){
-                var cell = myCells.get(x).get(y);
-                int nextState = cell.getNextState();
-                cell.setCurrentState(nextState);
-            }
-        }
-    }
+
 
     /**
      * swaps the next states of current cell and random empty cell
