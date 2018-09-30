@@ -5,6 +5,8 @@ import Grid.*;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -13,8 +15,7 @@ import java.util.Map;
  *
  * creates GridPane object
  *
- * @author Brooke Keene,
- * @author Amy Kim
+ * @author Brooke Keene
  */
 public class simGrid {
     private GridPane myGP;
@@ -40,7 +41,6 @@ public class simGrid {
         myParams = params;
 
         this.choseGrid();
-
         myBorder = border;
         this.makeGrid();
     }
@@ -58,9 +58,9 @@ public class simGrid {
         else if(myType.equals("Seg")) {
             myGrid = new SegGrid(gridDim, myParams.get("satisfaction").intValue(), 0.50, 0.40);
         }
-//        if(myType.equals("WaTor")) {
-//            myGrid = new WatorGrid(gridDim, 20, 10);
-//        }
+        if(myType.equals("WaTor")) {
+            myGrid = new WatorGrid(gridDim, .20, .10, 5, 3 );
+        }
         myCells = myGrid.getGrid();
     }
 
@@ -73,21 +73,24 @@ public class simGrid {
         myGP.setMaxSize(gridSpace, gridSpace);
         for(int row = 0; row < gridDim; row++) {
             for(int col = 0; col < gridDim; col++) {
-                Button temp = new Button();
-
-                temp.setPrefSize(gridSpace/gridDim, gridSpace/gridDim);
-                temp.setMaxSize(gridSpace/gridDim, gridSpace/gridDim);
+                Rectangle r = new Rectangle();
+                r.setX(col);
+                r.setY(row);
+                r.setWidth(gridSpace/gridDim);
+                r.setHeight(gridSpace/gridDim);
                 Cell tempCell = myCells.get(row).get(col);
 
-                updateCell(tempCell, temp);
+                updateCell(tempCell, r);
 
-                setCellColor(tempCell, temp);
+                setCellColor(tempCell, r);
 
-                myGP.add(temp, col, row, 1, 1);
+
+                myGP.add(r, col, row, 1, 1);
             }
         }
         myBorder.setCenter(myGP);
     }
+
 
     /**
      *  this function helps to change a state at a grid location.
@@ -103,19 +106,21 @@ public class simGrid {
 
     }
 
-
     /**
      * Allow users to interact with the simulation dynamically to create or change a state at a grid location
      * @param tempCell this is Cell which the user clicked
-     * @param temp now btn but will be shape later
+     * @param r now btn but will be shape later
      */
-    // TO DO: change btn to shape later
-   public void  updateCell(Cell tempCell, Button temp) {
-       temp.setOnAction(value -> {
-                   changeState(tempCell);
-                   setCellColor(tempCell, temp);
-               });
-   }
+    public void  updateCell(Cell tempCell, Rectangle r) {
+        r.setOnMouseClicked(value -> {
+            changeState(tempCell);
+            setCellColor(tempCell, r);
+        });
+    }
+
+
+
+
 
     /**
      * updates simulation grid
@@ -132,52 +137,54 @@ public class simGrid {
      * the simulation and its initialized state
      *
      * @param tempCell
-     * @param temp
+     * @param r
      */
-    private void setCellColor(Cell tempCell, Button temp) {
+    private void setCellColor(Cell tempCell, Rectangle r) {
+        r.setStroke(Color.WHITE);
         if(myType.equals("Life")) {
             if(tempCell.getCurrentState() == LifeCell.DEAD) {
-                temp.setId("greyCell");
+                r.setFill(Color.GRAY);
             }
             else {
-                temp.setId("blueCell");
+                r.setFill(Color.BLUE);
             }
         }
         else if(myType.equals("Fire")) {
             if(tempCell.getCurrentState() == FireCell.TREE) {
-                temp.setId("greenCell");
+                r.setFill(Color.GREEN);
             }
             else if(tempCell.getCurrentState() == FireCell.FIRE) {
-                temp.setId("redCell");
+                r.setFill(Color.RED);
             }
             else {
-                temp.setId("brownCell");
+                r.setFill(Color.BROWN);
             }
         }
         else if(myType.equals("Seg")) {
             if(tempCell.getCurrentState() == SegregationCell.RED) {
-                temp.setId("redCell");
+                r.setFill(Color.RED);
             }
             else if(tempCell.getCurrentState() == SegregationCell.BLUE) {
-                temp.setId("blueCell");
+                r.setFill(Color.BLUE);
             }
             else {
-                temp.setId("greyCell");
+                r.setFill(Color.GRAY);
             }
         }
-//        else if(myType.equals("WaTor")) {
-//            if(tempCell.getCurrentState() == WaTorCell.SHARK ) {
-//                temp.setId("greyCell");
-//            }
-//            else if(tempCell.getCurrentState() == WaTorCell.WATER) {
-//                temp.setId("blueCell");
-//            }
-//            else {
-//                temp.setId("greenCell");
-//            }
-//        }
+        else if(myType.equals("WaTor")) {
+            if(tempCell.getCurrentState() == WatorCell.FISH ) {
+                r.setFill(Color.GREEN);
+            }
+            else if(tempCell.getCurrentState() == WatorCell.WATER) {
+                r.setFill(Color.BLUE);
+            }
+            else {
+                r.setFill(Color.GRAY);
+            }
+        }
+
         else {
-            temp.setId("deadCell");
+            r.setFill(Color.GRAY);
         }
     }
 }

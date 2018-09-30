@@ -112,19 +112,23 @@ public abstract class Grid {
                 checkNeighbors(cell);
             }
         }
+        updateStates();
+    };
+
+
+    public void updateStates(){
         for(int x = 0; x < size; x++){
             for(int y = 0; y < size; y++){
                 Cell cell = myCells.get(x).get(y);
-                cell.setCurrentState(cell.getNextState());
             }
         }
+    }
 
-
-    };
 
     public abstract void checkNeighbors(Cell cell);
 
     public ArrayList<ArrayList<Cell>> getGrid() {
         return myCells;
     };
+
 }

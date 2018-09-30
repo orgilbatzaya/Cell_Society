@@ -13,13 +13,26 @@ import java.util.List;
 
 public abstract class Cell {
     protected int currentState;
-    private int nextState;
+    protected int nextState;
     private int xPos;
     private int yPos;
-    private int gridSize;
     public static final int EMPTY = 0;
     protected List<Cell> myNeighbors;
 
+    /**
+     * for WaTor
+     */
+    private boolean moving;
+    private boolean birthing;
+
+
+    /**
+     *
+     * @param stateOne
+     * @param stateTwo
+     * @param x
+     * @param y
+     */
     public Cell(int stateOne, int stateTwo, int x, int y){
         currentState = stateOne;
         nextState = stateOne;
@@ -31,24 +44,12 @@ public abstract class Cell {
         return xPos;
     }
 
-    public void setX(int val){
-        xPos = val;
-    }
-
     public int getY(){
         return yPos;
     }
 
-    public void setY(int val){
-        yPos = val;
-    }
-
     public int getCurrentState(){
         return currentState;
-    }
-
-    public int getNextState(){
-        return nextState;
     }
 
     public void setCurrentState(int state){
@@ -80,5 +81,41 @@ public abstract class Cell {
      * @return the max value of states.
      */
     public int getMaxState() {return 0;}
+
+
+    /**
+     * for waTor
+     */
+    public void unTaken(){
+
+    }
+
+    public boolean checkTaken(){
+        return false;
+    }
+
+    public boolean isMoving(){
+        return moving;
+    }
+
+    public void unMoving(){
+        moving = false;
+    }
+
+    public boolean isBirthing(){
+        return birthing;
+    }
+
+    public void unBirthing(){
+        birthing = false;
+    }
+    public void setTaken(){
+
+    }
+
+    public void clearNeighbors(){
+        myNeighbors.clear();
+    }
+
 
 }
