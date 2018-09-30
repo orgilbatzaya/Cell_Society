@@ -1,8 +1,6 @@
 package Cell;
 
-import Grid.Grid;
 import javafx.scene.paint.Color;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +13,7 @@ import java.util.List;
 public class SegregationCell extends Cell {
     private double currentSatisfied; //variable
     private double mySatisfaction; //set for all SegregationCells in a certain simulation
+    public static final int double_to_int = 100;
     public static final int RED = 1;
     public static final int BLUE = 2;
     public static final int EMPTY = 0;
@@ -40,7 +39,7 @@ public class SegregationCell extends Cell {
      * @return
      */
     public boolean isSatisfied(){
-        return currentSatisfied*100 >= mySatisfaction;
+        return currentSatisfied * double_to_int >= mySatisfaction;
     }
 
     public void updateSatisfaction(List<Cell> neighbors) {
@@ -53,10 +52,12 @@ public class SegregationCell extends Cell {
         currentSatisfied = cnt/((double) nonEmpty);
     }
 
+    @Override
     public int getMaxState() {
         return BLUE;
     }
 
+    @Override
     public Color getColor(){
         if(currentState == RED){
             myColor = Color.RED;

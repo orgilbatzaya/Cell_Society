@@ -3,12 +3,7 @@
  */
 
 package Cell;
-
-import Grid.*;
-import javafx.scene.Group;
 import javafx.scene.paint.Color;
-
-import java.util.Random;
 
 /**
  * This is FireCell extending Cell class.
@@ -30,6 +25,7 @@ public class FireCell extends Cell {
         return GROUND;
     }
 
+    @Override
     public Color getColor(){
         if(currentState == TREE){
             myColor = Color.GREEN;
