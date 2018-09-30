@@ -21,14 +21,13 @@ public class SegregationCell extends Cell {
     /**
      * Constructs a SegregationCell
      * @param stateOne
-     * @param stateTwo
      * @param x
      * @param y
      * @param satisfiedRate specified at start of simulation, base threshold of tolerating
      *                      neighbor cells, must be at least satisfiedRate or will move itself
      */
-    public SegregationCell(int stateOne, int stateTwo, int x, int y, double satisfiedRate) {
-        super(stateOne, stateTwo, x, y);
+    public SegregationCell(int stateOne, int x, int y, double satisfiedRate) {
+        super(stateOne, x, y);
         this.mySatisfaction = satisfiedRate;
         myNeighbors = new ArrayList<Cell>();
     }

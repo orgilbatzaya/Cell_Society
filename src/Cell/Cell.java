@@ -16,18 +16,16 @@ public abstract class Cell {
     protected int nextState;
     private int xPos;
     private int yPos;
-    public static final int EMPTY = 0;
     protected List<Cell> myNeighbors;
 
 
     /**
      *
      * @param stateOne
-     * @param stateTwo
      * @param x
      * @param y
      */
-    public Cell(int stateOne, int stateTwo, int x, int y){
+    public Cell(int stateOne, int x, int y){
         currentState = stateOne;
         nextState = stateOne;
         xPos = x;

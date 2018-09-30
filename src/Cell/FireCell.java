@@ -20,8 +20,8 @@ public class FireCell extends Cell {
 
     private double prob;
 
-    public FireCell(int stateOne, int x, int y, double prob) {
-        super(stateOne, stateOne, x, y);
+    public FireCell(int stateOne, int x, int y) {
+        super(stateOne, x, y);
     }
 
     @Override

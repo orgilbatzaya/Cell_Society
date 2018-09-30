@@ -27,7 +27,7 @@ public class FireGrid extends Grid {
         for(int i = 0; i < size; i++){
             var row = new ArrayList<Cell>();
             for(int j = 0; j < size; j++){
-                var cell = new FireCell(setStates(), i, j, prob); //random states
+                var cell = new FireCell(setStates(), i, j); //random states
                 row.add(cell);
             }
             myCells.add(row);
