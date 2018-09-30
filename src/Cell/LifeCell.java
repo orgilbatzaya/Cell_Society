@@ -15,7 +15,7 @@ public class LifeCell extends Cell {
     public static final int DEAD = 1;
 
     public LifeCell(int alive, int x, int y) {
-        super(alive, alive, x, y);
+        super(alive, x, y);
     }
 
     @Override

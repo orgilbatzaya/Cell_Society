@@ -45,7 +45,7 @@ public class SegGrid extends Grid {
             var row = new ArrayList<Cell>();
             for(int j = 0; j < size; j++){
                 int state = (int) states.pop();
-                var cell = new SegregationCell(state,state,i,j,similar);
+                var cell = new SegregationCell(state,i,j,similar);
                 row.add(cell);
             }
             myCells.add(row);
@@ -137,12 +137,6 @@ public class SegGrid extends Grid {
             }
         }
         return (1.0*numSatisfied)/(size*size);
-    }
-
-
-    public void reset() {
-        myCells.clear();
-        initializeCells(similar,rbRatio,empty);
     }
 
     /**

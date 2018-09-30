@@ -36,7 +36,7 @@ public class WatorGrid extends Grid {
             var row = new ArrayList<Cell>();
             for(int j = 0; j < size; j++){
                 int state = states.pop();
-                Cell cell = new WatorCell(state, state, i, j, breedingTime, energy);
+                Cell cell = new WatorCell(state, i, j, breedingTime, energy);
                 row.add(cell);
             }
             myCells.add(row);
@@ -133,7 +133,7 @@ public class WatorGrid extends Grid {
     public void reposition(Cell cell){
         int[] newPos = ((WatorCell) cell).getNextPos();
         int state = cell.getCurrentState();
-        Cell replacement = new WatorCell(state, state, newPos[0], newPos[1], ((WatorCell) cell).getBreedingTime(), ((WatorCell) cell).getEnergy());
+        Cell replacement = new WatorCell(state, newPos[0], newPos[1], ((WatorCell) cell).getBreedingTime(), ((WatorCell) cell).getEnergy());
         myCells.get(newPos[0]).set(newPos[1], replacement);
     }
 
@@ -141,7 +141,7 @@ public class WatorGrid extends Grid {
         int[] babyPos = ((WatorCell) cell).getBabyPos();
         int state = cell.getCurrentState();
         ((WatorCell) cell).resetEnergyAndBreed();
-        Cell replacement = new WatorCell(state, state, babyPos[0], babyPos[1], breedingTime, energy);
+        Cell replacement = new WatorCell(state, babyPos[0], babyPos[1], breedingTime, energy);
         myCells.get(babyPos[0]).set(babyPos[1], replacement);
     }
 

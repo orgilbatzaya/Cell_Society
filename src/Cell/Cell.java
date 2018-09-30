@@ -26,11 +26,10 @@ public abstract class Cell {
     /**
      *
      * @param stateOne
-     * @param stateTwo
      * @param x
      * @param y
      */
-    public Cell(int stateOne, int stateTwo, int x, int y){
+    public Cell(int stateOne, int x, int y){
         currentState = stateOne;
         nextState = stateOne;
         xPos = x;
