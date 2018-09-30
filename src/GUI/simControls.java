@@ -136,7 +136,8 @@ public class simControls {
      * creates speed control slider
      */
     public void addSliders() {
-        Slider simSpeed = new Slider(1, 100, 1);
+        Slider simSpeed = new Slider(1, 100, 50);
+        mySimSpeed = 50;
         simSpeed.setMajorTickUnit(1);
         speedLabel = new Label(Double.toString(simSpeed.getValue()));
         speedLabel.setId("speedLbl");
