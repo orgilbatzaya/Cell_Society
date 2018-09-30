@@ -1,7 +1,7 @@
 <root>
     <simulation>Fire</simulation>
     <grid>
-        <size>10</size>
+        <size>20</size>
     </grid>
     <special>
         <probability>0.70</probability>

@@ -2,11 +2,11 @@ package GUI;
 
 import Cell.*;
 import Grid.*;
-import javafx.scene.control.Button;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.Polygon;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -18,7 +18,7 @@ import java.util.Map;
  * @author Brooke Keene
  */
 public class simGrid {
-    private GridPane myGP;
+    private Canvas myCanvas;
     private BorderPane myBorder;
     private String myType;
     private int gridDim;
@@ -68,28 +68,147 @@ public class simGrid {
      * creates GridPane object containing cells for cell automata
      */
     private void makeGrid() {
-        myGP = new GridPane();
-        myGP.setPrefSize(gridSpace,gridSpace);
-        myGP.setMaxSize(gridSpace, gridSpace);
-        for(int row = 0; row < gridDim; row++) {
-            for(int col = 0; col < gridDim; col++) {
-                Rectangle r = new Rectangle();
-                r.setX(col);
-                r.setY(row);
-                r.setWidth(gridSpace/gridDim);
-                r.setHeight(gridSpace/gridDim);
+        myCanvas = new Canvas(gridSpace,gridSpace);
+        GraphicsContext gc = myCanvas.getGraphicsContext2D();
+
+//        // Square Grid
+//        for(int row = 0; row < gridDim; row++) {
+//            for (int col = 0; col < gridDim; col++) {
+//                Cell tempCell = myCells.get(row).get(col);
+//
+//                makeSquare(row, col, gc, tempCell);
+//            }
+//        }
+
+        // Triangle Grid
+        for(int row = gridDim-1; row >= 0; row--) {
+            for(int col = row; col >= 0; col--) {
                 Cell tempCell = myCells.get(row).get(col);
 
-                updateCell(tempCell, r);
-                r.setFill(tempCell.getColor());
-                r.setStroke(Color.WHITE);
-
-
-                myGP.add(r, col, row, 1, 1);
+                if(col == row || row == 0) {
+                    makeTopTriangle(row, col, gc, tempCell);
+                }
+                else {
+                    makeTopTriangle(row, col, gc, tempCell);
+                    makeBotTriangle(row, col, gc, tempCell);
+                }
             }
         }
-        myBorder.setCenter(myGP);
+
+//        // Hexagonal Grid - NOT WORKING
+//        for(int row = 0; row < gridDim; row++) {
+//            for (int col = 0; col < gridDim; col++) {
+//                Cell tempCell = myCells.get(row).get(col);
+//                if(col%2 == 0) {
+//                    makeEvenHexagon(row, col, gc, tempCell);
+//                }
+//                else {
+//                    makeOddHexagon(row, col, gc, tempCell);
+//                }
+//            }
+//        }
+
+        myBorder.setCenter(myCanvas);
     }
+
+    /**
+     * draws individual squares for grid
+     *
+     * @param r
+     * @param c
+     * @param gc
+     * @param temp
+     */
+    private void makeSquare(int r, int c, GraphicsContext gc, Cell temp) {
+        double width = gridSpace/gridDim;
+        double[] xPts = new double[]{1.0*r*width, 1.0*r*width, 1.0*r*width+width, 1.0*r*width+width};
+        double[] yPts = new double[]{1.0*c*width, 1.0*c*width+width, 1.0*c*width+width, 1.0*c*width};
+
+        gc.fillPolygon(xPts, yPts, 4);
+        gc.setFill(temp.getColor());
+        gc.setStroke(Color.WHITE);
+        gc.strokePolygon(xPts, yPts, 4);
+    }
+
+    /**
+     * draws individual upside-down triangles for grid
+     *
+     * @param r
+     * @param c
+     * @param gc
+     * @param temp
+     */
+    private void makeTopTriangle(int r, int c, GraphicsContext gc, Cell temp) {
+        double width = gridSpace/gridDim;
+        double[] xPts = new double[]{1.0*r*width-(c*width/2), 1.0*r*width+width/2-(c*width/2), 1.0*r*width+width-(c*width/2)};
+        double[] yPts = new double[]{1.0*c*width, 1.0*c*width+width, 1.0*c*width};
+
+        gc.fillPolygon(xPts, yPts, 3);
+        gc.setFill(temp.getColor());
+        gc.setStroke(Color.WHITE);
+        gc.strokePolygon(xPts, yPts, 3);
+    }
+
+    /**
+     * draws individual normal triangles for grid
+     *
+     * @param r
+     * @param c
+     * @param gc
+     * @param temp
+     */
+    private void makeBotTriangle(int r, int c, GraphicsContext gc, Cell temp) {
+        double width = gridSpace/gridDim;
+        double[] xPts = new double[]{1.0*r*width-width/2-(c*width/2), 1.0*r*width-(c*width/2), 1.0*r*width+width/2-(c*width/2)};
+        double[] yPts = new double[]{1.0*c*width+width, 1.0*c*width, 1.0*c*width+width};
+
+        gc.fillPolygon(xPts, yPts, 3);
+        gc.setFill(temp.getColor());
+        gc.setStroke(Color.WHITE);
+        gc.strokePolygon(xPts, yPts, 3);
+    }
+
+//    /** NOT WORKING
+//     * draws individual hexagons for grid
+//     *
+//     * @param r
+//     * @param c
+//     * @param gc
+//     * @param temp
+//     */
+//    private void makeEvenHexagon(int r, int c, GraphicsContext gc, Cell temp){
+//        double width = gridSpace/gridDim;
+//        double[] xPts = new double[]{1.0*r*width, 1.0*r*width+width/2, 1.0*r*width+width, 1.0*r*width+width, 1.0*r*width+width/2, 1.0*r*width};
+//        double[] yPts = new double[]{1.0*c*width+width/4, 1.0*c*width, 1.0*c*width+width/4, 1.0*c*width+width/4+width/2, 1.0*c*width+width, 1.0*c*width+width/4+width/2};
+//
+//
+//        gc.fillPolygon(xPts, yPts, 6);
+//        gc.setFill(temp.getColor());
+//        gc.setStroke(Color.WHITE);
+//        gc.strokePolygon(xPts, yPts, 6);
+//    }
+//
+//    /**
+//     * draws individual hexagons for grid
+//     * xPts shifted by + width/2
+//     * yPts shifted by - width/4
+//     *
+//     * @param r
+//     * @param c
+//     * @param gc
+//     * @param temp
+//     */
+//    private void makeOddHexagon(int r, int c, GraphicsContext gc, Cell temp){
+//        double width = gridSpace/gridDim;
+//        double[] xPts = new double[]{1.0*r*width+width/2, 1.0*r*width+width, 1.0*r*width+width+width/2, 1.0*r*width+width+width/2, 1.0*r*width+width, 1.0*r*width+width/2};
+//        double[] yPts = new double[]{1.0*c*width, 1.0*c*width-width/4, 1.0*c*width, 1.0*c*width+width/2, 1.0*c*width+3*width/4, 1.0*c*width+width/2};
+//
+//
+//        gc.fillPolygon(xPts, yPts, 6);
+//        gc.setFill(temp.getColor());
+//        gc.setStroke(Color.WHITE);
+//        gc.strokePolygon(xPts, yPts, 6);
+//    }
 
 
     /**
@@ -109,12 +228,12 @@ public class simGrid {
     /**
      * Allow users to interact with the simulation dynamically to create or change a state at a grid location
      * @param tempCell this is Cell which the user clicked
-     * @param r now btn but will be shape later
+     * @param p now btn but will be shape later
      */
-    public void  updateCell(Cell tempCell, Rectangle r) {
-        r.setOnMouseClicked(value -> {
+    public void  updateCell(Cell tempCell, Polygon p) {
+        p.setOnMouseClicked(value -> {
             changeState(tempCell);
-            r.setFill(tempCell.getColor());
+            p.setFill(tempCell.getColor());
         });
     }
 

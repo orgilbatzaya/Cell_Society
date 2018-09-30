@@ -1,7 +1,7 @@
 <root>
     <simulation>Seg</simulation>
     <grid>
-        <size>10</size>
+        <size>30</size>
     </grid>
     <special>
         <satisfaction>60</satisfaction>
