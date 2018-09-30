@@ -101,6 +101,10 @@ public abstract class Cell {
     public void unTaken(){
 
     }
+    public void setTaken(){
+
+    }
+
 
     public boolean checkTaken(){
         return false;
@@ -121,8 +125,10 @@ public abstract class Cell {
     public void unBirthing(){
         birthing = false;
     }
-    public void setTaken(){
 
+
+    public void resetNextState(){
+        nextState = currentState;
     }
 
 
