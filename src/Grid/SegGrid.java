@@ -139,12 +139,6 @@ public class SegGrid extends Grid {
         return (1.0*numSatisfied)/(size*size);
     }
 
-
-    public void reset() {
-        myCells.clear();
-        initializeCells(similar,rbRatio,empty);
-    }
-
     /**
      * Overrides checkNeighbors() in Cell
      * Calculates currentSatisfied, which is the proportion of neighbor Cells

@@ -23,26 +23,6 @@ public abstract class Grid {
     }
 
     /**
-     * Finds and stores all "empty" cells in a Grid. Misnomer.
-     * @param emptyVal int value, usually between 0-2 inclusive,
-     *                 doesn't actually have to mean "empty" but
-     *                 any state.
-     * @return a List of Cell objects
-     */
-
-    public List<Cell> getEmptyCells(int emptyVal){ //get all the empty cells
-        List<Cell> requiredCells = new ArrayList<>();
-        for(List<Cell> row: myCells){
-            for(Cell c: row){
-                if(c.getCurrentState() == emptyVal){
-                    requiredCells.add(c);
-                }
-            }
-        }
-        return requiredCells;
-    }
-
-    /**
      * Checks if an (x,y) pair is bounded within a Grid of dimension size * size
      * @param x int
      * @param y int
