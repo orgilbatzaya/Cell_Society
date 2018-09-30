@@ -100,9 +100,11 @@ public class simGrid {
         var user_changed = tempCell.getCurrentState() + 1;
         if(tempCell.getCurrentState() == tempCell.getMaxState()){ // when it reaches the max value of states.
             tempCell.setCurrentState(0);
+            tempCell.setNextState(0);
             return;
         }
         tempCell.setCurrentState(user_changed);
+        tempCell.setNextState(user_changed);
 
     }
 
@@ -113,6 +115,10 @@ public class simGrid {
      */
     public void  updateCell(Cell tempCell, Rectangle r) {
         r.setOnMouseClicked(value -> {
+//            changeState(tempCell);
+            if(myType.equals("WaTor")){
+                ((WatorCell)tempCell).resetEnergyAndBreed();
+            }
             changeState(tempCell);
             setCellColor(tempCell, r);
         });
