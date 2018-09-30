@@ -29,6 +29,7 @@ public abstract class Grid {
      *                 any state.
      * @return a List of Cell objects
      */
+
     public List<Cell> getEmptyCells(int emptyVal){ //get all the empty cells
         List<Cell> requiredCells = new ArrayList<>();
         for(List<Cell> row: myCells){
@@ -120,6 +121,7 @@ public abstract class Grid {
         for(int x = 0; x < size; x++){
             for(int y = 0; y < size; y++){
                 Cell cell = myCells.get(x).get(y);
+                cell.setCurrentState(cell.getNextState());
             }
         }
     }

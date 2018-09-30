@@ -48,8 +48,20 @@ public abstract class Cell {
         return yPos;
     }
 
+    public void setX(int val){
+        xPos = val;
+    }
+
+    public void setY(int val){
+        yPos = val;
+    }
+
     public int getCurrentState(){
         return currentState;
+    }
+
+    public int getNextState(){
+        return nextState;
     }
 
     public void setCurrentState(int state){
@@ -89,6 +101,10 @@ public abstract class Cell {
     public void unTaken(){
 
     }
+    public void setTaken(){
+
+    }
+
 
     public boolean checkTaken(){
         return false;
@@ -109,9 +125,17 @@ public abstract class Cell {
     public void unBirthing(){
         birthing = false;
     }
-    public void setTaken(){
 
+
+    public void resetNextState(){
+        nextState = currentState;
     }
+
+
+    public List<Cell> getMyNeighbors(){
+        return myNeighbors;
+    }
+
 
     public void clearNeighbors(){
         myNeighbors.clear();
