@@ -4,7 +4,6 @@
 
 package Cell;
 
-import Grid.*;
 import javafx.scene.paint.Color;
 
 /**
@@ -23,6 +22,7 @@ public class LifeCell extends Cell {
         return DEAD;
     }
 
+    @Override
     public Color getColor(){
         if(currentState == ALIVE){
             myColor = Color.BLACK;
