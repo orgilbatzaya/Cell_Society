@@ -114,17 +114,17 @@ public class WatorGrid extends Grid {
         untakeCells();
         var aliveCells = getAliveCells();
         for(Cell cell: aliveCells) {
-            cell.getNeighbors(this);
+            ((WatorCell) cell).getNeighbors(this);
             ((WatorCell) cell).move();
-            if (cell.isMoving()) {
+            if (((WatorCell) cell).isMoving()) {
                 reposition(cell);
             }
-            if(cell.isBirthing()){
+            if(((WatorCell) cell).isBirthing()){
                 birth(cell);
             }
-            cell.unMoving();
-            cell.unBirthing();
-            cell.clearNeighbors();
+            ((WatorCell) cell).unMoving();
+            ((WatorCell) cell).unBirthing();
+            ((WatorCell) cell).clearNeighbors();
         }
         updateStates();
         System.out.println(Arrays.toString(stats()));
@@ -188,7 +188,7 @@ public class WatorGrid extends Grid {
     public void untakeCells(){
         for(ArrayList<Cell> row: myCells){
             for(Cell t:row){
-                t.unTaken(); //at each step, "untake" taken cells
+                ((WatorCell) t).unTaken(); //at each step, "untake" taken cells
             }
         }
     }

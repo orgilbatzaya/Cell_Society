@@ -1,7 +1,6 @@
 package Cell;
 
 import Grid.*;
-import java.util.Arrays;
 import java.util.Random;
 import java.util.ArrayList;
 import java.util.List;
@@ -69,7 +68,7 @@ public class WatorCell extends Cell {
     private void chooseNextPos(List<Cell> spots){
         int choice = random.nextInt(spots.size());
         Cell goTo = spots.get(choice);
-        goTo.setTaken();
+        setTaken();
         moving = true;
         nextPos[0] = goTo.getX();
         nextPos[1] = goTo.getY();
@@ -81,7 +80,7 @@ public class WatorCell extends Cell {
     private void eatFish(){
         myFish = new ArrayList<Cell>();
         for(var neighbor : myNeighbors) {
-            if(neighbor.getCurrentState() == FISH && !neighbor.checkTaken()){
+            if(neighbor.getCurrentState() == FISH && !checkTaken()){
                 myFish.add(neighbor);
             }
         }
@@ -102,7 +101,6 @@ public class WatorCell extends Cell {
         }
     }
 
-    @Override
     public void getNeighbors(Grid g){
         List<Cell> temp;
         temp = g.getCellsNear(this);
@@ -168,5 +166,10 @@ public class WatorCell extends Cell {
     public int getEnergy(){
         return energy;
     }
+
+    public void clearNeighbors(){
+        myNeighbors.clear();
+    }
+
 
 }
