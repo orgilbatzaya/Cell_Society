@@ -1,6 +1,8 @@
 package Cell;
 
 import Grid.Grid;
+import javafx.scene.paint.Color;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,5 +56,16 @@ public class SegregationCell extends Cell {
 
     public int getMaxState() {
         return BLUE;
+    }
+
+    public Color getColor(){
+        if(currentState == RED){
+            myColor = Color.RED;
+        } else if (currentState == BLUE){
+            myColor = Color.BLUE;
+        } else {
+            myColor = Color.GRAY;
+        }
+        return myColor;
     }
 }

@@ -81,8 +81,8 @@ public class simGrid {
                 Cell tempCell = myCells.get(row).get(col);
 
                 updateCell(tempCell, r);
-
-                setCellColor(tempCell, r);
+                r.setFill(tempCell.getColor());
+                r.setStroke(Color.WHITE);
 
 
                 myGP.add(r, col, row, 1, 1);
@@ -114,13 +114,9 @@ public class simGrid {
     public void  updateCell(Cell tempCell, Rectangle r) {
         r.setOnMouseClicked(value -> {
             changeState(tempCell);
-            setCellColor(tempCell, r);
+            r.setFill(tempCell.getColor());
         });
     }
-
-
-
-
 
     /**
      * updates simulation grid
@@ -132,59 +128,6 @@ public class simGrid {
         this.makeGrid();
     }
 
-    /**
-     * chooses the color of a cell when initialized based on
-     * the simulation and its initialized state
-     *
-     * @param tempCell
-     * @param r
-     */
-    private void setCellColor(Cell tempCell, Rectangle r) {
-        r.setStroke(Color.WHITE);
-        if(myType.equals("Life")) {
-            if(tempCell.getCurrentState() == LifeCell.DEAD) {
-                r.setFill(Color.GRAY);
-            }
-            else {
-                r.setFill(Color.BLUE);
-            }
-        }
-        else if(myType.equals("Fire")) {
-            if(tempCell.getCurrentState() == FireCell.TREE) {
-                r.setFill(Color.GREEN);
-            }
-            else if(tempCell.getCurrentState() == FireCell.FIRE) {
-                r.setFill(Color.RED);
-            }
-            else {
-                r.setFill(Color.BROWN);
-            }
-        }
-        else if(myType.equals("Seg")) {
-            if(tempCell.getCurrentState() == SegregationCell.RED) {
-                r.setFill(Color.RED);
-            }
-            else if(tempCell.getCurrentState() == SegregationCell.BLUE) {
-                r.setFill(Color.BLUE);
-            }
-            else {
-                r.setFill(Color.GRAY);
-            }
-        }
-        else if(myType.equals("WaTor")) {
-            if(tempCell.getCurrentState() == WatorCell.FISH ) {
-                r.setFill(Color.GREEN);
-            }
-            else if(tempCell.getCurrentState() == WatorCell.SHARK) {
-                r.setFill(Color.RED);
-            }
-            else {
-                r.setFill(Color.GRAY);
-            }
-        }
 
-        else {
-            r.setFill(Color.GRAY);
-        }
-    }
+
 }

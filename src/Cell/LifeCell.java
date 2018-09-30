@@ -5,6 +5,7 @@
 package Cell;
 
 import Grid.*;
+import javafx.scene.paint.Color;
 
 /**
  * LifeCell class for Life of Game.
@@ -20,5 +21,14 @@ public class LifeCell extends Cell {
     @Override
     public int getMaxState() {
         return DEAD;
+    }
+
+    public Color getColor(){
+        if(currentState == ALIVE){
+            myColor = Color.BLACK;
+        } else {
+            myColor = Color.GRAY;
+        }
+        return myColor;
     }
 }

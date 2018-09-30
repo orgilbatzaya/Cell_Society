@@ -6,6 +6,7 @@ package Cell;
 
 import Grid.*;
 import javafx.scene.Group;
+import javafx.scene.paint.Color;
 
 import java.util.Random;
 
@@ -27,6 +28,17 @@ public class FireCell extends Cell {
     @Override
     public int getMaxState(){
         return GROUND;
+    }
+
+    public Color getColor(){
+        if(currentState == TREE){
+            myColor = Color.GREEN;
+        } else if (currentState == FIRE){
+            myColor = Color.RED;
+        } else {
+            myColor = Color.BLACK;
+        }
+        return myColor;
     }
 
 }

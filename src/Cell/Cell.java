@@ -2,6 +2,8 @@ package Cell;
 
 import Grid.*;
 import java.util.List;
+import javafx.scene.paint.Color;
+
 
 /**
  * @author ob29
@@ -16,6 +18,7 @@ public abstract class Cell {
     protected int nextState;
     private int xPos;
     private int yPos;
+    protected Color myColor;
     public static final int EMPTY = 0;
     protected List<Cell> myNeighbors;
 
@@ -64,5 +67,9 @@ public abstract class Cell {
      * @return the max value of states.
      */
     public abstract int getMaxState();
+
+    public abstract Color getColor();
+
+
 
 }

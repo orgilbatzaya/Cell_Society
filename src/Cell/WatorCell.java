@@ -4,11 +4,13 @@ import Grid.*;
 import java.util.Random;
 import java.util.ArrayList;
 import java.util.List;
+import javafx.scene.paint.Color;
 
 public class WatorCell extends Cell {
     public static final int SHARK = 2;
     public static final int FISH = 1;
     public static final int WATER = 0;
+    private Color color;
     private int energy;
     private int energySaved;
     private int breedingTime;
@@ -169,6 +171,17 @@ public class WatorCell extends Cell {
 
     public void clearNeighbors(){
         myNeighbors.clear();
+    }
+
+    public Color getColor(){
+        if(currentState == SHARK){
+            myColor = Color.RED;
+        } else if (currentState == FISH){
+            myColor = Color.GREEN;
+        } else {
+            myColor = Color.BLUE;
+        }
+        return myColor;
     }
 
 
