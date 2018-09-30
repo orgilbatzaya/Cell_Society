@@ -111,6 +111,10 @@ public class WatorCell extends Cell {
         }
     }
 
+    public int getMaxState() {
+        return SHARK;
+    }
+
     private void checkAlive(){
         if(energy <= 0){
             nextState = WATER;

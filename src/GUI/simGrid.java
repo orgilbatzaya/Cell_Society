@@ -78,11 +78,9 @@ public class simGrid {
                 r.setY(row);
                 r.setWidth(gridSpace/gridDim);
                 r.setHeight(gridSpace/gridDim);
-//                Button temp = new Button();
-
-//                temp.setPrefSize(gridSpace/gridDim, gridSpace/gridDim);
-//                temp.setMaxSize(gridSpace/gridDim, gridSpace/gridDim);
                 Cell tempCell = myCells.get(row).get(col);
+
+                updateCell(tempCell, r);
 
                 setCellColor(tempCell, r);
 
@@ -92,6 +90,36 @@ public class simGrid {
         }
         myBorder.setCenter(myGP);
     }
+
+
+    /**
+     *  this function helps to change a state at a grid location.
+     *  If it reaches the value which is the max int of state, it becomes the state which is 0.
+     */
+    public void changeState(Cell tempCell){
+        var user_changed = tempCell.getCurrentState() + 1;
+        if(tempCell.getCurrentState() == tempCell.getMaxState()){ // when it reaches the max value of states.
+            tempCell.setCurrentState(0);
+            return;
+        }
+        tempCell.setCurrentState(user_changed);
+
+    }
+
+    /**
+     * Allow users to interact with the simulation dynamically to create or change a state at a grid location
+     * @param tempCell this is Cell which the user clicked
+     * @param r now btn but will be shape later
+     */
+    public void  updateCell(Cell tempCell, Rectangle r) {
+        r.setOnMouseClicked(value -> {
+            changeState(tempCell);
+            setCellColor(tempCell, r);
+        });
+    }
+
+
+
 
 
     /**
@@ -145,13 +173,13 @@ public class simGrid {
         }
         else if(myType.equals("WaTor")) {
             if(tempCell.getCurrentState() == WatorCell.FISH ) {
-                temp.setId("blueCell");
+                r.setFill(Color.GREEN);
             }
             else if(tempCell.getCurrentState() == WatorCell.WATER) {
-                temp.setId("greyCell");
+                r.setFill(Color.BLUE);
             }
             else {
-                temp.setId("greenCell");
+                r.setFill(Color.GRAY);
             }
         }
 

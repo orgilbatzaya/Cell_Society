@@ -5,6 +5,7 @@
 package Cell;
 
 import Grid.*;
+import javafx.scene.Group;
 
 import java.util.Random;
 
@@ -21,7 +22,11 @@ public class FireCell extends Cell {
 
     public FireCell(int stateOne, int x, int y, double prob) {
         super(stateOne, stateOne, x, y);
-        this.prob = prob;
+    }
+
+    @Override
+    public int getMaxState(){
+        return GROUND;
     }
 
 }

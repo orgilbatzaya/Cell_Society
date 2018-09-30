@@ -5,22 +5,34 @@ import java.util.List;
 
 /**
  * @author ob29
+ * @author Amy Kim
  * Superclass for Cell objects
  * Containing shared fields/methods among all Cells
  * getNeighbors() and checkNeighbors() require a Grid object
  */
 
-public class Cell {
+public abstract class Cell {
     protected int currentState;
     protected int nextState;
     private int xPos;
     private int yPos;
-    private int gridSize;
     public static final int EMPTY = 0;
     protected List<Cell> myNeighbors;
+
+    /**
+     * for WaTor
+     */
     private boolean moving;
     private boolean birthing;
 
+
+    /**
+     *
+     * @param stateOne
+     * @param stateTwo
+     * @param x
+     * @param y
+     */
     public Cell(int stateOne, int stateTwo, int x, int y){
         currentState = stateOne;
         nextState = stateOne;
@@ -32,24 +44,12 @@ public class Cell {
         return xPos;
     }
 
-    public void setX(int val){
-        xPos = val;
-    }
-
     public int getY(){
         return yPos;
     }
 
-    public void setY(int val){
-        yPos = val;
-    }
-
     public int getCurrentState(){
         return currentState;
-    }
-
-    public int getNextState(){
-        return nextState;
     }
 
     public void setCurrentState(int state){
@@ -77,22 +77,19 @@ public class Cell {
     }
 
     /**
-     * Currently only implemented in Segregation (SegGrid).
+     * currently return 0
+     * @return the max value of states.
+     */
+    public int getMaxState() {return 0;}
+
+
+    /**
+     * for waTor
      */
     public void unTaken(){
 
     }
 
-    /**
-     * Currently only implemented in Segregation (SegGrid).
-     */
-    public void setTaken(){
-
-    }
-
-    /**
-     * Currently only implemented in Segregation (SegGrid).
-     */
     public boolean checkTaken(){
         return false;
     }
@@ -112,24 +109,13 @@ public class Cell {
     public void unBirthing(){
         birthing = false;
     }
+    public void setTaken(){
 
-    public void resetNextState(){
-        nextState = currentState;
     }
 
-    public List<Cell> getMyNeighbors(){
-        return myNeighbors;
-    }
-
-    /**
-     * Currently only used by Segregation (SegGrid).
-     */
     public void clearNeighbors(){
         myNeighbors.clear();
     }
-
-
-
 
 
 }

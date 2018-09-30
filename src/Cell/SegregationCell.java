@@ -6,13 +6,13 @@ import java.util.List;
 
 /**
  * @author ob29
+ * @author Amy Kim
  * Sub Cell class for Segregation Simulation
  */
 
 public class SegregationCell extends Cell {
     private double currentSatisfied; //variable
     private double mySatisfaction; //set for all SegregationCells in a certain simulation
-    private boolean taken = false;
     public static final int RED = 1;
     public static final int BLUE = 2;
     public static final int EMPTY = 0;
@@ -44,22 +44,15 @@ public class SegregationCell extends Cell {
 
     public void updateSatisfaction(List<Cell> neighbors) {
         int cnt = 0;
+        int nonEmpty = 0;
         for(var n: neighbors) {
             if(n.getCurrentState() == currentState) cnt ++;
+            if(n.getCurrentState() != EMPTY) nonEmpty ++;
         }
-        currentSatisfied = cnt/((double) neighbors.size());
+        currentSatisfied = cnt/((double) nonEmpty);
     }
 
-    @Override
-    public void setTaken(){
-        taken = true;
-    }
-    @Override
-    public void unTaken(){
-        taken = false;
-    }
-    @Override
-    public boolean checkTaken(){
-        return taken;
+    public int getMaxState() {
+        return BLUE;
     }
 }
