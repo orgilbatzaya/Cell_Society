@@ -5,6 +5,8 @@ import Grid.*;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -39,7 +41,6 @@ public class simGrid {
         myParams = params;
 
         this.choseGrid();
-
         myBorder = border;
         this.makeGrid();
     }
@@ -72,20 +73,53 @@ public class simGrid {
         myGP.setMaxSize(gridSpace, gridSpace);
         for(int row = 0; row < gridDim; row++) {
             for(int col = 0; col < gridDim; col++) {
-                Button temp = new Button();
-
-                temp.setPrefSize(gridSpace/gridDim, gridSpace/gridDim);
-                temp.setMaxSize(gridSpace/gridDim, gridSpace/gridDim);
+                Rectangle r = new Rectangle();
+                r.setX(col);
+                r.setY(row);
+                r.setWidth(gridSpace/gridDim);
+                r.setHeight(gridSpace/gridDim);
                 Cell tempCell = myCells.get(row).get(col);
 
-                setCellColor(tempCell, temp);
+                updateCell(tempCell, r);
+
+                setCellColor(tempCell, r);
 
 
-                myGP.add(temp, col, row, 1, 1);
+                myGP.add(r, col, row, 1, 1);
             }
         }
         myBorder.setCenter(myGP);
     }
+
+
+    /**
+     *  this function helps to change a state at a grid location.
+     *  If it reaches the value which is the max int of state, it becomes the state which is 0.
+     */
+    public void changeState(Cell tempCell){
+        var user_changed = tempCell.getCurrentState() + 1;
+        if(tempCell.getCurrentState() == tempCell.getMaxState()){ // when it reaches the max value of states.
+            tempCell.setCurrentState(0);
+            return;
+        }
+        tempCell.setCurrentState(user_changed);
+
+    }
+
+    /**
+     * Allow users to interact with the simulation dynamically to create or change a state at a grid location
+     * @param tempCell this is Cell which the user clicked
+     * @param r now btn but will be shape later
+     */
+    public void  updateCell(Cell tempCell, Rectangle r) {
+        r.setOnMouseClicked(value -> {
+            changeState(tempCell);
+            setCellColor(tempCell, r);
+        });
+    }
+
+
+
 
 
     /**
@@ -103,53 +137,54 @@ public class simGrid {
      * the simulation and its initialized state
      *
      * @param tempCell
-     * @param temp
+     * @param r
      */
-    private void setCellColor(Cell tempCell, Button temp) {
+    private void setCellColor(Cell tempCell, Rectangle r) {
+        r.setStroke(Color.WHITE);
         if(myType.equals("Life")) {
             if(tempCell.getCurrentState() == LifeCell.DEAD) {
-                temp.setId("greyCell");
+                r.setFill(Color.GRAY);
             }
             else {
-                temp.setId("blueCell");
+                r.setFill(Color.BLUE);
             }
         }
         else if(myType.equals("Fire")) {
             if(tempCell.getCurrentState() == FireCell.TREE) {
-                temp.setId("greenCell");
+                r.setFill(Color.GREEN);
             }
             else if(tempCell.getCurrentState() == FireCell.FIRE) {
-                temp.setId("redCell");
+                r.setFill(Color.RED);
             }
             else {
-                temp.setId("brownCell");
+                r.setFill(Color.BROWN);
             }
         }
         else if(myType.equals("Seg")) {
             if(tempCell.getCurrentState() == SegregationCell.RED) {
-                temp.setId("redCell");
+                r.setFill(Color.RED);
             }
             else if(tempCell.getCurrentState() == SegregationCell.BLUE) {
-                temp.setId("blueCell");
+                r.setFill(Color.BLUE);
             }
             else {
-                temp.setId("greyCell");
+                r.setFill(Color.GRAY);
             }
         }
         else if(myType.equals("WaTor")) {
             if(tempCell.getCurrentState() == WatorCell.FISH ) {
-                temp.setId("blueCell");
+                r.setFill(Color.GREEN);
             }
-            else if(tempCell.getCurrentState() == WatorCell.WATER) {
-                temp.setId("greyCell");
+            else if(tempCell.getCurrentState() == WatorCell.SHARK) {
+                r.setFill(Color.RED);
             }
             else {
-                temp.setId("greenCell");
+                r.setFill(Color.GRAY);
             }
         }
 
         else {
-            temp.setId("deadCell");
+            r.setFill(Color.GRAY);
         }
     }
 }

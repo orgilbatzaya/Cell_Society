@@ -6,6 +6,7 @@ import java.util.*;
 
 /**
  * @author ob29
+ * @author Amy Kim
  * Sub Grid class for Segregation simulation.
  */
 
@@ -13,7 +14,6 @@ public class SegGrid extends Grid {
     public static final int RED = 1;
     public static final int BLUE = 2;
     public static final int EMPTY = 0;
-    List<Cell> emptyCells;
     private final int similar;
     private final double rbRatio;
     private final double empty;
@@ -96,7 +96,7 @@ public class SegGrid extends Grid {
             target.get(i).setNextState(values.get(i));
         }
 
-        super.updateEveryCell();
+        updateStates();
         checkStats();
     }
 

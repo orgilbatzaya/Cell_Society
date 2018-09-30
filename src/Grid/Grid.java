@@ -7,6 +7,7 @@ import java.util.List;
 
 /**
  * @author ob29
+ * @author Amy Kim
  * Superclass for Grid objects
  * Containing shared fields/methods among all Grids.
  * Assumes existence of a collection of Cell objects
@@ -28,6 +29,7 @@ public abstract class Grid {
      *                 any state.
      * @return a List of Cell objects
      */
+
     public List<Cell> getEmptyCells(int emptyVal){ //get all the empty cells
         List<Cell> requiredCells = new ArrayList<>();
         for(List<Cell> row: myCells){
@@ -109,21 +111,20 @@ public abstract class Grid {
             for(int y = 0; y < size; y++){
                 Cell cell = myCells.get(x).get(y);
                 checkNeighbors(cell);
-                cell.setCurrentState(cell.getNextState());
             }
         }
-    }
+        updateStates();
+    };
+
 
     public void updateStates(){
         for(int x = 0; x < size; x++){
             for(int y = 0; y < size; y++){
-                var cell = myCells.get(x).get(y);
-                int nextState = cell.getNextState();
-                cell.setCurrentState(nextState);
+                Cell cell = myCells.get(x).get(y);
+                cell.setCurrentState(cell.getNextState());
             }
         }
     }
-
 
 
     public abstract void checkNeighbors(Cell cell);
@@ -131,4 +132,5 @@ public abstract class Grid {
     public ArrayList<ArrayList<Cell>> getGrid() {
         return myCells;
     };
+
 }
