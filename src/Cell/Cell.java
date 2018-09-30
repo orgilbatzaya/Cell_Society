@@ -19,12 +19,6 @@ public abstract class Cell {
     public static final int EMPTY = 0;
     protected List<Cell> myNeighbors;
 
-    /**
-     * for WaTor
-     */
-    private boolean moving;
-    private boolean birthing;
-
 
     /**
      *
@@ -46,14 +40,6 @@ public abstract class Cell {
 
     public int getY(){
         return yPos;
-    }
-
-    public void setX(int val){
-        xPos = val;
-    }
-
-    public void setY(int val){
-        yPos = val;
     }
 
     public int getCurrentState(){
@@ -92,54 +78,6 @@ public abstract class Cell {
      * currently return 0
      * @return the max value of states.
      */
-    public int getMaxState() {return 0;}
-
-
-    /**
-     * for waTor
-     */
-    public void unTaken(){
-
-    }
-    public void setTaken(){
-
-    }
-
-
-    public boolean checkTaken(){
-        return false;
-    }
-
-    public boolean isMoving(){
-        return moving;
-    }
-
-    public void unMoving(){
-        moving = false;
-    }
-
-    public boolean isBirthing(){
-        return birthing;
-    }
-
-    public void unBirthing(){
-        birthing = false;
-    }
-
-
-    public void resetNextState(){
-        nextState = currentState;
-    }
-
-
-    public List<Cell> getMyNeighbors(){
-        return myNeighbors;
-    }
-
-
-    public void clearNeighbors(){
-        myNeighbors.clear();
-    }
-
+    public abstract int getMaxState();
 
 }
