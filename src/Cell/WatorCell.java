@@ -101,7 +101,6 @@ public class WatorCell extends Cell {
         }
     }
 
-    @Override
     public void getNeighbors(Grid g){
         List<Cell> temp;
         temp = g.getCellsNear(this);
@@ -171,5 +170,6 @@ public class WatorCell extends Cell {
     public void clearNeighbors(){
         myNeighbors.clear();
     }
+
 
 }

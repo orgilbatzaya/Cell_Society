@@ -114,7 +114,7 @@ public class WatorGrid extends Grid {
         untakeCells();
         var aliveCells = getAliveCells();
         for(Cell cell: aliveCells) {
-            cell.getNeighbors(this);
+            ((WatorCell) cell).getNeighbors(this);
             ((WatorCell) cell).move();
             if (((WatorCell) cell).isMoving()) {
                 reposition(cell);
