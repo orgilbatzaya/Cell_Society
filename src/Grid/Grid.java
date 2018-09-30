@@ -12,7 +12,7 @@ import java.util.List;
  * Assumes existence of a collection of Cell objects
  */
 
-public class Grid {
+public abstract class Grid {
     protected int size;
     protected ArrayList<ArrayList<Cell>> myCells;
 
@@ -55,6 +55,7 @@ public class Grid {
         }
         return true;
     }
+
 
     /**
      * Given some Cell in the Grid, finds and stores all (8) adjacent positions
@@ -107,7 +108,7 @@ public class Grid {
         for(int x = 0; x < size; x++){
             for(int y = 0; y < size; y++){
                 Cell cell = myCells.get(x).get(y);
-                cell.checkNeighbors(this);
+                checkNeighbors(cell);
                 cell.setCurrentState(cell.getNextState());
             }
         }
@@ -123,6 +124,9 @@ public class Grid {
         }
     }
 
+
+
+    public abstract void checkNeighbors(Cell cell);
 
     public ArrayList<ArrayList<Cell>> getGrid() {
         return myCells;

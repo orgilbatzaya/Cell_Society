@@ -192,5 +192,9 @@ public class WatorGrid extends Grid {
             }
         }
     }
+    public void checkNeighbors(Cell cell){
+
+    }
+
 
 }

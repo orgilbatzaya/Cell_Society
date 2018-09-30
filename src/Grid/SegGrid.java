@@ -82,40 +82,39 @@ public class SegGrid extends Grid {
      */
     @Override
     public  void updateEveryCell(){
-        emptyCells = getEmptyCells(EMPTY);
-        for(Cell t: emptyCells){
-            t.unTaken(); //at each step, "untake" empty cells
-        }
         Random random = new Random();
-        List<Cell> unsatisfied = getUnsatisfiedCells();
-
-        Collections.shuffle(unsatisfied);
-        for(Cell cell: unsatisfied){
-            swapRandomEmptyCell(cell);
+        List<Cell> target = getUnsatisfiedOrEmptyCells();
+        // get colors
+        ArrayList<Integer> values = new ArrayList<>();
+        for(var cell: target) {
+            values.add(cell.getCurrentState());
         }
-        updateStates();
+        // shuffle colors
+        Collections.shuffle(values);
+        // assign shuffled colors in order
+        for(int i = 0 ; i < target.size() ; i ++) {
+            target.get(i).setNextState(values.get(i));
+        }
+
+        super.updateEveryCell();
         checkStats();
     }
 
-    public List<Cell> getUnsatisfiedCells() {
+    public List<Cell> getUnsatisfiedOrEmptyCells() {
         List<Cell> unsatisfied = new ArrayList<>();
         for (int x = 0; x < size; x++) {
             for (int y = 0; y < size; y++) {
                 var cell = myCells.get(x).get(y);
                 if (cell.getCurrentState() != EMPTY) {
-                    cell.getNeighbors(this);
-                    cell.checkNeighbors(this);
-                    if(!cell.isSatisfied()){
+                    checkNeighbors(cell);
+                    if(!((SegregationCell) cell).isSatisfied()){
                         unsatisfied.add(cell);
                     }
-                }
-                cell.clearNeighbors();
+                } else unsatisfied.add(cell);
             }
         }
-
         return unsatisfied;
     }
-
 
 
     /**
@@ -123,24 +122,6 @@ public class SegGrid extends Grid {
      * removes formerly empty cell from emptyCells
      * @param cell
      */
-
-    public void swapRandomEmptyCell(Cell cell){
-        Random random = new Random();
-        int emptySize = emptyCells.size();
-        int cnt = 0;
-        for(Cell c: emptyCells){
-            if(!c.checkTaken()){
-                cnt++;
-            }
-        }
-        if(emptySize > 0 && cnt > 0) {
-            int e = random.nextInt(emptySize);
-            cell.setNextState(EMPTY);
-            emptyCells.get(e).setNextState(cell.getCurrentState());
-            emptyCells.get(e).setTaken();
-            emptyCells.remove(e);
-        }
-    }
 
     /**
      * calculates overall satisfaction of non-empty cells
@@ -150,7 +131,7 @@ public class SegGrid extends Grid {
         int numSatisfied = 0;
         for (int x = 0; x < size; x++) {
             for (int y = 0; y < size; y++) {
-                if(myCells.get(x).get(y).isSatisfied()){
+                if(((SegregationCell) myCells.get(x).get(y)).isSatisfied()){
                     numSatisfied++;
                 }
             }
@@ -164,8 +145,15 @@ public class SegGrid extends Grid {
         initializeCells(similar,rbRatio,empty);
     }
 
-
-
-
-
+    /**
+     * Overrides checkNeighbors() in Cell
+     * Calculates currentSatisfied, which is the proportion of neighbor Cells
+     * having the same currentState to all neighbors Cells
+     * @param cell
+     */
+    @Override
+    public void checkNeighbors(Cell cell) {
+        var myNeighbors = getCellsNear(cell);
+        ((SegregationCell)cell).updateSatisfaction(myNeighbors);
+    }
 }
