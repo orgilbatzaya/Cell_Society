@@ -18,7 +18,6 @@ public class WatorGrid extends Grid {
     public static final int SHARK = 2;
     public static final int FISH = 1;
     public static final int WATER = 0;
-    public static final int DEFAULT = 0;
 
     public WatorGrid(int size, double sharkRatio, double emptyRatio, int breedingTime, int sharkEnergy) {
         super(size);
