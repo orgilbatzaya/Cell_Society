@@ -124,7 +124,7 @@ public class simGrid {
         double[] xPts = new double[]{1.0*r*width, 1.0*r*width, 1.0*r*width+width, 1.0*r*width+width};
         double[] yPts = new double[]{1.0*c*width, 1.0*c*width+width, 1.0*c*width+width, 1.0*c*width};
 
-        gc.fillPolygon(xPts, yPts, 4);
+        gc.fillPolygon(xPts, yPts, 4); //TODO: Major refactoring opportunity here
         gc.setFill(temp.getColor());
         gc.setStroke(Color.WHITE);
         gc.strokePolygon(xPts, yPts, 4);
