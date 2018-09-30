@@ -17,7 +17,6 @@ public abstract class Cell {
     private int xPos;
     private int yPos;
     protected Color myColor;
-    public static final int EMPTY = 0;
     protected List<Cell> myNeighbors;
 
 
