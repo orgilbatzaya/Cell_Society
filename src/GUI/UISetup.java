@@ -30,7 +30,7 @@ public class UISetup {
     public static final String STYLESHEET = "default.css";
     public static final String DEFAULT_TYPE = "Life";
     public static final int DEFAULT_GRID = 4;
-    public static final double DEFAULT_INTERVAL = 1.0;
+    public static final double DEFAULT_INTERVAL = 10.0;
 
     private Stage myStage;
     private Scene myScene;
