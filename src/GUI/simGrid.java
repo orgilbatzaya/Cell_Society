@@ -5,6 +5,8 @@ import Grid.*;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -39,7 +41,6 @@ public class simGrid {
         myParams = params;
 
         this.choseGrid();
-
         myBorder = border;
         this.makeGrid();
     }
@@ -72,16 +73,21 @@ public class simGrid {
         myGP.setMaxSize(gridSpace, gridSpace);
         for(int row = 0; row < gridDim; row++) {
             for(int col = 0; col < gridDim; col++) {
-                Button temp = new Button();
+                Rectangle r = new Rectangle();
+                r.setX(col);
+                r.setY(row);
+                r.setWidth(gridSpace/gridDim);
+                r.setHeight(gridSpace/gridDim);
+//                Button temp = new Button();
 
-                temp.setPrefSize(gridSpace/gridDim, gridSpace/gridDim);
-                temp.setMaxSize(gridSpace/gridDim, gridSpace/gridDim);
+//                temp.setPrefSize(gridSpace/gridDim, gridSpace/gridDim);
+//                temp.setMaxSize(gridSpace/gridDim, gridSpace/gridDim);
                 Cell tempCell = myCells.get(row).get(col);
 
-                setCellColor(tempCell, temp);
+                setCellColor(tempCell, r);
 
 
-                myGP.add(temp, col, row, 1, 1);
+                myGP.add(r, col, row, 1, 1);
             }
         }
         myBorder.setCenter(myGP);
@@ -103,37 +109,38 @@ public class simGrid {
      * the simulation and its initialized state
      *
      * @param tempCell
-     * @param temp
+     * @param r
      */
-    private void setCellColor(Cell tempCell, Button temp) {
+    private void setCellColor(Cell tempCell, Rectangle r) {
+        r.setStroke(Color.WHITE);
         if(myType.equals("Life")) {
             if(tempCell.getCurrentState() == LifeCell.DEAD) {
-                temp.setId("greyCell");
+                r.setFill(Color.GRAY);
             }
             else {
-                temp.setId("blueCell");
+                r.setFill(Color.BLUE);
             }
         }
         else if(myType.equals("Fire")) {
             if(tempCell.getCurrentState() == FireCell.TREE) {
-                temp.setId("greenCell");
+                r.setFill(Color.GREEN);
             }
             else if(tempCell.getCurrentState() == FireCell.FIRE) {
-                temp.setId("redCell");
+                r.setFill(Color.RED);
             }
             else {
-                temp.setId("brownCell");
+                r.setFill(Color.BROWN);
             }
         }
         else if(myType.equals("Seg")) {
             if(tempCell.getCurrentState() == SegregationCell.RED) {
-                temp.setId("redCell");
+                r.setFill(Color.RED);
             }
             else if(tempCell.getCurrentState() == SegregationCell.BLUE) {
-                temp.setId("blueCell");
+                r.setFill(Color.BLUE);
             }
             else {
-                temp.setId("greyCell");
+                r.setFill(Color.GRAY);
             }
         }
         else if(myType.equals("WaTor")) {
@@ -149,7 +156,7 @@ public class simGrid {
         }
 
         else {
-            temp.setId("deadCell");
+            r.setFill(Color.GRAY);
         }
     }
 }
