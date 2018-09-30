@@ -57,22 +57,7 @@ public abstract class Cell {
     public void setNextState(int state) {
         nextState = state;
     }
-
-//
-//    /**
-//     * Currently only used by Segregation (SegGrid). Depends on Grid's getCellsNear(Cell) method.
-//     * Fills myNeighbors field with appropriate neighbor Cells.
-//     * @param g a Grid object
-//     */
-//    public void getNeighbors(Grid g){
-//        List<Cell> temp;
-//        temp = g.getCellsNear(this);
-//        for(Cell c:temp){
-//            if(c.getCurrentState() != EMPTY){
-//                myNeighbors.add(c);
-//            }
-//        }
-//    }
+    
 
     /**
      * currently return 0
