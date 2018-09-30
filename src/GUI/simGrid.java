@@ -115,7 +115,6 @@ public class simGrid {
      */
     public void  updateCell(Cell tempCell, Rectangle r) {
         r.setOnMouseClicked(value -> {
-//            changeState(tempCell);
             if(myType.equals("WaTor")){
                 ((WatorCell)tempCell).resetEnergyAndBreed();
             }
