@@ -29,6 +29,7 @@ public abstract class Grid {
      *                 any state.
      * @return a List of Cell objects
      */
+
     public List<Cell> getEmptyCells(int emptyVal){ //get all the empty cells
         List<Cell> requiredCells = new ArrayList<>();
         for(List<Cell> row: myCells){

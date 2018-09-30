@@ -175,8 +175,8 @@ public class simGrid {
             if(tempCell.getCurrentState() == WatorCell.FISH ) {
                 r.setFill(Color.GREEN);
             }
-            else if(tempCell.getCurrentState() == WatorCell.WATER) {
-                r.setFill(Color.BLUE);
+            else if(tempCell.getCurrentState() == WatorCell.SHARK) {
+                r.setFill(Color.RED);
             }
             else {
                 r.setFill(Color.GRAY);
