@@ -27,18 +27,23 @@ public class FireGrid extends Grid {
         for(int i = 0; i < size; i++){
             var row = new ArrayList<Cell>();
             for(int j = 0; j < size; j++){
-                var random = new Random();
-                var x = random.nextDouble();
-                var y = 0;
-                if(x < 0.1) y = FireCell.FIRE;
-                else if (x <0.8) y = FireCell.TREE;
-                else y = FireCell.GROUND;
-                var cell = new FireCell(y, i, j, prob); //random states
-
+                var cell = new FireCell(setStates(), i, j); //random states
                 row.add(cell);
             }
             myCells.add(row);
         }
+    }
+
+    /**
+     * helping to initialize the FireCell on the grid
+     * @return Cell types
+     */
+    public int setStates(){
+        var random = new Random();
+        var x = random.nextDouble();
+        if(x < 0.1) return FireCell.FIRE;
+        else if (x <0.8) return FireCell.TREE;
+        else return FireCell.GROUND;
     }
 
     /**
@@ -86,11 +91,4 @@ public class FireGrid extends Grid {
             } cell.setNextState(FireCell.TREE); //otherwise, it keeps tree state
         }
     }
-
-    public void reset() {
-        myCells.clear();
-        initializeCells();
-    }
-
-
 }

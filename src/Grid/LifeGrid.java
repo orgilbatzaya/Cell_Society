@@ -33,12 +33,6 @@ public class LifeGrid extends Grid {
         }
     }
 
-
-    public void reset() {
-        myCells.clear();
-        initializeCells();
-    }
-
     /**
      *
      * @param cell LifeGrid

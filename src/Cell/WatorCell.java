@@ -25,8 +25,8 @@ public class WatorCell extends Cell {
     private boolean moving = false;
     private boolean birthing = false;
 
-    public WatorCell(int stateOne, int stateTwo, int x, int y, int breedingTime, int energy){
-        super(stateOne, stateOne, x, y);
+    public WatorCell(int stateOne, int x, int y, int breedingTime, int energy){
+        super(stateOne, x, y);
         this.breedingTime = breedingTime;
         this.breedingTimeSaved = breedingTime;
         this.energy = energy;
