@@ -3,6 +3,7 @@ package Grid;
 
 import Cell.Cell;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -94,6 +95,7 @@ public abstract class Grid {
             }
         }
         updateStates();
+        System.out.println(Arrays.toString(getStats()));
     };
 
 
@@ -120,6 +122,9 @@ public abstract class Grid {
     }
 
     public abstract void checkNeighbors(Cell cell);
+
+    public abstract double[] getStats(); //will be using for SimGraph ; get the number of each states
+
 
     public ArrayList<ArrayList<Cell>> getGrid() {
         return myCells;
