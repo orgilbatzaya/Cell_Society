@@ -86,18 +86,11 @@ public class simGrid {
         for(int row = gridDim-1; row >= 0; row--) {
             for(int col = row; col >= 0; col--) {
                 Cell tempCell = myCells.get(row).get(col);
-
-                if(col == row || row == 0) {
-                    Polygon p = makeTopTriangle(row, col, tempCell);
-
-                    myPane.getChildren().add(p);
-                }
-                else {
-                    Polygon p = makeTopTriangle(row, col, tempCell);
-                    Polygon p2 = makeBotTriangle(row, col, tempCell);
-
-                    myPane.getChildren().addAll(p,p2);
-                }
+                Polygon p = makeSquare(row, col, tempCell);//gc, tempCell);
+                p.setFill(tempCell.getColor());
+                p.setStroke(Color.WHITE);
+                updateCell(p, tempCell);
+                myPane.getChildren().add(p);
             }
         }
 

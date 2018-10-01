@@ -29,12 +29,12 @@ public class WatorCell extends Cell {
     private boolean moving = false;
     private boolean birthing = false;
 
-    public WatorCell(int stateOne, int x, int y, int breedingTime, int energy){
+    public WatorCell(int stateOne, int x, int y, int breedingTime, int energy, int breedingTimeSaved, int energySaved){
         super(stateOne, x, y);
+        this.breedingTimeSaved = breedingTimeSaved;
         this.breedingTime = breedingTime;
-        this.breedingTimeSaved = breedingTime;
         this.energy = energy;
-        this.energySaved = energy;
+        this.energySaved = energySaved;
         myNeighbors = new ArrayList<Cell>();
         nextPos = new int[]{x,y};
         babyPos = new int[]{x,y};
@@ -42,7 +42,7 @@ public class WatorCell extends Cell {
     }
 
     public void move(){
-        breedingTime--;
+        this.breedingTime--;
         if(currentState == SHARK){
             sharkUpdate();
         }
@@ -99,6 +99,7 @@ public class WatorCell extends Cell {
 
     private void breed(){
         if (breedingTime <= 0 && openSpots.size() > 0) {
+            breedingTime = breedingTimeSaved;
             birthing = true;
             int choice = random.nextInt(openSpots.size());
             Cell baby = openSpots.get(choice);
@@ -167,6 +168,7 @@ public class WatorCell extends Cell {
 
     public void unBirthing(){
         birthing = false;
+
     }
 
     public int getEnergy(){

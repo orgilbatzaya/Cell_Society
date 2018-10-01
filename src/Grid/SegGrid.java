@@ -11,9 +11,6 @@ import java.util.*;
  */
 
 public class SegGrid extends Grid {
-    public static final int RED = 1;
-    public static final int BLUE = 2;
-    public static final int EMPTY = 0;
     private final int similar;
     private final double rbRatio;
     private final double empty;
@@ -63,13 +60,13 @@ public class SegGrid extends Grid {
         Stack<Integer> bagOfStates = new Stack<>();
 
         for(int i = 0; i < empty; i++){
-            bagOfStates.add(EMPTY);
+            bagOfStates.add(SegregationCell.EMPTY);
         }
         for(int i = 0; i < red; i++){
-            bagOfStates.add(RED);
+            bagOfStates.add(SegregationCell.RED);
         }
         for(int i = 0; i < blue; i++){
-            bagOfStates.add(BLUE);
+            bagOfStates.add(SegregationCell.BLUE);
         }
         Collections.shuffle(bagOfStates);
         return bagOfStates;
@@ -98,6 +95,7 @@ public class SegGrid extends Grid {
 
         updateStates();
         checkStats();
+        System.out.println(Arrays.toString(getStats()));
     }
 
     public List<Cell> getUnsatisfiedOrEmptyCells() {
@@ -105,7 +103,7 @@ public class SegGrid extends Grid {
         for (int x = 0; x < size; x++) {
             for (int y = 0; y < size; y++) {
                 var cell = myCells.get(x).get(y);
-                if (cell.getCurrentState() != EMPTY) {
+                if (cell.getCurrentState() != SegregationCell.EMPTY) {
                     checkNeighbors(cell);
                     if(!((SegregationCell) cell).isSatisfied()){
                         unsatisfied.add(cell);
@@ -149,5 +147,23 @@ public class SegGrid extends Grid {
     public void checkNeighbors(Cell cell) {
         var myNeighbors = getCellsNear(cell);
         ((SegregationCell)cell).updateSatisfaction(myNeighbors);
+    }
+
+    @Override
+    public double[] getStats(){
+        int red, blue, empty;
+        red = blue = empty = 0;
+        for(int x = 0; x < size; x++) {
+            for (int y = 0; y < size; y++) {
+                if (myCells.get(x).get(y).getCurrentState() == SegregationCell.RED) {
+                    red++;
+                } else if (myCells.get(x).get(y).getCurrentState() == SegregationCell.BLUE) {
+                    blue++;
+                } else {
+                    empty++;
+                }
+            }
+        }
+        return new double[]{(double)red/(size*size), (double)blue/(size*size), (double)empty/(size*size)};
     }
 }

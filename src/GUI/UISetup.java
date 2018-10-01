@@ -3,6 +3,8 @@ package GUI;
 import java.io.File;
 import Simulation.Simulation;
 import XML.XMLParser;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
 import javafx.scene.control.Button;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -140,6 +142,7 @@ public class UISetup {
     public simGrid getMyGrid() {
         return myGrid;
     }
+
 
     /**
      * creates BorderPane object to hold other UI controls
