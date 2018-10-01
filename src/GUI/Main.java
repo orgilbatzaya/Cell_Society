@@ -31,6 +31,7 @@ public class Main extends Application {
     private UISetup myDisplay;
     private simGrid myGridDisplay;
 
+
     @Override
     /**
      * sets Stage and initializes GUI

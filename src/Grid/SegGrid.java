@@ -95,6 +95,7 @@ public class SegGrid extends Grid {
 
         updateStates();
         checkStats();
+        System.out.println(Arrays.toString(getStats()));
     }
 
     public List<Cell> getUnsatisfiedOrEmptyCells() {
@@ -149,7 +150,7 @@ public class SegGrid extends Grid {
     }
 
     @Override
-    public double[] stats(){
+    public double[] getStats(){
         int red, blue, empty;
         red = blue = empty = 0;
         for(int x = 0; x < size; x++) {

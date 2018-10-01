@@ -59,11 +59,6 @@ public class WatorGrid extends Grid {
         return animals;
     }
 
-    public void reset() { //reset
-        myCells.clear();
-        initializeCells();
-    }
-
     @Override
     public List<Cell> getCellsNear(Cell cell){
         List<Cell> nearCells = new ArrayList<Cell>();
@@ -125,7 +120,7 @@ public class WatorGrid extends Grid {
             ((WatorCell) cell).clearNeighbors();
         }
         updateStates();
-        System.out.println(Arrays.toString(stats()));
+        System.out.println(Arrays.toString(getStats()));
     }
 
     public void reposition(Cell cell){
@@ -159,7 +154,7 @@ public class WatorGrid extends Grid {
     }
 
     @Override
-    public double[] stats(){
+    public double[] getStats(){
         int f, s, w;
         f = s = w = 0;
         for(int x = 0; x < size; x++) {

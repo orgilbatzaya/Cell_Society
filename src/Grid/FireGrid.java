@@ -92,7 +92,7 @@ public class FireGrid extends Grid {
         }
     }
     @Override
-    public double[] stats(){
+    public double[] getStats(){
         int tree, fire, ground;
         tree = fire = ground = 0;
         for(int x = 0; x < size; x++) {

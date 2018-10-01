@@ -7,7 +7,6 @@ package Grid;
 import Cell.*;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 /**
@@ -56,7 +55,7 @@ public class LifeGrid extends Grid {
     }
 
     @Override
-    public double[] stats(){
+    public double[] getStats(){
         int L, D;
         L = D = 0;
         for(int x = 0; x < size; x++) {
