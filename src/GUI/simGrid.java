@@ -2,9 +2,8 @@ package GUI;
 
 import Cell.*;
 import Grid.*;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
 import java.util.ArrayList;
@@ -18,7 +17,7 @@ import java.util.Map;
  * @author Brooke Keene
  */
 public class simGrid {
-    private Canvas myCanvas;
+    private AnchorPane myPane;
     private BorderPane myBorder;
     private String myType;
     private int gridDim;
@@ -68,15 +67,17 @@ public class simGrid {
      * creates GridPane object containing cells for cell automata
      */
     private void makeGrid() {
-        myCanvas = new Canvas(gridSpace,gridSpace);
-        GraphicsContext gc = myCanvas.getGraphicsContext2D();
+        myPane = new AnchorPane();
 
 //        // Square Grid
 //        for(int row = 0; row < gridDim; row++) {
 //            for (int col = 0; col < gridDim; col++) {
 //                Cell tempCell = myCells.get(row).get(col);
-//
-//                makeSquare(row, col, gc, tempCell);
+//                Polygon p = makeSquare(row, col);//gc, tempCell);
+//                p.setFill(tempCell.getColor());
+//                p.setStroke(Color.WHITE);
+//                updateCell(tempCell, p);
+//                myPane.getChildren().add(p);
 //            }
 //        }
 
@@ -86,11 +87,15 @@ public class simGrid {
                 Cell tempCell = myCells.get(row).get(col);
 
                 if(col == row || row == 0) {
-                    makeTopTriangle(row, col, gc, tempCell);
+                    Polygon p = makeTopTriangle(row, col, tempCell);
+
+                    myPane.getChildren().add(p);
                 }
                 else {
-                    makeTopTriangle(row, col, gc, tempCell);
-                    makeBotTriangle(row, col, gc, tempCell);
+                    Polygon p = makeTopTriangle(row, col, tempCell);
+                    Polygon p2 = makeBotTriangle(row, col, tempCell);
+
+                    myPane.getChildren().addAll(p,p2);
                 }
             }
         }
@@ -108,7 +113,7 @@ public class simGrid {
 //            }
 //        }
 
-        myBorder.setCenter(myCanvas);
+        myBorder.setCenter(myPane);
     }
 
     /**
@@ -116,18 +121,17 @@ public class simGrid {
      *
      * @param r
      * @param c
-     * @param gc
-     * @param temp
      */
-    private void makeSquare(int r, int c, GraphicsContext gc, Cell temp) {
+    private Polygon makeSquare(int r, int c, Cell temp) {
         double width = gridSpace/gridDim;
-        double[] xPts = new double[]{1.0*r*width, 1.0*r*width, 1.0*r*width+width, 1.0*r*width+width};
-        double[] yPts = new double[]{1.0*c*width, 1.0*c*width+width, 1.0*c*width+width, 1.0*c*width};
-
-        gc.fillPolygon(xPts, yPts, 4); //TODO: Major refactoring opportunity here
-        gc.setFill(temp.getColor());
-        gc.setStroke(Color.WHITE);
-        gc.strokePolygon(xPts, yPts, 4);
+        Polygon p = new Polygon();
+        p.getPoints().addAll(new Double[] {
+                1.0*r*width, 1.0*c*width,
+                1.0*r*width, 1.0*c*width+width,
+                1.0*r*width+width, 1.0*c*width+width,
+                1.0*r*width+width, 1.0*c*width});
+        colorCell(p, temp);
+        return p;
     }
 
     /**
@@ -135,18 +139,16 @@ public class simGrid {
      *
      * @param r
      * @param c
-     * @param gc
-     * @param temp
      */
-    private void makeTopTriangle(int r, int c, GraphicsContext gc, Cell temp) {
+    private Polygon makeTopTriangle(int r, int c, Cell temp) {
         double width = gridSpace/gridDim;
-        double[] xPts = new double[]{1.0*r*width-(c*width/2), 1.0*r*width+width/2-(c*width/2), 1.0*r*width+width-(c*width/2)};
-        double[] yPts = new double[]{1.0*c*width, 1.0*c*width+width, 1.0*c*width};
-
-        gc.fillPolygon(xPts, yPts, 3);
-        gc.setFill(temp.getColor());
-        gc.setStroke(Color.WHITE);
-        gc.strokePolygon(xPts, yPts, 3);
+        Polygon p = new Polygon();
+        p.getPoints().addAll(new Double[] {
+                1.0*r*width-(c*width/2), 1.0*c*width,
+                1.0*r*width+width/2-(c*width/2), 1.0*c*width+width,
+                1.0*r*width+width-(c*width/2), 1.0*c*width});
+        colorCell(p, temp);
+        return p;
     }
 
     /**
@@ -154,18 +156,22 @@ public class simGrid {
      *
      * @param r
      * @param c
-     * @param gc
-     * @param temp
      */
-    private void makeBotTriangle(int r, int c, GraphicsContext gc, Cell temp) {
+    private Polygon makeBotTriangle(int r, int c, Cell temp) {
         double width = gridSpace/gridDim;
-        double[] xPts = new double[]{1.0*r*width-width/2-(c*width/2), 1.0*r*width-(c*width/2), 1.0*r*width+width/2-(c*width/2)};
-        double[] yPts = new double[]{1.0*c*width+width, 1.0*c*width, 1.0*c*width+width};
+        Polygon p = new Polygon();
+        p.getPoints().addAll(new Double[] {
+                1.0*r*width-width/2-(c*width/2), 1.0*c*width+width,
+                1.0*r*width-(c*width/2), 1.0*c*width,
+                1.0*r*width+width/2-(c*width/2), 1.0*c*width+width});
+        colorCell(p, temp);
+        return p;
+    }
 
-        gc.fillPolygon(xPts, yPts, 3);
-        gc.setFill(temp.getColor());
-        gc.setStroke(Color.WHITE);
-        gc.strokePolygon(xPts, yPts, 3);
+    private void colorCell(Polygon p, Cell tempCell) {
+        p.setFill(tempCell.getColor());
+        p.setStroke(Color.WHITE);
+        updateCell(p, tempCell);
     }
 
 //    /** NOT WORKING
@@ -230,8 +236,8 @@ public class simGrid {
      * @param tempCell this is Cell which the user clicked
      * @param p now btn but will be shape later
      */
-    public void  updateCell(Cell tempCell, Polygon p) {
-        p.setOnMouseClicked(value -> {
+    public void  updateCell(Polygon p, Cell tempCell) {
+        p.setOnMousePressed(value -> {
             changeState(tempCell);
             p.setFill(tempCell.getColor());
         });
