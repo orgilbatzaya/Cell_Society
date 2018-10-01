@@ -69,36 +69,36 @@ public class simGrid {
     private void makeGrid() {
         myPane = new AnchorPane();
 
-//        // Square Grid
-//        for(int row = 0; row < gridDim; row++) {
-//            for (int col = 0; col < gridDim; col++) {
-//                Cell tempCell = myCells.get(row).get(col);
-//                Polygon p = makeSquare(row, col);//gc, tempCell);
-//                p.setFill(tempCell.getColor());
-//                p.setStroke(Color.WHITE);
-//                updateCell(tempCell, p);
-//                myPane.getChildren().add(p);
-//            }
-//        }
-
-        // Triangle Grid
-        for(int row = gridDim-1; row >= 0; row--) {
-            for(int col = row; col >= 0; col--) {
+        // Square Grid
+        for(int row = 0; row < gridDim; row++) {
+            for (int col = 0; col < gridDim; col++) {
                 Cell tempCell = myCells.get(row).get(col);
-
-                if(col == row || row == 0) {
-                    Polygon p = makeTopTriangle(row, col, tempCell);
-
-                    myPane.getChildren().add(p);
-                }
-                else {
-                    Polygon p = makeTopTriangle(row, col, tempCell);
-                    Polygon p2 = makeBotTriangle(row, col, tempCell);
-
-                    myPane.getChildren().addAll(p,p2);
-                }
+                Polygon p = makeSquare(row, col, tempCell);//gc, tempCell);
+                p.setFill(tempCell.getColor());
+                p.setStroke(Color.WHITE);
+                updateCell(p, tempCell);
+                myPane.getChildren().add(p);
             }
         }
+
+//        // Triangle Grid
+//        for(int row = gridDim-1; row >= 0; row--) {
+//            for(int col = row; col >= 0; col--) {
+//                Cell tempCell = myCells.get(row).get(col);
+//
+//                if(col == row || row == 0) {
+//                    Polygon p = makeTopTriangle(row, col, tempCell);
+//
+//                    myPane.getChildren().add(p);
+//                }
+//                else {
+//                    Polygon p = makeTopTriangle(row, col, tempCell);
+//                    Polygon p2 = makeBotTriangle(row, col, tempCell);
+//
+//                    myPane.getChildren().addAll(p,p2);
+//                }
+//            }
+//        }
 
 //        // Hexagonal Grid - NOT WORKING
 //        for(int row = 0; row < gridDim; row++) {
@@ -238,6 +238,7 @@ public class simGrid {
      * @param tempCell this is Cell which the user clicked
      * @param p now btn but will be shape later
      */
+
     public void  updateCell(Polygon p, Cell tempCell) {
         p.setOnMousePressed(value -> {
             if(myType.equals("WaTor")){

@@ -11,18 +11,17 @@ import java.util.*;
  * WaTor Grid
  */
 public class WatorGrid extends Grid {
-    private int energy;
-    private int breedingTime;
+    private int energy, energySaved;
+    private int breedingTime, breedingTimeSaved;
     private double sharkRatio;
     private double emptyRatio;
-    public static final int SHARK = 2;
-    public static final int FISH = 1;
-    public static final int WATER = 0;
 
     public WatorGrid(int size, double sharkRatio, double emptyRatio, int breedingTime, int sharkEnergy) {
         super(size);
         this.energy = sharkEnergy;
         this.breedingTime = breedingTime;
+        this.breedingTimeSaved = breedingTime;
+        this.energySaved = energy;
         this.sharkRatio = sharkRatio;
         this.emptyRatio = emptyRatio;
         myCells = new ArrayList<ArrayList<Cell>>();
@@ -35,7 +34,7 @@ public class WatorGrid extends Grid {
             var row = new ArrayList<Cell>();
             for(int j = 0; j < size; j++){
                 int state = states.pop();
-                Cell cell = new WatorCell(state, i, j, breedingTime, energy);
+                Cell cell = new WatorCell(state, i, j, breedingTime, energy, breedingTimeSaved, energySaved);
                 row.add(cell);
             }
             myCells.add(row);
@@ -48,13 +47,13 @@ public class WatorGrid extends Grid {
         int numShark = (int) (sharkRatio*(size*size - numEmpty));
         int numFish = (size*size) - numEmpty - numShark;
         for(int i = 0; i < numEmpty; i++){
-            animals.add(WATER);
+            animals.add(WatorCell.WATER);
         }
         for(int i = 0; i < numShark; i++){
-            animals.add(SHARK);
+            animals.add(WatorCell.SHARK);
         }
         for(int i = 0; i < numFish; i++){
-            animals.add(FISH);
+            animals.add(WatorCell.FISH);
         }
         Collections.shuffle(animals);
         return animals;
@@ -132,7 +131,9 @@ public class WatorGrid extends Grid {
     public void reposition(Cell cell){
         int[] newPos = ((WatorCell) cell).getNextPos();
         int state = cell.getCurrentState();
-        Cell replacement = new WatorCell(state, newPos[0], newPos[1], ((WatorCell) cell).getBreedingTime(), ((WatorCell) cell).getEnergy());
+        Cell replacement = new WatorCell(state, newPos[0], newPos[1],
+                ((WatorCell) cell).getBreedingTime(), ((WatorCell) cell).getEnergy(),
+                breedingTimeSaved, energySaved);
         myCells.get(newPos[0]).set(newPos[1], replacement);
     }
 
@@ -140,13 +141,15 @@ public class WatorGrid extends Grid {
         int[] babyPos = ((WatorCell) cell).getBabyPos();
         int state = cell.getCurrentState();
         ((WatorCell) cell).resetEnergyAndBreed();
-        Cell replacement = new WatorCell(state, babyPos[0], babyPos[1], breedingTime, energy);
+        Cell replacement = new WatorCell(state, babyPos[0], babyPos[1],
+                ((WatorCell) cell).getBreedingTime(), ((WatorCell) cell).getEnergy(),
+                breedingTimeSaved, energySaved);
         myCells.get(babyPos[0]).set(babyPos[1], replacement);
     }
 
     public List<Cell> getAliveCells(){
-        var sharkCells = getRequiredCells(SHARK);
-        var FishCells = getRequiredCells(FISH);
+        var sharkCells = getRequiredCells(WatorCell.SHARK);
+        var FishCells = getRequiredCells(WatorCell.FISH);
         Collections.shuffle(sharkCells);
         Collections.shuffle(sharkCells);
         var aliveCells = new ArrayList<Cell>();
@@ -155,21 +158,22 @@ public class WatorGrid extends Grid {
         return aliveCells;
     }
 
+    @Override
     public double[] stats(){
         int f, s, w;
         f = s = w = 0;
         for(int x = 0; x < size; x++) {
             for (int y = 0; y < size; y++) {
-                if (myCells.get(x).get(y).getCurrentState() == FISH) {
+                if (myCells.get(x).get(y).getCurrentState() == WatorCell.FISH) {
                     f++;
-                } else if (myCells.get(x).get(y).getCurrentState() == SHARK) {
+                } else if (myCells.get(x).get(y).getCurrentState() == WatorCell.SHARK) {
                     s++;
                 } else {
                     w++;
                 }
             }
         }
-        return new double[]{1.0*f/(size*size),1.0*s/(size*size),1.0*w/(size*size)};
+        return new double[]{(double)f/(size*size),(double)s/(size*size),(double)w/(size*size)};
     }
 
     public void untakeCells(){

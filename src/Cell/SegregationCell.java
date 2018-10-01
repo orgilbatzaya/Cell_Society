@@ -39,7 +39,7 @@ public class SegregationCell extends Cell {
      * @return
      */
     public boolean isSatisfied(){
-        return currentSatisfied * double_to_int >= mySatisfaction;
+        return (int)currentSatisfied >= mySatisfaction;
     }
 
     public void updateSatisfaction(List<Cell> neighbors) {

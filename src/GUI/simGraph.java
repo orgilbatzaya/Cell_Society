@@ -12,4 +12,5 @@ public class simGraph {
     NumberAxis yAxis = new NumberAxis();
 
     LineChart lineChart = new LineChart(xAxis, yAxis);
+
 }
