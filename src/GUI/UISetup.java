@@ -23,6 +23,7 @@ import java.util.ResourceBundle;
  * and includes methods to return a scene
  *
  * @author Brooke Keene
+ * @author Amy Kim
  */
 public class UISetup {
     public static final String RESOURCE_PACKAGE = "resources/";

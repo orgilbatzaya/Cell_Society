@@ -6,6 +6,11 @@ import java.util.ArrayList;
 import java.util.List;
 import javafx.scene.paint.Color;
 
+/**
+ * @author Orgil Batzaya
+ */
+
+
 public class WatorCell extends Cell {
     public static final int SHARK = 2;
     public static final int FISH = 1;

@@ -2,7 +2,6 @@ package GUI;
 
 import Cell.*;
 import Grid.*;
-import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
