@@ -106,6 +106,18 @@ public abstract class Grid {
         }
     }
 
+    public List<Cell> getRequiredCells(int state){
+        var required = new ArrayList<Cell>();
+        for(int i = 0; i < size; i++){
+            for(int j = 0; j < size; j++){
+                var cell = myCells.get(i).get(j);
+                if(cell.getCurrentState() == state){
+                    required.add(cell);
+                }
+            }
+        }
+        return required;
+    }
 
     public abstract void checkNeighbors(Cell cell);
 

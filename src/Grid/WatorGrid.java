@@ -1,5 +1,5 @@
 /**
- * @author Orgil Batzaya, Amy Kim
+ * @author Orgil Batzaya
  */
 
 package Grid;
@@ -155,18 +155,6 @@ public class WatorGrid extends Grid {
         return aliveCells;
     }
 
-    public List<Cell> getRequiredCells(int state){
-        var required = new ArrayList<Cell>();
-        for(int i = 0; i < size; i++){
-            for(int j = 0; j < size; j++){
-                var cell = myCells.get(i).get(j);
-                if(cell.getCurrentState() == state){
-                    required.add(cell);
-                }
-            }
-        }
-        return required;
-    }
     public double[] stats(){
         int f, s, w;
         f = s = w = 0;
