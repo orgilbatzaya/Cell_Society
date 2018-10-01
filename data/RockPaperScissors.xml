@@ -1,0 +1,6 @@
+<root>
+    <simulation>RPS</simulation>
+    <grid>
+        <size>100</size>
+    </grid>
+</root>
