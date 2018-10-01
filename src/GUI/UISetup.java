@@ -42,6 +42,7 @@ public class UISetup {
 
     private simGrid myGrid;
     private simControls myControls;
+    private gridControls myGridControls;
     private Simulation mySimulation;
     private Button myStepBtn;
 
@@ -88,6 +89,10 @@ public class UISetup {
             myGrid.updateGrid();
         });
 
+        myGridControls = new gridControls(myBorder, myResources);
+        myGridControls.addShapeChoice();
+        myGridControls.addTypeBtns();
+
         myGrid = new simGrid(gridSize, simType, simParams, myBorder);
     }
 
@@ -102,6 +107,10 @@ public class UISetup {
             this.resetGUI();
             this.getXMLParameters();
             initializeUI();
+        }
+        // checks if different button has been selected
+        if(myGridControls.getChangeFlag()) {
+
         }
         // checks if simulation should be playing
         if(mySimulation.isPlaying()) {
