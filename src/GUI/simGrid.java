@@ -238,7 +238,6 @@ public class simGrid {
      * @param tempCell this is Cell which the user clicked
      * @param p now btn but will be shape later
      */
-<<<<<<< src/GUI/simGrid.java
     public void  updateCell(Polygon p, Cell tempCell) {
         p.setOnMousePressed(value -> {
             if(myType.equals("WaTor")){
