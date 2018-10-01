@@ -6,11 +6,15 @@ import java.util.ArrayList;
 import java.util.List;
 import javafx.scene.paint.Color;
 
+/**
+ * @author Orgil Batzaya
+ */
+
+
 public class WatorCell extends Cell {
     public static final int SHARK = 2;
     public static final int FISH = 1;
     public static final int WATER = 0;
-    private Color color;
     private int energy;
     private int energySaved;
     private int breedingTime;
@@ -173,6 +177,7 @@ public class WatorCell extends Cell {
         myNeighbors.clear();
     }
 
+    @Override
     public Color getColor(){
         if(currentState == SHARK){
             myColor = Color.RED;

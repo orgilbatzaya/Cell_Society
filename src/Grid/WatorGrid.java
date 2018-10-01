@@ -1,5 +1,5 @@
 /**
- * @author Orgil Batzaya, Amy Kim
+ * @author Orgil Batzaya
  */
 
 package Grid;
@@ -18,7 +18,6 @@ public class WatorGrid extends Grid {
     public static final int SHARK = 2;
     public static final int FISH = 1;
     public static final int WATER = 0;
-    public static final int DEFAULT = 0;
 
     public WatorGrid(int size, double sharkRatio, double emptyRatio, int breedingTime, int sharkEnergy) {
         super(size);
@@ -156,18 +155,6 @@ public class WatorGrid extends Grid {
         return aliveCells;
     }
 
-    public List<Cell> getRequiredCells(int state){
-        var required = new ArrayList<Cell>();
-        for(int i = 0; i < size; i++){
-            for(int j = 0; j < size; j++){
-                var cell = myCells.get(i).get(j);
-                if(cell.getCurrentState() == state){
-                    required.add(cell);
-                }
-            }
-        }
-        return required;
-    }
     public double[] stats(){
         int f, s, w;
         f = s = w = 0;

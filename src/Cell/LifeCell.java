@@ -4,11 +4,10 @@
 
 package Cell;
 
-import Grid.*;
 import javafx.scene.paint.Color;
 
 /**
- * LifeCell class for Life of Game.
+ * LifeCell class for Game of Life
  */
 public class LifeCell extends Cell {
     public static final int ALIVE = 0;
@@ -23,11 +22,12 @@ public class LifeCell extends Cell {
         return DEAD;
     }
 
+    @Override
     public Color getColor(){
         if(currentState == ALIVE){
-            myColor = Color.BLACK;
+            myColor = Color.PINK;
         } else {
-            myColor = Color.GRAY;
+            myColor = Color.DIMGRAY;
         }
         return myColor;
     }
