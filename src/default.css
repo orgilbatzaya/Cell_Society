@@ -1,6 +1,7 @@
 .button {
     -fx-text-fill: #FFFFFF;         /* White */
     -fx-font-size: 12pt;
+    -fx-font-family: "Segoe UI Semibold";
     -fx-font-weight: bold;
     -fx-background-color: #00009C;  /* Duke Blue */
     -fx-border-radius: 4px;
@@ -14,51 +15,53 @@
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
 }
 
-/* Game of Life Cells */
-#greyCell {
-    -fx-background-color: #D3D3D3;  /* Grey */
-    -fx-border: 1px;
-    -fx-border-color: #FFFFFF;
-    -fx-border-radius: 0px;
-    -fx-background-radius: 0px;
+.choice-box {
+    -fx-mark-color: #00009C;
+    -fx-font-size: 12pt;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-weight: bold;
 }
 
-#blueCell {
-    -fx-background-color: #00009C; /* Blue */
-    -fx-border: 1px;
-    -fx-border-color: #FFFFFF;
-    -fx-border-radius: 0px;
-    -fx-background-radius: 0px;
+.choice-box > .label {
+    -fx-text-fill: #00009C;
 }
 
-/* Spreading of Fire Cells */
-#greenCell {
-    -fx-background-color: #006009; /* Green */
-    -fx-border: 1px;
-    -fx-border-color: #FFFFFF;
-    -fx-border-radius: 0px;
-    -fx-background-radius: 0px;
+.choice-box .context-menu {
+    -fx-background-color: #FFFFFF;
 }
 
-#redCell {
-    -fx-background-color: #EF3F00; /* Red/Orange */
-    -fx-border: 1px;
-    -fx-border-color: #FFFFFF;
-    -fx-border-radius: 0px;
-    -fx-background-radius: 0px;
+.choice-box .menu-item:focused {
+    -fx-background-color: #00009C;
 }
 
-#brownCell {
-    -fx-background-color: #3D3333; /* Brown */
-    -fx-border: 1px;
-    -fx-border-color: #FFFFFF;
-    -fx-border-radius: 0px;
-    -fx-background-radius: 0px;
+.choice-box .menu-item:focused > .label {
+    -fx-text-fill: #FFFFFF;
 }
 
-/* Segregation Cells */
+.choice-box .menu-item > .label {
+    -fx-text-fill: #00009C;
+}
 
-/* Wa-Tor World Cells */
+.radio-button {
+    -fx-font-size: 12pt;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-weight: bold;
+    -fx-text-fill: #00009C;
+    -fx-padding: 8;
+    -fx-opacity: 0.7;
+}
+
+.radio-button .dot {
+    -fx-mark-color: #00009C;
+}
+
+.radio-button:hover {
+    -fx-opacity: 1;
+}
+
+.radio-button:selected {
+    -fx-opacity: 1;
+}
 
 .slider {
     -fx-background: #D3D3D3;

@@ -37,6 +37,7 @@ GUI:
 CSS:
 * Buttons and Sliders - https://www.w3schools.com/howto/
 * Oracle Getting Started with JavaFX - https://docs.oracle.com/javafx/2/get_started/css.htm
+* Stack Overflow (Choice Box) - https://stackoverflow.com/questions/43530178/style-choicebox-list-with-css-in-javafx
 
 XML:
 * How to read and write XML files with code (https://www.makeuseof.com/tag/read-write-xml-file-code/)
@@ -84,6 +85,7 @@ Extra credit:
 
 ### Notes
 * See Known Bugs
+* Grid dimensions should not exceed 100
 
 ### Impressions
     Brooke: Connecting front and back end was much harder than I expected and took a lot longer. There where aspects of

@@ -40,7 +40,10 @@ public class simGrid {
         myParams = params;
 
         this.choseGrid();
+
         myBorder = border;
+        myPane = new AnchorPane();
+
         this.makeGrid();
     }
 
@@ -67,11 +70,21 @@ public class simGrid {
      * creates GridPane object containing cells for cell automata
      */
     private void makeGrid() {
-        myPane = new AnchorPane();
+//        // Square Grid
+//        for(int row = 0; row < gridDim; row++) {
+//            for (int col = 0; col < gridDim; col++) {
+//                Cell tempCell = myCells.get(row).get(col);
+//                Polygon p = makeSquare(row, col);//gc, tempCell);
+//                p.setFill(tempCell.getColor());
+//                p.setStroke(Color.WHITE);
+//                updateCell(tempCell, p);
+//                myPane.getChildren().add(p);
+//            }
+//        }
 
-        // Square Grid
-        for(int row = 0; row < gridDim; row++) {
-            for (int col = 0; col < gridDim; col++) {
+        // Triangle Grid
+        for(int row = gridDim-1; row >= 0; row--) {
+            for(int col = row; col >= 0; col--) {
                 Cell tempCell = myCells.get(row).get(col);
                 Polygon p = makeSquare(row, col, tempCell);//gc, tempCell);
                 p.setFill(tempCell.getColor());
@@ -80,38 +93,6 @@ public class simGrid {
                 myPane.getChildren().add(p);
             }
         }
-
-//        // Triangle Grid
-//        for(int row = gridDim-1; row >= 0; row--) {
-//            for(int col = row; col >= 0; col--) {
-//                Cell tempCell = myCells.get(row).get(col);
-//
-//                if(col == row || row == 0) {
-//                    Polygon p = makeTopTriangle(row, col, tempCell);
-//
-//                    myPane.getChildren().add(p);
-//                }
-//                else {
-//                    Polygon p = makeTopTriangle(row, col, tempCell);
-//                    Polygon p2 = makeBotTriangle(row, col, tempCell);
-//
-//                    myPane.getChildren().addAll(p,p2);
-//                }
-//            }
-//        }
-
-//        // Hexagonal Grid - NOT WORKING
-//        for(int row = 0; row < gridDim; row++) {
-//            for (int col = 0; col < gridDim; col++) {
-//                Cell tempCell = myCells.get(row).get(col);
-//                if(col%2 == 0) {
-//                    makeEvenHexagon(row, col, gc, tempCell);
-//                }
-//                else {
-//                    makeOddHexagon(row, col, gc, tempCell);
-//                }
-//            }
-//        }
 
         myBorder.setCenter(myPane);
     }
@@ -168,53 +149,18 @@ public class simGrid {
         return p;
     }
 
+    /**
+     * sets color and outline of polygon based on the
+     * cell's state and sets on click functionality
+     *
+     * @param p
+     * @param tempCell
+     */
     private void colorCell(Polygon p, Cell tempCell) {
         p.setFill(tempCell.getColor());
         p.setStroke(Color.WHITE);
         updateCell(p, tempCell);
     }
-
-//    /** NOT WORKING
-//     * draws individual hexagons for grid
-//     *
-//     * @param r
-//     * @param c
-//     * @param gc
-//     * @param temp
-//     */
-//    private void makeEvenHexagon(int r, int c, GraphicsContext gc, Cell temp){
-//        double width = gridSpace/gridDim;
-//        double[] xPts = new double[]{1.0*r*width, 1.0*r*width+width/2, 1.0*r*width+width, 1.0*r*width+width, 1.0*r*width+width/2, 1.0*r*width};
-//        double[] yPts = new double[]{1.0*c*width+width/4, 1.0*c*width, 1.0*c*width+width/4, 1.0*c*width+width/4+width/2, 1.0*c*width+width, 1.0*c*width+width/4+width/2};
-//
-//
-//        gc.fillPolygon(xPts, yPts, 6);
-//        gc.setFill(temp.getColor());
-//        gc.setStroke(Color.WHITE);
-//        gc.strokePolygon(xPts, yPts, 6);
-//    }
-//
-//    /**
-//     * draws individual hexagons for grid
-//     * xPts shifted by + width/2
-//     * yPts shifted by - width/4
-//     *
-//     * @param r
-//     * @param c
-//     * @param gc
-//     * @param temp
-//     */
-//    private void makeOddHexagon(int r, int c, GraphicsContext gc, Cell temp){
-//        double width = gridSpace/gridDim;
-//        double[] xPts = new double[]{1.0*r*width+width/2, 1.0*r*width+width, 1.0*r*width+width+width/2, 1.0*r*width+width+width/2, 1.0*r*width+width, 1.0*r*width+width/2};
-//        double[] yPts = new double[]{1.0*c*width, 1.0*c*width-width/4, 1.0*c*width, 1.0*c*width+width/2, 1.0*c*width+3*width/4, 1.0*c*width+width/2};
-//
-//
-//        gc.fillPolygon(xPts, yPts, 6);
-//        gc.setFill(temp.getColor());
-//        gc.setStroke(Color.WHITE);
-//        gc.strokePolygon(xPts, yPts, 6);
-//    }
 
 
     /**
@@ -238,7 +184,6 @@ public class simGrid {
      * @param tempCell this is Cell which the user clicked
      * @param p now btn but will be shape later
      */
-
     public void  updateCell(Polygon p, Cell tempCell) {
         p.setOnMousePressed(value -> {
             if(myType.equals("WaTor")){

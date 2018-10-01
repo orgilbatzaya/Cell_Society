@@ -20,7 +20,7 @@ import java.util.ResourceBundle;
  */
 public class Main extends Application {
     public static final int WIDTH = 800;
-    public static final int HEIGHT = 650;
+    public static final int HEIGHT = 700;
     public static final Paint BACKGROUND = Color.WHITE;
     public static final int FRAMES_PER_SECOND = 60;
     public static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
@@ -29,7 +29,6 @@ public class Main extends Application {
     public static final String UI_TEXT = "English";
 
     private UISetup myDisplay;
-    private simGrid myGridDisplay;
 
 
     @Override
@@ -44,8 +43,6 @@ public class Main extends Application {
         stage.setScene(myDisplay.getScene());
         stage.setTitle(myResources.getString("Title"));
         stage.show();
-
-        myGridDisplay = myDisplay.getMyGrid();
 
         var frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> step(SECOND_DELAY));
         var animation = new Timeline();
