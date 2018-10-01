@@ -38,6 +38,11 @@ public class simControls {
     private int buttonPadding = 20;
     private int borderPadding = 10;
     private int sideMenuPadding = 200;
+
+    private int minSpeed = 1;
+    private int maxSpeed = 100;
+    private int startingSpeed = 50;
+    private int speedIncrement = 1;
     private int mySimSpeed = 1; // starting simulation speed
     private Label speedLabel;
 
@@ -136,9 +141,9 @@ public class simControls {
      * creates speed control slider
      */
     public void addSliders() {
-        Slider simSpeed = new Slider(1, 100, 50);
-        mySimSpeed = 50;
-        simSpeed.setMajorTickUnit(1);
+        Slider simSpeed = new Slider(minSpeed, maxSpeed, startingSpeed);
+        mySimSpeed = startingSpeed;
+        simSpeed.setMajorTickUnit(speedIncrement);
         speedLabel = new Label(Double.toString(simSpeed.getValue()));
         speedLabel.setId("speedLbl");
         simSpeed.valueProperty().addListener(this.addSliderListener());

@@ -43,7 +43,6 @@ public class UISetup {
     private simGrid myGrid;
     private simControls myControls;
     private Simulation mySimulation;
-    private Button myStepBtn;
 
     private String simType;
     private int gridSize;
@@ -83,7 +82,7 @@ public class UISetup {
         myControls = new simControls(mySimulation, myStage, myBorder, myResources);
         myControls.addButtons();
         myControls.makeSideMenu();
-        myStepBtn = myControls.getStepBtn();
+        Button myStepBtn = myControls.getStepBtn();
         myStepBtn.setOnAction(value ->  {
             myGrid.updateGrid();
         });
@@ -124,15 +123,6 @@ public class UISetup {
     }
 
     /**
-     * returns simGrid object when called by Main
-     *
-     * @return myGrid, the simulation Grid created by simGrid
-     */
-    public simGrid getMyGrid() {
-        return myGrid;
-    }
-
-    /**
      * creates BorderPane object to hold other UI controls
      */
     private void makeBorderPane() {
@@ -152,7 +142,7 @@ public class UISetup {
     /**
      * parses XML file given to GUI by user
      */
-    private void getXMLParameters() {
+    private void getXMLParameters() { //TODO: refactor into specific methods for each type of simulation
         File file = myControls.getFile();
         XMLParser xmlParser = new XMLParser(file);
         xmlParser.readFile();

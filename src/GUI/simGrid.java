@@ -66,7 +66,7 @@ public class simGrid {
     /**
      * creates GridPane object containing cells for cell automata
      */
-    private void makeGrid() {
+    private void makeGrid() { //TODO: refactor
         myPane = new AnchorPane();
 
 //        // Square Grid
@@ -74,9 +74,7 @@ public class simGrid {
 //            for (int col = 0; col < gridDim; col++) {
 //                Cell tempCell = myCells.get(row).get(col);
 //                Polygon p = makeSquare(row, col);//gc, tempCell);
-//                p.setFill(tempCell.getColor());
-//                p.setStroke(Color.WHITE);
-//                updateCell(tempCell, p);
+//
 //                myPane.getChildren().add(p);
 //            }
 //        }
@@ -144,9 +142,9 @@ public class simGrid {
         double width = gridSpace/gridDim;
         Polygon p = new Polygon();
         p.getPoints().addAll(new Double[] {
-                1.0*r*width-(c*width/2), 1.0*c*width,
-                1.0*r*width+width/2-(c*width/2), 1.0*c*width+width,
-                1.0*r*width+width-(c*width/2), 1.0*c*width});
+                r*width-(c*width/2), c*width,
+                r*width+width/2-(c*width/2), c*width+width,
+                r*width+width-(c*width/2), c*width});
         colorCell(p, temp);
         return p;
     }
@@ -161,13 +159,21 @@ public class simGrid {
         double width = gridSpace/gridDim;
         Polygon p = new Polygon();
         p.getPoints().addAll(new Double[] {
-                1.0*r*width-width/2-(c*width/2), 1.0*c*width+width,
-                1.0*r*width-(c*width/2), 1.0*c*width,
-                1.0*r*width+width/2-(c*width/2), 1.0*c*width+width});
+                r*width-width/2-(c*width/2), c*width+width,
+                r*width-(c*width/2), c*width,
+                r*width+width/2-(c*width/2), c*width+width});
         colorCell(p, temp);
         return p;
     }
 
+    /**
+     * sets the fill and outline of the given polygon and
+     * calls a function which sets the functionality for
+     * each cell to update its state if clicked
+     *
+     * @param p
+     * @param tempCell
+     */
     private void colorCell(Polygon p, Cell tempCell) {
         p.setFill(tempCell.getColor());
         p.setStroke(Color.WHITE);
@@ -238,7 +244,6 @@ public class simGrid {
      * @param tempCell this is Cell which the user clicked
      * @param p now btn but will be shape later
      */
-<<<<<<< src/GUI/simGrid.java
     public void  updateCell(Polygon p, Cell tempCell) {
         p.setOnMousePressed(value -> {
             if(myType.equals("WaTor")){
