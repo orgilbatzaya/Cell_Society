@@ -11,15 +11,11 @@ public class RpsGrid extends Grid {
     public static final int RED = 1;
     public static final int BLUE = 2;
     public static final int GREEN = 3;
-    private int MAX_GRADIENT;
-    private Random random;
 
     public RpsGrid(int size) {
         super(size);
         myCells = new ArrayList<ArrayList<Cell>>();
         initializeCells();
-        //System.out.println(myCells.size());
-
     }
 
     private void initializeCells(){
@@ -35,7 +31,6 @@ public class RpsGrid extends Grid {
 
 
     public void checkNeighbors(Cell cell){
-
         ((RpsCell) cell).checkCells(this);
     }
 }
