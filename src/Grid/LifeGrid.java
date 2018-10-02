@@ -46,9 +46,15 @@ public class LifeGrid extends Grid {
         }
 
         if(cell.getCurrentState() == LifeCell.ALIVE) { //set next state for alive cells
-            if(cnt < 2) cell.setNextState(LifeCell.DEAD); //if neighbor which alives less than 2, it will dead
-            else if(cnt == 2 || cnt == 3) cell.setNextState(LifeCell.ALIVE);
-            else cell.setNextState(LifeCell.DEAD); // Otherwise, dead
+            if(cnt < 2){
+                cell.setNextState(LifeCell.DEAD); //if neighbor which alives less than 2, it will dead
+            }
+            else if(cnt == 2 || cnt == 3) {
+                cell.setNextState(LifeCell.ALIVE);
+            }
+            else {
+                cell.setNextState(LifeCell.DEAD); // Otherwise, dead
+            }
         } else {
             if(cnt == 3) cell.setNextState(LifeCell.ALIVE);
         }

@@ -118,7 +118,9 @@ public class SegGrid extends Grid {
             if(!((SegregationCell) cell).isSatisfied()){
                 unsatisfied.add(cell);
             }
-        } else unsatisfied.add(cell);
+        } else {
+            unsatisfied.add(cell);
+        }
     }
 
     /**
