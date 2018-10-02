@@ -15,6 +15,8 @@ import java.util.Random;
  */
 public class FireGrid extends Grid {
     private double prob;
+    public static final double FIREPROB = 0.1;
+    public static final double TREEPROB = 0.8;
 
     public FireGrid(int size, double prob){
         super(size);
@@ -41,10 +43,10 @@ public class FireGrid extends Grid {
     public int setStates(){
         var random = new Random();
         var x = random.nextDouble();
-        if(x < 0.1) {
+        if(x < FIREPROB) {
             return FireCell.FIRE;
         }
-        else if (x <0.8) {
+        else if (x <TREEPROB) {
             return FireCell.TREE;
         }
         else {

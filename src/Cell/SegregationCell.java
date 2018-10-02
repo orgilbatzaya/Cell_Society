@@ -13,7 +13,7 @@ import java.util.List;
 public class SegregationCell extends Cell {
     private double currentSatisfied; //variable
     private double mySatisfaction; //set for all SegregationCells in a certain simulation
-    public static final int make_int = 100;// for example, by multiplying this value, 0.6 be 60
+    public static final int MAKE_INT = 100;// for example, by multiplying this value, 0.6 be 60
     public static final int RED = 1;
     public static final int BLUE = 2;
     public static final int EMPTY = 0;
@@ -39,7 +39,7 @@ public class SegregationCell extends Cell {
      * @return boolean. IsSatisfied or Not
      */
     public boolean isSatisfied(){
-        return currentSatisfied * make_int >= mySatisfaction;
+        return currentSatisfied * MAKE_INT >= mySatisfaction;
     }
 
     /**
