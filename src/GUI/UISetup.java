@@ -3,12 +3,16 @@ package GUI;
 import java.io.File;
 import Simulation.Simulation;
 import XML.XMLParser;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.geometry.Pos;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.control.Button;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.RadioButton;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
@@ -57,7 +61,7 @@ public class UISetup {
     private String gridEdge;
     private int gridSize;
 
-    private int borderPadding = 10;
+    private int padding = 20;
     private int sideMenuPadding = 200;
 
     private Map<String, Double> simParams;
@@ -92,38 +96,23 @@ public class UISetup {
         this.makeBorderPane();
         HBox top = new HBox();
         VBox sideMenu = new VBox();
-        HBox bottom;
+        HBox bottom = new HBox();
 
         mySimulation = new Simulation();
 
         myControls = new simControls(mySimulation, myStage, myResources);
 
         // add bottom buttons
-        bottom = myControls.addSimButtons();
-        Button myStepBtn = myControls.getStepBtn();
-        myStepBtn.setOnAction(value ->  this.updateMyGrid());
+        makeBottom(bottom);
 
         // add side menu elements
-        sideMenu.setPrefWidth(sideMenuPadding);
-        sideMenu.setPadding(new Insets(borderPadding));
-        sideMenu.setAlignment(Pos.TOP_CENTER);
-
-        sideMenu.getChildren().add(myControls.addFileChooser());
-        sideMenu.getChildren().addAll(myControls.addSpeedSlider(), myControls.getSpeedLabel());
+        makeSide(sideMenu);
 
         // add top buttons
-        myGridControls = new gridControls(myBorder, myResources);
-        myGridControls.addShapeChoice();
-        myGridControls.addTypeBtns();
+        makeTop(top);
 
         // add grid
-        myGrid = new simGrid(gridSize, gridShape, gridEdge, simType, simParams);
-
-        // add all elements to BorderPane
-        myBorder.setTop(top);
-        myBorder.setRight(sideMenu);
-        myBorder.setCenter(myGrid.makeGrid());
-        myBorder.setBottom(bottom);
+        makeGrid();
     }
 
     /**
@@ -137,10 +126,6 @@ public class UISetup {
             this.resetGUI();
             this.getXMLParameters();
             initializeUI();
-        }
-        // checks if different button has been selected
-        if(myGridControls.getChangeFlag()) {
-
         }
         // checks if simulation should be playing
         if(mySimulation.isPlaying()) {
@@ -177,8 +162,70 @@ public class UISetup {
     private void makeBorderPane() {
         myBorder.prefHeightProperty().bind(myScene.heightProperty());
         myBorder.prefWidthProperty().bind(myScene.widthProperty());
-        myBorder.setPadding(new Insets(borderPadding));
+        myBorder.setPadding(new Insets(padding));
         myRoot.getChildren().add(myBorder);
+    }
+
+    /**
+     * creates top buttons to control grid parameters
+     *
+     * @param top
+     */
+    private void makeTop(HBox top) {
+        top.setAlignment(Pos.CENTER_LEFT);
+
+        myGridControls = new gridControls(myResources);
+        top = myGridControls.makeGridControls();
+
+        ChoiceBox myBox = myGridControls.getShapeBox(); //TODO: connect output to backend
+        gridShape = myBox.getValue().toString();
+
+        RadioButton myFinBtn = myGridControls.getFinBtn();
+        myFinBtn.setOnAction(value -> gridEdge = "Finite");
+        RadioButton myTorBtn = myGridControls.getTorBtn();
+        myTorBtn.setOnAction(value -> gridEdge = "Toroidal");
+        RadioButton myInfBtn = myGridControls.getInfinBtn();
+        myInfBtn.setOnAction(value -> gridEdge = "Infinite");
+
+        myBorder.setTop(top);
+    }
+
+    /**
+     * creates side parameters to control simulation parameters
+     *
+     * @param sideMenu
+     */
+    private void makeSide(VBox sideMenu) {
+        sideMenu.setPrefWidth(sideMenuPadding);
+        sideMenu.setPadding(new Insets(padding));
+        sideMenu.setAlignment(Pos.TOP_CENTER);
+
+        sideMenu.getChildren().add(myControls.addFileChooser());
+        sideMenu.getChildren().addAll(myControls.addSpeedSlider(), myControls.getSpeedLabel());
+
+        myBorder.setRight(sideMenu);
+    }
+
+    /**
+     * creates grid and adds to BorderPane
+     */
+    private void makeGrid() {
+        myGrid = new simGrid(gridSize, gridShape, gridEdge, simType, simParams);
+
+        myBorder.setCenter(myGrid.makeGrid());
+    }
+
+    /**
+     * creates bottom buttons to control simulation animation
+     *
+     * @param bottom
+     */
+    private void makeBottom(HBox bottom) {
+        bottom = myControls.addSimButtons();
+        Button myStepBtn = myControls.getStepBtn();
+        myStepBtn.setOnAction(value ->  this.updateMyGrid());
+
+        myBorder.setBottom(bottom);
     }
 
     /**
