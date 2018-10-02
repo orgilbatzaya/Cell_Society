@@ -101,17 +101,25 @@ public class SegGrid extends Grid {
         for (int x = 0; x < size; x++) {
             for (int y = 0; y < size; y++) {
                 var cell = myCells.get(x).get(y);
-                if (cell.getCurrentState() != SegregationCell.EMPTY) {
-                    checkNeighbors(cell);
-                    if(!((SegregationCell) cell).isSatisfied()){
-                        unsatisfied.add(cell);
-                    }
-                } else unsatisfied.add(cell);
+                check(cell, unsatisfied);
             }
         }
         return unsatisfied;
     }
 
+    /**
+     *
+     * @param cell get cell
+     * @param unsatisfied will be list of unsatisfied cell
+     */
+    private void check(Cell cell, List<Cell> unsatisfied){
+        if (cell.getCurrentState() != SegregationCell.EMPTY) {
+            checkNeighbors(cell);
+            if(!((SegregationCell) cell).isSatisfied()){
+                unsatisfied.add(cell);
+            }
+        } else unsatisfied.add(cell);
+    }
 
     /**
      * swaps the next states of current cell and random empty cell
