@@ -14,6 +14,8 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.stage.FileChooser;
 import java.util.ResourceBundle;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 
 /**
  * simControls
@@ -22,6 +24,7 @@ import java.util.ResourceBundle;
  * Start, Stop, Step, and Reset
  *
  * @author Brooke Keene
+ * @author Amy Kim
  */
 public class simControls {
     private Stage myStage;
@@ -163,16 +166,30 @@ public class simControls {
      */
     private void setFileButtonFunctionality(FileChooser fc) {
         fileBtn.setOnAction(value -> {
-            //TODO: exceptions if wrong type of file
             File file = fc.showOpenDialog(myStage);
+            errorDetect(file);
             // saves File if no exceptions and File is not null
-            if(file != null) {
+            if(file.toString().contains(".xml")) { //When got the input as XML file.
                 fileFlag = true;
                 myFile = file;
                 fileName.setText(myFile.toString());
                 mySim.stop();
             }
         });
+    }
+
+    /**
+     * This will give error messages when the user put non XML file as input
+     * @param file
+     */
+    private void errorDetect(File file) {
+        if(!file.toString().contains(".xml")){
+            mySim.stop();
+            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+            errorAlert.setHeaderText("ERROR!");
+            errorAlert.setContentText("Incorrect File Type. Choose XML file.");
+            errorAlert.showAndWait();
+        }
     }
 
     /**
