@@ -182,6 +182,9 @@ public class UISetup {
         else if(simType.equals("WaTor")) {
             // do the same
         }
+        else if(simType.equals("RPS")) {
+            // no parameters!
+        }
 //        else {
 //            //TODO: throw exception
 //            System.out.println("Exception");

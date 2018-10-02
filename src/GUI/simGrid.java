@@ -60,8 +60,11 @@ public class simGrid {
         else if(myType.equals("Seg")) {
             myGrid = new SegGrid(gridDim, myParams.get("satisfaction").intValue(), 0.50, 0.40);
         }
-        if(myType.equals("WaTor")) {
+        else if(myType.equals("WaTor")) {
             myGrid = new WatorGrid(gridDim, .20, .10, 5, 3 );
+        }
+        else if(myType.equals("RPS")) {
+            myGrid = new RpsGrid(gridDim);
         }
         myCells = myGrid.getGrid();
     }
