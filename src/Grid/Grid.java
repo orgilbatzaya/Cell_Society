@@ -17,9 +17,11 @@ import java.util.List;
 public abstract class Grid {
     protected int size;
     protected ArrayList<ArrayList<Cell>> myCells;
+    protected int type;
 
     public Grid(int size) {
         this.size = size;
+        //this.type = type;
     }
 
     public abstract void initializeCells();
@@ -82,6 +84,26 @@ public abstract class Grid {
         return nearCells;
     }
 
+    public List<Cell> getCellsNearToroidal(List<int[]> positions){
+        List<Cell> nearCells = new ArrayList<Cell>();
+        for(int[] pos:positions) {
+            if (pos[0] < 0) {
+                pos[0] = size - 1;
+            }
+            if (pos[0] >= size) {
+                pos[0] = 0;
+            }
+            if (pos[1] < 0) {
+                pos[1] = size - 1;
+            }
+            if (pos[1] >= size) {
+                pos[1] = 0;
+            }
+            nearCells.add(myCells.get(pos[0]).get(pos[1]));
+        }
+        return nearCells;
+    }
+
     /**
      * Executes a "step" in LifeGrid and FireGrid
      * Overridden by SegGrid
@@ -129,5 +151,8 @@ public abstract class Grid {
     public ArrayList<ArrayList<Cell>> getGrid() {
         return myCells;
     };
+
+
+
 
 }

@@ -61,24 +61,8 @@ public class WatorGrid extends Grid {
 
     @Override
     public List<Cell> getCellsNear(Cell cell){
-        List<Cell> nearCells = new ArrayList<Cell>();
         List<int[]> positions = getNearCellPositions(cell);
-        for(int[] pos:positions) {
-            if (pos[0] < 0) {
-                pos[0] = size - 1;
-            }
-            if (pos[0] >= size) {
-                pos[0] = 0;
-            }
-            if (pos[1] < 0) {
-                pos[1] = size - 1;
-            }
-            if (pos[1] >= size) {
-                pos[1] = 0;
-            }
-            nearCells.add(myCells.get(pos[0]).get(pos[1]));
-        }
-        return nearCells;
+        return getCellsNearToroidal(positions);
     }
 
     /**
@@ -155,19 +139,10 @@ public class WatorGrid extends Grid {
 
     @Override
     public double[] getStats(){
-        int f, s, w;
-        f = s = w = 0;
-        for(int x = 0; x < size; x++) {
-            for (int y = 0; y < size; y++) {
-                if (myCells.get(x).get(y).getCurrentState() == WatorCell.FISH) {
-                    f++;
-                } else if (myCells.get(x).get(y).getCurrentState() == WatorCell.SHARK) {
-                    s++;
-                } else {
-                    w++;
-                }
-            }
-        }
+        int f = getRequiredCells(WatorCell.FISH).size();
+        int s = getRequiredCells(WatorCell.SHARK).size();
+        int w = getRequiredCells(WatorCell.WATER).size();
+
         return new double[]{(double)f/(size*size),(double)s/(size*size),(double)w/(size*size)};
     }
 

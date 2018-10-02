@@ -21,18 +21,16 @@ public class SegGrid extends Grid {
         this.similar = similar;
         this.rbRatio = rbRatio;
         this.empty = empty;
-        initializeCells(similar,rbRatio,empty);
+        initializeCells();
     }
 
     /**
      * Fills myCells with new Segregation Cells, with random placement of
      * red/blue/empty cells depending on User input, along with a
      * similarity/satisfaction threshold for all non-empty cells
-     * @param similar
-     * @param rbRatio percentage of red cells (user input)
-     * @param empty percentage of empty cells (user input)
+     *
      */
-    public void initializeCells(double similar, double rbRatio, double empty){
+    public void initializeCells(){
         int numEmpty = (int) (empty*size*size);
         int numRed = (int) (rbRatio*(size*size - numEmpty));
         int numBlue = (size*size) - numEmpty - numRed;
@@ -151,19 +149,9 @@ public class SegGrid extends Grid {
 
     @Override
     public double[] getStats(){
-        int red, blue, empty;
-        red = blue = empty = 0;
-        for(int x = 0; x < size; x++) {
-            for (int y = 0; y < size; y++) {
-                if (myCells.get(x).get(y).getCurrentState() == SegregationCell.RED) {
-                    red++;
-                } else if (myCells.get(x).get(y).getCurrentState() == SegregationCell.BLUE) {
-                    blue++;
-                } else {
-                    empty++;
-                }
-            }
-        }
+        int red = getRequiredCells(SegregationCell.RED).size();
+        int blue = getRequiredCells(SegregationCell.BLUE).size();
+        int empty = getRequiredCells(SegregationCell.EMPTY).size();
         return new double[]{(double)red/(size*size), (double)blue/(size*size), (double)empty/(size*size)};
     }
 }
