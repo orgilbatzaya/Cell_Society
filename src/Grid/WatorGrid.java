@@ -137,6 +137,10 @@ public class WatorGrid extends Grid {
         return aliveCells;
     }
 
+    /**
+     *
+     * @return Rate of Fish, Shark and Water (for making graph)
+     */
     @Override
     public double[] getStats(){
         int f = getRequiredCells(WatorCell.FISH).size();

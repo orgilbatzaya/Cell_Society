@@ -157,6 +157,11 @@ public class SegGrid extends Grid {
         ((SegregationCell)cell).updateSatisfaction(myNeighbors);
     }
 
+
+    /**
+     *
+     * @return segregation cell rates (for line graph)
+     */
     @Override
     public double[] getStats(){
         int numSatisfied = 0;

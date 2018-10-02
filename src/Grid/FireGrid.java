@@ -89,16 +89,30 @@ public class FireGrid extends Grid {
             for(var neighbor : getCellsNear(cell)) {
                 if(neighbor.getCurrentState() == FireCell.FIRE) cnt ++;
             }
-
-            if(cnt > 0) {
-                var random = new Random();
-                if(random.nextDouble() < prob) {
-                    cell.setNextState(FireCell.FIRE); //if less that probability, next state will be fire
-                    return;
-                }
-            } cell.setNextState(FireCell.TREE); //otherwise, it keeps tree state
+            fireOrtree(cell, cnt);
         }
     }
+
+    /**
+     *
+     * @param cell cell
+     * @param cnt counting how many neighbor Fire,
+     *            if cnt is less than probability, it will become fire, otherwise it will be Tree
+     */
+    private void fireOrtree(Cell cell, int cnt){
+        if(cnt > 0) {
+            var random = new Random();
+            if(random.nextDouble() < prob) {
+                cell.setNextState(FireCell.FIRE); //if less that probability, next state will be fire
+                return;
+            }
+        } cell.setNextState(FireCell.TREE); //otherwise, it keeps tree state
+    }
+
+    /**
+     *
+     * @return Rate of tree, fire and ground (for making graph)
+     */
     @Override
     public double[] getStats(){
         int tree = getRequiredCells(FireCell.TREE).size();

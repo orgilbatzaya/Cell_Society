@@ -145,7 +145,8 @@ public abstract class Grid {
 
     public abstract void checkNeighbors(Cell cell);
 
-    public abstract double[] getStats(); //will be using for SimGraph ; get the number of each states
+
+    public abstract double[] getStats(); //will be using for Line Graph ; get the number of each states
 
 
     public ArrayList<ArrayList<Cell>> getGrid() {

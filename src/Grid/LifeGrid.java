@@ -60,6 +60,10 @@ public class LifeGrid extends Grid {
         }
     }
 
+    /**
+     *
+     * @return Rate of Alive , and Dead (for making graph)
+     */
     @Override
     public double[] getStats(){
         int L = getRequiredCells(LifeCell.ALIVE).size();
