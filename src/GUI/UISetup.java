@@ -32,6 +32,8 @@ public class UISetup {
     public static final String UI_TEXT = "English";
     public static final String STYLESHEET = "default.css";
     public static final String DEFAULT_TYPE = "Life";
+    public static final String DEFAUlT_SHAPE = "Square";
+    public static final String DEFAULT_EDGE = "Finite";
     public static final int DEFAULT_GRID = 4;
     public static final double DEFAULT_INTERVAL = 10.0;
 
@@ -49,6 +51,8 @@ public class UISetup {
     private Button myStepBtn;
 
     private String simType;
+    private String gridShape;
+    private String gridEdge;
     private int gridSize;
     private int borderSpace = 10;
 
@@ -71,6 +75,8 @@ public class UISetup {
         myScene.getStylesheets().add(STYLESHEET);
 
         simType = DEFAULT_TYPE;
+        gridShape = DEFAUlT_SHAPE;
+        gridEdge = DEFAULT_EDGE;
         gridSize = DEFAULT_GRID;
         simParams = new HashMap<>();
     }
@@ -95,7 +101,7 @@ public class UISetup {
         myGridControls.addShapeChoice();
         myGridControls.addTypeBtns();
 
-        myGrid = new simGrid(gridSize, simType, simParams, myBorder);
+        myGrid = new simGrid(gridSize, gridShape, gridEdge, simType, simParams, myBorder);
     }
 
     /**

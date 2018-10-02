@@ -19,8 +19,10 @@ import java.util.Map;
 public class simGrid {
     private AnchorPane myPane;
     private BorderPane myBorder;
-    private String myType;
     private int gridDim;
+    private String gridShape;
+    private String gridEdge;
+    private String myType;
     private ArrayList<ArrayList<Cell>> myCells;
     private Grid myGrid;
     private Map<String, Double> myParams;
@@ -34,14 +36,16 @@ public class simGrid {
      * @param type, type of simulation to run
      * @param border, BorderPane object to add Grid to
      */
-    public simGrid(int n, String type, Map<String, Double> params, BorderPane border) {
+    public simGrid(int n, String shape, String edge, String type, Map<String, Double> params, BorderPane border) {
         gridDim = n;
+        gridShape = shape;
+        gridEdge = edge;
         myType = type;
         myParams = params;
+        myBorder = border;
 
         this.choseGrid();
 
-        myBorder = border;
         myPane = new AnchorPane();
 
         this.makeGrid();
@@ -73,19 +77,31 @@ public class simGrid {
      * creates GridPane object containing cells for cell automata
      */
     private void makeGrid() {
-//        // Square Grid
-//        for(int row = 0; row < gridDim; row++) {
-//            for (int col = 0; col < gridDim; col++) {
-//                Cell tempCell = myCells.get(row).get(col);
-//                Polygon p = makeSquare(row, col);//gc, tempCell);
-//                p.setFill(tempCell.getColor());
-//                p.setStroke(Color.WHITE);
-//                updateCell(tempCell, p);
-//                myPane.getChildren().add(p);
-//            }
-//        }
+        if(gridShape.equals("Square")) {
+            makeSquareGrid();
+        }
+        else if(gridShape.equals("Triangle")) {
+            makeTriangleGrid();
+        }
 
-        // Triangle Grid
+        myBorder.setCenter(myPane);
+    }
+
+    private void makeSquareGrid() {
+        // Square Grid
+        for(int row = 0; row < gridDim; row++) {
+            for (int col = 0; col < gridDim; col++) {
+                Cell tempCell = myCells.get(row).get(col);
+                Polygon p = makeSquare(row, col, tempCell);
+                p.setFill(tempCell.getColor());
+                p.setStroke(Color.WHITE);
+                updateCell(p, tempCell);
+                myPane.getChildren().add(p);
+            }
+        }
+    }
+
+    private void makeTriangleGrid() {
         for(int row = gridDim-1; row >= 0; row--) {
             for(int col = row; col >= 0; col--) {
                 Cell tempCell = myCells.get(row).get(col);
@@ -104,8 +120,6 @@ public class simGrid {
 
             }
         }
-
-        myBorder.setCenter(myPane);
     }
 
     /**
