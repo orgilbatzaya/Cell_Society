@@ -20,7 +20,7 @@ Hours Spent: 75+hrs
 
 ### Primary Roles
 
-* Amy Kim - Grid; implementing Game of Life, Spreading of Fire and WaTor.
+* Amy Kim - Cell; implementing Game of Life, Spreading of Fire, refactoring Segregation and GUI.
 * Brooke Keene - Frontend; GUI and XML
 * Orgil Batzaya - Grid; Cell; WaTor, Segregation, and Rock Paper Scissors.
  
@@ -67,6 +67,8 @@ Features implemented:
     Buttons: Start, Stop, and Step control simulation, Cell shape, Grid Bounds
     Slider: Slider controls simulation speed
     Choose File Button: Allows you to select which .xml file you want to run the simulation on 
+    Error messages: If you choose wrong input file (not .xml file), the error message shows up.
+    State changable: Allow users to interact with the simulation dynamically to create or change a state at a grid location
 
 Assumptions or Simplifications:
 * Assumed that all our simulations Cell and Grid objects would be similar enough that we could simply extend a general
@@ -96,4 +98,5 @@ Extra credit:
      too late and could not easily extend to more simulations besides Rock, Paper,
      Scissors. This also made changing grid type and edge types very hard.
     
-    Amy: The project was very hard. All of the rules were very different, so we had a hard time making an abstract class.
+    Amy: The project was very hard and big. All of the rules were very different, 
+    so we had a hard time making an abstract class.
