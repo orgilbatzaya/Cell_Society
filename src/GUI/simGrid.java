@@ -2,6 +2,7 @@ package GUI;
 
 import Cell.*;
 import Grid.*;
+import javafx.geometry.Insets;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
@@ -16,14 +17,17 @@ import java.util.Map;
  * @author Brooke Keene
  */
 public class simGrid {
-    private AnchorPane myPane;
     private int gridDim;
     private String gridShape;
     private String gridEdge;
     private String myType;
+
     private ArrayList<ArrayList<Cell>> myCells;
     private Grid myGrid;
     private Map<String, Double> myParams;
+
+    private AnchorPane myPane;
+    private int borderPadding = 20;
 
     public final double gridSpace = 500.00;
 
@@ -46,6 +50,7 @@ public class simGrid {
         this.choseGrid();
 
         myPane = new AnchorPane();
+        myPane.setPadding(new Insets(borderPadding));
     }
 
     /**
@@ -231,7 +236,5 @@ public class simGrid {
         myCells = myGrid.getGrid();
         return this.makeGrid();
     }
-
-
 
 }
