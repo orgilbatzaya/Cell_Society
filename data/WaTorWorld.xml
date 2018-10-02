@@ -1,7 +1,7 @@
 <root>
     <simulation>WaTor</simulation>
     <grid>
-        <size>50</size>
+        <size>20</size>
     </grid>
     <special>
         <empty>0.40</empty>

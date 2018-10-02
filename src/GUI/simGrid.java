@@ -215,7 +215,7 @@ public class simGrid {
      */
     public void  updateCell(Polygon p, Cell tempCell) {
         p.setOnMousePressed(value -> {
-            if(myType.equals("WaTor")){
+            if(myType.equals("WaTor")){ //For WaTor, when its' states changes, it should reset Energy and Breed.
                 ((WatorCell)tempCell).resetEnergyAndBreed();
             }
             changeState(tempCell);

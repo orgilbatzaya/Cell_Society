@@ -15,6 +15,8 @@ import java.util.Random;
  */
 public class FireGrid extends Grid {
     private double prob;
+    public static final double FIREPROB = 0.1;
+    public static final double TREEPROB = 0.8;
 
     public FireGrid(int size, double prob){
         super(size);
@@ -41,10 +43,10 @@ public class FireGrid extends Grid {
     public int setStates(){
         var random = new Random();
         var x = random.nextDouble();
-        if(x < 0.1) {
+        if(x < FIREPROB) {
             return FireCell.FIRE;
         }
-        else if (x <0.8) {
+        else if (x <TREEPROB) {
             return FireCell.TREE;
         }
         else {
@@ -89,16 +91,30 @@ public class FireGrid extends Grid {
             for(var neighbor : getCellsNear(cell)) {
                 if(neighbor.getCurrentState() == FireCell.FIRE) cnt ++;
             }
-
-            if(cnt > 0) {
-                var random = new Random();
-                if(random.nextDouble() < prob) {
-                    cell.setNextState(FireCell.FIRE); //if less that probability, next state will be fire
-                    return;
-                }
-            } cell.setNextState(FireCell.TREE); //otherwise, it keeps tree state
+            fireOrtree(cell, cnt);
         }
     }
+
+    /**
+     *
+     * @param cell cell
+     * @param cnt counting how many neighbor Fire,
+     *            if cnt is less than probability, it will become fire, otherwise it will be Tree
+     */
+    private void fireOrtree(Cell cell, int cnt){
+        if(cnt > 0) {
+            var random = new Random();
+            if(random.nextDouble() < prob) {
+                cell.setNextState(FireCell.FIRE); //if less that probability, next state will be fire
+                return;
+            }
+        } cell.setNextState(FireCell.TREE); //otherwise, it keeps tree state
+    }
+
+    /**
+     *
+     * @return Rate of tree, fire and ground (for making graph)
+     */
     @Override
     public double[] getStats(){
         int tree = getRequiredCells(FireCell.TREE).size();
