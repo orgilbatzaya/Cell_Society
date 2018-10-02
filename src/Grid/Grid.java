@@ -22,6 +22,7 @@ public abstract class Grid {
         this.size = size;
     }
 
+    public abstract void initializeCells();
     /**
      * Checks if an (x,y) pair is bounded within a Grid of dimension size * size
      * @param x int
