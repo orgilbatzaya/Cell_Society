@@ -119,11 +119,6 @@ public class UISetup {
         // add grid
         myGrid = new simGrid(gridSize, gridShape, gridEdge, simType, simParam, simParams, simMoreParams, simOneParam);
 
-        // add all elements to BorderPane
-        myBorder.setTop(top);
-        myBorder.setRight(sideMenu);
-        myBorder.setCenter(myGrid.makeGrid());
-        myBorder.setBottom(bottom);
     }
 
     /**
@@ -189,7 +184,6 @@ public class UISetup {
         top = myGridControls.makeGridControls();
 
         ChoiceBox myBox = myGridControls.getShapeBox(); //TODO: connect output to backend
-        gridShape = myBox.getValue().toString();
 
         RadioButton myFinBtn = myGridControls.getFinBtn();
         myFinBtn.setOnAction(value -> gridEdge = "Finite");
@@ -221,7 +215,7 @@ public class UISetup {
      * creates grid and adds to BorderPane
      */
     private void makeGrid() {
-        myGrid = new simGrid(gridSize, gridShape, gridEdge, simType, simParams);
+        myGrid = new simGrid(gridSize, gridShape, gridEdge, simType, simParam, simParams, simMoreParams, simOneParam);
 
         myBorder.setCenter(myGrid.makeGrid());
     }
