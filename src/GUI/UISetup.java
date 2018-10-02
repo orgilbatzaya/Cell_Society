@@ -3,12 +3,16 @@ package GUI;
 import java.io.File;
 import Simulation.Simulation;
 import XML.XMLParser;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.geometry.Pos;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.control.Button;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.RadioButton;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
@@ -172,6 +176,16 @@ public class UISetup {
 
         myGridControls = new gridControls(myResources);
         top = myGridControls.makeGridControls();
+
+        ChoiceBox myBox = myGridControls.getShapeBox(); //TODO: connect output to backend
+        gridShape = myBox.getValue().toString();
+
+        RadioButton myFinBtn = myGridControls.getFinBtn();
+        myFinBtn.setOnAction(value -> gridEdge = "Finite");
+        RadioButton myTorBtn = myGridControls.getTorBtn();
+        myTorBtn.setOnAction(value -> gridEdge = "Toroidal");
+        RadioButton myInfBtn = myGridControls.getInfinBtn();
+        myInfBtn.setOnAction(value -> gridEdge = "Infinite");
 
         myBorder.setTop(top);
     }

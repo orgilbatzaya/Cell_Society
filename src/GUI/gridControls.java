@@ -24,6 +24,7 @@ public class gridControls {
 
     private HBox myGridBtns;
 
+    private ChoiceBox shapeSelect;
     private RadioButton finiteBtn;
     private RadioButton toroidalBtn;
     private RadioButton infiniteBtn;
@@ -36,6 +37,10 @@ public class gridControls {
     public gridControls(ResourceBundle resources) {
         myResources = resources;
         myGridBtns = new HBox();
+    }
+
+    public ChoiceBox getShapeBox() {
+        return shapeSelect;
     }
 
     /**
@@ -62,6 +67,11 @@ public class gridControls {
         return infiniteBtn;
     }
 
+    /**
+     * calls methods that create UI elements of grid controls
+     *
+     * @return
+     */
     public HBox makeGridControls() {
         this.addShapeChoice();
         this.addTypeBtns();
@@ -72,7 +82,7 @@ public class gridControls {
      * creates a ChoiceBox to select simulation type
      */
     private void addShapeChoice() {
-        ChoiceBox shapeSelect = new ChoiceBox();
+        shapeSelect = new ChoiceBox();
 
         shapeSelect.getItems().add(myResources.getString("Square"));
         shapeSelect.getItems().add(myResources.getString("Triangle"));
@@ -81,6 +91,9 @@ public class gridControls {
         myGridBtns.getChildren().add(shapeSelect);
     }
 
+    /**
+     * creates Radio Buttons to handle grid edge types
+     */
     private void addTypeBtns() {
         ToggleGroup gridTypes = new ToggleGroup();
 
@@ -95,20 +108,5 @@ public class gridControls {
         infiniteBtn.setToggleGroup(gridTypes);
 
         myGridBtns.getChildren().addAll(finiteBtn, toroidalBtn, infiniteBtn);
-    }
-
-    /**
-     * sets functionality of each button for when user clicks
-     */
-    private void setButtonFunctionality() {
-        finiteBtn.setOnAction(value ->  {
-            System.out.println("finite");
-        });
-        toroidalBtn.setOnAction(value ->  {
-            System.out.println("toroidal");
-        });
-        infiniteBtn.setOnAction(value -> {
-            System.out.println("infinite");
-        });
     }
 }
