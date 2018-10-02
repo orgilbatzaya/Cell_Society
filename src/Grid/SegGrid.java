@@ -101,7 +101,7 @@ public class SegGrid extends Grid {
         for (int x = 0; x < size; x++) {
             for (int y = 0; y < size; y++) {
                 var cell = myCells.get(x).get(y);
-                if (cell.getCurrentState() != SegregationCell.EMPTY) {
+                if (cell.getCurrentState() != SegregationCell.EMPTY ) {
                     checkNeighbors(cell);
                     if(!((SegregationCell) cell).isSatisfied()){
                         unsatisfied.add(cell);
@@ -132,7 +132,7 @@ public class SegGrid extends Grid {
                 }
             }
         }
-        return (1.0*numSatisfied)/(size*size);
+        return (double)(numSatisfied)/(size*size);
     }
 
     /**

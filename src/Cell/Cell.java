@@ -64,6 +64,10 @@ public abstract class Cell {
      */
     public abstract int getMaxState();
 
+    /**
+     *
+     * @return a Color object representing a Cells color, specific to simulation
+     */
     public abstract Color getColor();
 
 }

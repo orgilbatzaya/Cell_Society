@@ -175,12 +175,14 @@ public class UISetup {
         }
         else if(simType.equals("Seg")) {
             simParams.put("satisfaction", xmlParser.getParameter("satisfaction"));
+            simParams.put("rbRatio", xmlParser.getParameter("red"));
+            simParams.put("empty", xmlParser.getParameter("empty"));
         }
         else if(simType.equals("Fire")) {
             simParams.put("probability", xmlParser.getParameter("probability"));
         }
         else if(simType.equals("WaTor")) {
-            // do the same
+            //simParams.put("");
         }
         else if(simType.equals("RPS")) {
             // no parameters!

@@ -84,6 +84,11 @@ public abstract class Grid {
         return nearCells;
     }
 
+    /**
+     * applies toroidal wrapping
+     * @param positions a list of int[2] x,y positions
+     * @return a list of Cells with positions modified
+     */
     public List<Cell> getCellsNearToroidal(List<int[]> positions){
         List<Cell> nearCells = new ArrayList<Cell>();
         for(int[] pos:positions) {
@@ -121,6 +126,9 @@ public abstract class Grid {
     };
 
 
+    /**
+     * sets the current state to the determined next state
+     */
     public void updateStates(){
         for(int x = 0; x < size; x++){
             for(int y = 0; y < size; y++){
@@ -130,6 +138,11 @@ public abstract class Grid {
         }
     }
 
+    /**
+     * Searches through Grid to find all Cells with certain state
+     * @param state an int defining a specific cell state
+     * @return List of Cells with required state
+     */
     public List<Cell> getRequiredCells(int state){
         var required = new ArrayList<Cell>();
         for(int i = 0; i < size; i++){
@@ -143,9 +156,19 @@ public abstract class Grid {
         return required;
     }
 
+    /**
+     * Called within updateEveryCell, or each step, on each cell in the grid
+     * to apply simulation-specific rules
+     * @param cell
+     */
     public abstract void checkNeighbors(Cell cell);
 
-    public abstract double[] getStats(); //will be using for SimGraph ; get the number of each states
+    /**
+     * Calculates proportions of different Cell quantities in each simulation
+     * For Segregation, determines only the overall satisfaction rate
+     * @return a double[]
+     */
+    public abstract double[] getStats();
 
 
     public ArrayList<ArrayList<Cell>> getGrid() {

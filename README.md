@@ -14,15 +14,15 @@ Names:
 
 Start Date: September 15, 2018
 
-Finish Date: September 24, 2018
+Finish Date: October 2, 2018 (Grace Hopper extension)
 
-Hours Spent: 50+hrs
+Hours Spent: 75+hrs
 
 ### Primary Roles
 
-Amy Kim - Simulation; implementing Game of Life, Spreading of Fire and WaTor.
-Brooke Keene - Frontend; GUI and XML
-Orgil Batzaya - Simulation; implementing Segregation,  and GUI.
+* Amy Kim - Grid; implementing Game of Life, Spreading of Fire and WaTor.
+* Brooke Keene - Frontend; GUI and XML
+* Orgil Batzaya - Grid; Cell; WaTor, Segregation, and Rock Paper Scissors.
  
 
 
@@ -59,11 +59,12 @@ Interesting data files:
 * GameOfLife.xml
 * Segregation.xml
 * SpreadingOfFire.xml
-* WatorWorld.xml
+* WaTorWorld.xml
+* RockPaperScissors.xml
 
 Features implemented:
 
-    Buttons: Start, Stop, and Step control simulation
+    Buttons: Start, Stop, and Step control simulation, Cell shape, Grid Bounds
     Slider: Slider controls simulation speed
     Choose File Button: Allows you to select which .xml file you want to run the simulation on 
 
@@ -71,26 +72,28 @@ Assumptions or Simplifications:
 * Assumed that all our simulations Cell and Grid objects would be similar enough that we could simply extend a general
 Cell and Grid class rather than using abstraction
 * Assumed all XML files would be of the same format with the same tags that we used when writing test files
+* Assumed that the data structure which held Cells (Grid) could also share logic with the 
+different simulations
 
 Known Bugs:
 * Simulation specific parameters are hardcoded into our grid initialization rather than being read in from the XML file
 * Grid configurations are initialized randomly every time a new Grid object is created instead of reading the initial 
 states for each cell from an XML file 
-* WaTor.Cell method checkNeighbors() not functioning fully
-* Step button only works when animation is paused
-* Grid size cannot exceed 15 or the grid will cover the buttons
 
 Extra credit:
 
 
 ### Notes
 * See Known Bugs
-* Grid dimensions should not exceed 100
+* Grid dimensions should not exceed 100 because of strain on machine
 
 ### Impressions
     Brooke: Connecting front and back end was much harder than I expected and took a lot longer. There where aspects of
     animating the grid that I never considered when first creating the GUI.
     
-    Orgil: "Abstraction is hard."
+    Orgil: We should not have combined Grid functionality with Simulation
+     functionality into one class (Grid) and its subclasses. We realized this 
+     too late and could not easily extend to more simulations besides Rock, Paper,
+     Scissors. This also made changing grid type and edge types very hard.
     
     Amy: The project was very hard. All of the rules were very different, so we had a hard time making an abstract class.
