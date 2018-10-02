@@ -178,7 +178,6 @@ public class UISetup {
         top = myGridControls.makeGridControls();
 
         ChoiceBox myBox = myGridControls.getShapeBox(); //TODO: connect output to backend
-        gridShape = myBox.getValue().toString();
 
         RadioButton myFinBtn = myGridControls.getFinBtn();
         myFinBtn.setOnAction(value -> gridEdge = "Finite");
