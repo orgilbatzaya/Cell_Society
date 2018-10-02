@@ -78,6 +78,7 @@ Cell and Grid class rather than using abstraction
 different simulations
 
 Known Bugs:
+* WaTor - When shark eats, the shark get energy from eating, but sometimes the fish which is eaten by shark does not removed (it should stop moving and be removed but it still moves). 
 * Simulation specific parameters are hardcoded into our grid initialization rather than being read in from the XML file
 * Grid configurations are initialized randomly every time a new Grid object is created instead of reading the initial 
 states for each cell from an XML file 
