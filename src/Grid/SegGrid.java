@@ -142,7 +142,7 @@ public class SegGrid extends Grid {
                 }
             }
         }
-        return (1.0*numSatisfied)/(size*size);
+        return (double)(numSatisfied)/(size*size);
     }
 
     /**

@@ -1,12 +1,13 @@
 package GUI;
 
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
+import javafx.scene.Group;
+import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+
 import java.util.ResourceBundle;
 
 /**
@@ -20,52 +21,80 @@ import java.util.ResourceBundle;
  */
 public class gridControls {
     private ResourceBundle myResources;
-    private BorderPane myBorder;
 
-    private HBox myControls;
+    private HBox myGridBtns;
 
-    private int buttonPadding = 20;
+    private ChoiceBox shapeSelect;
     private RadioButton finiteBtn;
     private RadioButton toroidalBtn;
     private RadioButton infiniteBtn;
 
-    private boolean changeFlag;
-
     /**
      * Constructor
      *
-     * @param border BorderPane, where buttons should be added
      * @param resources ResourceBundle, contains keys for button text
      */
-    public gridControls(BorderPane border, ResourceBundle resources) {
+    public gridControls(ResourceBundle resources) {
         myResources = resources;
-        myBorder = border;
-
-        myControls = new HBox();
-        myControls.setPadding(new Insets(buttonPadding));
-        myControls.setAlignment(Pos.TOP_LEFT);
-
-        changeFlag = false;
+        myGridBtns = new HBox();
     }
 
-    public boolean getChangeFlag() {
-        return changeFlag;
+    public ChoiceBox getShapeBox() {
+        return shapeSelect;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public RadioButton getFinBtn() {
+        return finiteBtn;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public RadioButton getTorBtn() {
+        return toroidalBtn;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public RadioButton getInfinBtn() {
+        return infiniteBtn;
+    }
+
+    /**
+     * calls methods that create UI elements of grid controls
+     *
+     * @return
+     */
+    public HBox makeGridControls() {
+        this.addShapeChoice();
+        this.addTypeBtns();
+        return myGridBtns;
     }
 
     /**
      * creates a ChoiceBox to select simulation type
      */
-    public void addShapeChoice() {
-        ChoiceBox shapeSelect = new ChoiceBox();
+    private void addShapeChoice() {
+        shapeSelect = new ChoiceBox();
 
         shapeSelect.getItems().add(myResources.getString("Square"));
         shapeSelect.getItems().add(myResources.getString("Triangle"));
         shapeSelect.getItems().add(myResources.getString("Hexagon"));
 
-        myControls.getChildren().add(shapeSelect);
+        myGridBtns.getChildren().add(shapeSelect);
     }
 
-    public void addTypeBtns() {
+    /**
+     * creates Radio Buttons to handle grid edge types
+     */
+    private void addTypeBtns() {
         ToggleGroup gridTypes = new ToggleGroup();
 
         finiteBtn = new RadioButton(myResources.getString("Finite"));
@@ -78,27 +107,6 @@ public class gridControls {
         infiniteBtn = new RadioButton(myResources.getString("Infinite"));
         infiniteBtn.setToggleGroup(gridTypes);
 
-        setButtonFunctionality();
-
-        myControls.getChildren().addAll(finiteBtn, toroidalBtn, infiniteBtn);
-        myBorder.setTop(myControls);
-    }
-
-    /**
-     * sets functionality of each button for when user clicks
-     */
-    private void setButtonFunctionality() {
-        finiteBtn.setOnAction(value ->  {
-            System.out.println("finite");
-            changeFlag = true;
-        });
-        toroidalBtn.setOnAction(value ->  {
-            System.out.println("toroidal");
-            changeFlag = true;
-        });
-        infiniteBtn.setOnAction(value -> {
-            System.out.println("infinite");
-            changeFlag = true;
-        });
+        myGridBtns.getChildren().addAll(finiteBtn, toroidalBtn, infiniteBtn);
     }
 }
