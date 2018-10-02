@@ -4,7 +4,9 @@
         <size>20</size>
     </grid>
     <special>
-        <empty>0.40</empty>
-        <shark>0.25</shark>
+        <empty>0.10</empty>
+        <shark>0.20</shark>
+        <breeding>5</breeding>
+        <energy>3</energy>
     </special>
 </root>

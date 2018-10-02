@@ -60,8 +60,10 @@ public class UISetup {
     private int borderPadding = 10;
     private int sideMenuPadding = 200;
 
+    private Map<String, Double> simParam;
     private Map<String, Double> simParams;
-
+    private Map<String, Double> simMoreParams;
+    private Map<String, Double> simOneParam;
 
     /**
      * Constructor
@@ -82,7 +84,10 @@ public class UISetup {
         gridShape = DEFAUlT_SHAPE;
         gridEdge = DEFAULT_EDGE;
         gridSize = DEFAULT_GRID;
+        simParam = new HashMap<>();
         simParams = new HashMap<>();
+        simMoreParams = new HashMap<>();
+        simOneParam = new HashMap<>();
     }
 
     /**
@@ -117,7 +122,7 @@ public class UISetup {
         myGridControls.addTypeBtns();
 
         // add grid
-        myGrid = new simGrid(gridSize, gridShape, gridEdge, simType, simParams);
+        myGrid = new simGrid(gridSize, gridShape, gridEdge, simType, simParam, simParams, simMoreParams, simOneParam);
 
         // add all elements to BorderPane
         myBorder.setTop(top);
@@ -202,12 +207,17 @@ public class UISetup {
         }
         else if(simType.equals("Seg")) {
             simParams.put("satisfaction", xmlParser.getParameter("satisfaction"));
+            simMoreParams.put("empty", xmlParser.getParameter("empty"));
+            simParam.put("red", xmlParser.getParameter("red"));
         }
         else if(simType.equals("Fire")) {
             simParams.put("probability", xmlParser.getParameter("probability"));
         }
         else if(simType.equals("WaTor")) {
-            // do the same
+            simParams.put("shark", xmlParser.getParameter("shark"));
+            simMoreParams.put("empty", xmlParser.getParameter("empty"));
+            simParam.put("breeding", xmlParser.getParameter("breeding"));
+            simOneParam.put("energy", xmlParser.getParameter("energy"));
         }
         else if(simType.equals("RPS")) {
             // no parameters!
