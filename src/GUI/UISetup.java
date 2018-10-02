@@ -8,6 +8,8 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.control.Button;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
@@ -86,23 +88,30 @@ public class UISetup {
      */
     public void initializeUI() {
         this.makeBorderPane();
+        HBox top = new HBox();
 
         mySimulation = new Simulation();
 
-        myControls = new simControls(mySimulation, myStage, myBorder, myResources);
-        myControls.addButtons();
-        myControls.makeSideMenu();
+        myControls = new simControls(mySimulation, myStage, myResources);
+
+        HBox bottom = myControls.addButtons();
         myStepBtn = myControls.getStepBtn();
         myStepBtn.setOnAction(value ->  {
             this.updateMyGrid();
         });
+
+        VBox sideMenu = myControls.makeSideMenu();
 
         myGridControls = new gridControls(myBorder, myResources);
         myGridControls.addShapeChoice();
         myGridControls.addTypeBtns();
 
         myGrid = new simGrid(gridSize, gridShape, gridEdge, simType, simParams);
+
+        myBorder.setTop(top);
+        myBorder.setRight(sideMenu);
         myBorder.setCenter(myGrid.makeGrid());
+        myBorder.setBottom(bottom);
     }
 
     /**

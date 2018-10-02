@@ -20,15 +20,13 @@ import java.util.ResourceBundle;
  * simControls
  *
  * creates an Hbox with various buttons,
- * Start, Stop, Step, and Reset, and
- * adds the Hbox to an existing BorderPane
+ * Start, Stop, Step, and Reset
  *
  * @author Brooke Keene
  */
 public class simControls {
     private Stage myStage;
     private ResourceBundle myResources;
-    private BorderPane myBorder;
 
     private Button startBtn;
     private Button stopBtn;
@@ -38,7 +36,11 @@ public class simControls {
     private int buttonPadding = 20;
     private int borderPadding = 10;
     private int sideMenuPadding = 200;
-    private int mySimSpeed = 1; // starting simulation speed
+
+    private int mySimSpeed;
+    private int startSpeed = 5;
+    private int minSpeed = 1;
+    private int maxSpeed = 10;
     private Label speedLabel;
 
     private boolean fileFlag;   // flag for if user has uploaded a new file
@@ -50,14 +52,14 @@ public class simControls {
     /**
      * Constructor
      *
-     * @param border BorderPane, where buttons should be added
+     * @param sim Simulation object
+     * @param stage Stage that contains all UI elements
      * @param resources ResourceBundle, contains keys for button text
      */
-    public simControls(Simulation sim, Stage stage, BorderPane border, ResourceBundle resources) {
+    public simControls(Simulation sim, Stage stage, ResourceBundle resources) {
+        mySim = sim;
         myStage = stage;
         myResources = resources;
-        myBorder = border;
-        mySim = sim;
 
         fileFlag = false;
     }
@@ -100,9 +102,30 @@ public class simControls {
     }
 
     /**
+     * creates a HBox with start, stop, step, and reset buttons
+     * and adds the HBox to myBorder
+     */
+    public HBox addButtons() {
+        HBox bottomRow = new HBox(buttonPadding);
+        bottomRow.setPadding(new Insets(buttonPadding));
+        bottomRow.setAlignment(Pos.CENTER_LEFT);
+
+        startBtn = new Button(myResources.getString("Start"));
+        startBtn.setOnAction(value ->  mySim.start());
+
+        stopBtn = new Button(myResources.getString("Stop"));
+        stopBtn.setOnAction(value ->  mySim.stop());
+
+        stepBtn = new Button(myResources.getString("Step"));
+
+        bottomRow.getChildren().addAll(startBtn, stopBtn, stepBtn);
+        return bottomRow;
+    }
+
+    /**
      * creates VBox to contain FileChooser
      */
-    public void makeSideMenu() {
+    public VBox makeSideMenu() {
         myVbox = new VBox(borderPadding);
         myVbox.setPrefWidth(sideMenuPadding);
         myVbox.setPadding(new Insets(borderPadding));
@@ -111,33 +134,15 @@ public class simControls {
         this.addFileChooser();
         this.addSliders();
 
-        myBorder.setRight(myVbox);
-    }
-
-    /**
-     * creates a HBox with start, stop, step, and reset buttons
-     * and adds the HBox to myBorder
-     */
-    public void addButtons() {
-        HBox bottomRow = new HBox(buttonPadding);
-        bottomRow.setPadding(new Insets(buttonPadding));
-        bottomRow.setAlignment(Pos.CENTER_LEFT);
-
-        startBtn = new Button(myResources.getString("Start"));
-        stopBtn = new Button(myResources.getString("Stop"));
-        stepBtn = new Button(myResources.getString("Step"));
-        setButtonFunctionality();
-
-        bottomRow.getChildren().addAll(startBtn, stopBtn, stepBtn);
-        myBorder.setBottom(bottomRow);
+        return myVbox;
     }
 
     /**
      * creates speed control slider
      */
     public void addSliders() {
-        Slider simSpeed = new Slider(1, 100, 50);
-        mySimSpeed = 50;
+        Slider simSpeed = new Slider(minSpeed, maxSpeed, startSpeed);
+        mySimSpeed = startSpeed;
         simSpeed.setMajorTickUnit(1);
         speedLabel = new Label(Double.toString(simSpeed.getValue()));
         speedLabel.setId("speedLbl");
@@ -164,17 +169,9 @@ public class simControls {
     }
 
     /**
-     * sets functionality of each button for when user clicks
+     *
+     * @param fc
      */
-    private void setButtonFunctionality() {
-        startBtn.setOnAction(value ->  {
-            mySim.start();
-        });
-        stopBtn.setOnAction(value ->  {
-            mySim.stop();
-        });
-    }
-
     private void setFileButtonFunctionality(FileChooser fc) {
         fileBtn.setOnAction(value -> {
             //TODO: exceptions if wrong type of file
