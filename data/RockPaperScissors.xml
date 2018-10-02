@@ -1,6 +1,6 @@
 <root>
     <simulation>RPS</simulation>
     <grid>
-        <size>10</size>
+        <size>20</size>
     </grid>
 </root>

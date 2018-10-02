@@ -12,7 +12,8 @@ public class RpsCell extends Cell{
     public static final int RED = 1;
     public static final int BLUE = 2;
     public static final int GREEN = 3;
-    public static final int MAX_GRADIENT = 9;
+    public static final int MAX_GRAD = 9;
+    public static final int MIN_GRAD = 0;
     public static final int INCR_GRAD = 1;
     public static final int MAX_RGB = 255;
     public static final int GRAD_LEVELS = 10;
@@ -25,14 +26,14 @@ public class RpsCell extends Cell{
         super(state,x,y);
         myNeighbors = new ArrayList<Cell>();
         random = new Random();
-        myGradient = 0;
+        myGradient = MIN_GRAD;
     }
 
     private Map<Integer, int[]> createMap() {
         Map<Integer,int[]> myMap = new HashMap<>();
-        myMap.put(RED, new int[]{GREEN,BLUE});
-        myMap.put(GREEN, new int[]{BLUE, RED});
-        myMap.put(BLUE, new int[]{RED,GREEN});
+        myMap.put(RED, new int[]{GREEN,BLUE});//red gets eaten by green, eats blue
+        myMap.put(GREEN, new int[]{BLUE, RED});//green gets eaten by blue, eats red
+        myMap.put(BLUE, new int[]{RED,GREEN});//same pattern
         return myMap;
     }
 
@@ -41,7 +42,7 @@ public class RpsCell extends Cell{
         int choice = random.nextInt(myNeighbors.size());
         Cell neighbor = myNeighbors.get(choice);
 
-        if (currentState == WHITE && ((RpsCell) neighbor).getGradient() < MAX_GRADIENT) {
+        if (currentState == WHITE && ((RpsCell) neighbor).getGradient() < MAX_GRAD) {
             nextState = neighbor.getCurrentState();
             myGradient = ((RpsCell) neighbor).getGradient() + INCR_GRAD;
         } else if (currentState != WHITE) {
@@ -54,8 +55,8 @@ public class RpsCell extends Cell{
         if(neighbor.getCurrentState() == colorMap.get(state)[0]){
             nextState = colorMap.get(state)[0];
             myGradient = ((RpsCell)neighbor).getGradient();
-        } else if (neighbor.getCurrentState() == colorMap.get(state)[1] && myGradient > 0){
-            myGradient--;
+        } else if (neighbor.getCurrentState() == colorMap.get(state)[1] && myGradient > MIN_GRAD){
+            myGradient--;//get darker after 'eating' another cell
         }
     }
 
@@ -75,11 +76,11 @@ public class RpsCell extends Cell{
         if(currentState == WHITE){
             myColor = Color.WHITE;
         } else  if(currentState == RED){
-            myColor = Color.rgb(MAX_RGB-val,0,0);
+            myColor = Color.rgb(MAX_RGB-val,MIN_GRAD,MIN_GRAD);
         } else if(currentState == GREEN){
-            myColor = Color.rgb(0,MAX_RGB-val,0);
+            myColor = Color.rgb(MIN_GRAD,MAX_RGB-val,MIN_GRAD);
         } else{
-            myColor = Color.rgb(0,0,MAX_RGB-val);
+            myColor = Color.rgb(MIN_GRAD,MIN_GRAD,MAX_RGB-val);
         }
         return myColor;
     }

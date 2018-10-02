@@ -18,7 +18,6 @@ public abstract class Grid {
     protected int size;
     protected ArrayList<ArrayList<Cell>> myCells;
 
-    //dummy constructor
     public Grid(int size) {
         this.size = size;
     }
