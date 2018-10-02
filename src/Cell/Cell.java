@@ -8,7 +8,6 @@ import javafx.scene.paint.Color;
  * @author Amy Kim
  * Superclass for Cell objects
  * Containing shared fields/methods among all Cells
- * getNeighbors() and checkNeighbors() require a Grid object
  */
 
 public abstract class Cell {
@@ -59,11 +58,16 @@ public abstract class Cell {
     
 
     /**
-     * currently return 0
-     * @return the max value of states.
+     * abstract method
+     * @return the max value of states for each simulation.
      */
     public abstract int getMaxState();
 
+
+    /**
+     * abstract method
+     * @return Color for each states for simulation.
+     */
     public abstract Color getColor();
 
 }
