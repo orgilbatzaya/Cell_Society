@@ -33,4 +33,12 @@ public class RpsGrid extends Grid {
     public void checkNeighbors(Cell cell){
         ((RpsCell) cell).checkCells(this);
     }
+
+    public double[] getStats(){
+        double red = getRequiredCells(RED).size();
+        double blue = getRequiredCells(BLUE).size();
+        double green = getRequiredCells(GREEN).size();
+        return new double[]{red/(size*size), blue/(size*size), green/(size*size)};
+    }
+
 }
