@@ -117,7 +117,7 @@ public class UISetup {
         makeTop(top);
 
         // add grid
-        myGrid = new simGrid(gridSize, gridShape, gridEdge, simType, simParam, simParams, simMoreParams, simOneParam);
+        makeGrid();
 
     }
 
