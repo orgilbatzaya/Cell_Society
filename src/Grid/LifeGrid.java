@@ -56,17 +56,8 @@ public class LifeGrid extends Grid {
 
     @Override
     public double[] getStats(){
-        int L, D;
-        L = D = 0;
-        for(int x = 0; x < size; x++) {
-            for (int y = 0; y < size; y++) {
-                if (myCells.get(x).get(y).getCurrentState() == LifeCell.ALIVE) {
-                    L++;
-                } else {
-                    D++;
-                }
-            }
-        }
+        int L = getRequiredCells(LifeCell.ALIVE).size();
+        int D = getRequiredCells(LifeCell.DEAD).size();
         return new double[]{(double)L/(size*size),(double)D/(size*size)};
     }
 }

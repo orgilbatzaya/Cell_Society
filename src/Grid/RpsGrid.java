@@ -18,7 +18,7 @@ public class RpsGrid extends Grid {
         initializeCells();
     }
 
-    private void initializeCells(){
+    public void initializeCells(){
         for(int i = 0; i < size; i++){
             var row = new ArrayList<Cell>();
             for(int j = 0; j < size; j++){

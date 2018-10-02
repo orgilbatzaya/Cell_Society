@@ -93,19 +93,9 @@ public class FireGrid extends Grid {
     }
     @Override
     public double[] getStats(){
-        int tree, fire, ground;
-        tree = fire = ground = 0;
-        for(int x = 0; x < size; x++) {
-            for (int y = 0; y < size; y++) {
-                if (myCells.get(x).get(y).getCurrentState() == FireCell.TREE) {
-                    tree ++;
-                } else if (myCells.get(x).get(y).getCurrentState() == FireCell.FIRE) {
-                    fire++;
-                } else {
-                    ground++;
-                }
-            }
-        }
+        int tree = getRequiredCells(FireCell.TREE).size();
+        int fire = getRequiredCells(FireCell.FIRE).size();
+        int ground = getRequiredCells(FireCell.GROUND).size();
         return new double[]{(double)tree/(size*size), (double)fire/(size*size), (double)ground/(size*size)};
     }
 }
