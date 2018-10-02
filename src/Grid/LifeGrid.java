@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 /**
- * grid for life of game
+ * sub grid class for life of game
  */
 public class LifeGrid extends Grid {
 
