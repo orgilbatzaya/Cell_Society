@@ -94,14 +94,15 @@ public class UISetup {
         myControls.makeSideMenu();
         myStepBtn = myControls.getStepBtn();
         myStepBtn.setOnAction(value ->  {
-            myGrid.updateGrid();
+            this.updateMyGrid();
         });
 
         myGridControls = new gridControls(myBorder, myResources);
         myGridControls.addShapeChoice();
         myGridControls.addTypeBtns();
 
-        myGrid = new simGrid(gridSize, gridShape, gridEdge, simType, simParams, myBorder);
+        myGrid = new simGrid(gridSize, gridShape, gridEdge, simType, simParams);
+        myBorder.setCenter(myGrid.makeGrid());
     }
 
     /**
@@ -126,7 +127,7 @@ public class UISetup {
             mySimulation.incrementTimer(duration);
             if(interval < mySimulation.getTimer()) {
                 mySimulation.resetTimer();
-                myGrid.updateGrid();
+                this.updateMyGrid();
             }
         }
     }
@@ -141,12 +142,11 @@ public class UISetup {
     }
 
     /**
-     * returns simGrid object when called by Main
-     *
-     * @return myGrid, the simulation Grid created by simGrid
+     * updates simGrid object
      */
-    public simGrid getMyGrid() {
-        return myGrid;
+    private void updateMyGrid() {
+        myBorder.setCenter(null);
+        myBorder.setCenter(myGrid.updateGrid());
     }
 
 
