@@ -78,7 +78,7 @@ public class SegGrid extends Grid {
     @Override
     public  void updateEveryCell(){
         Random random = new Random();
-        List<Cell> target = getUnsatisfiedOrEmptyCells();
+        List<Cell> target = getUnsatisfiedCells();
         // get colors
         ArrayList<Integer> values = new ArrayList<>();
         for(var cell: target) {
@@ -96,7 +96,7 @@ public class SegGrid extends Grid {
         System.out.println(Arrays.toString(getStats()));
     }
 
-    public List<Cell> getUnsatisfiedOrEmptyCells() {
+    public List<Cell> getUnsatisfiedCells() {
         List<Cell> unsatisfied = new ArrayList<>();
         for (int x = 0; x < size; x++) {
             for (int y = 0; y < size; y++) {
@@ -149,9 +149,14 @@ public class SegGrid extends Grid {
 
     @Override
     public double[] getStats(){
-        int red = getRequiredCells(SegregationCell.RED).size();
-        int blue = getRequiredCells(SegregationCell.BLUE).size();
-        int empty = getRequiredCells(SegregationCell.EMPTY).size();
-        return new double[]{(double)red/(size*size), (double)blue/(size*size), (double)empty/(size*size)};
+        int numSatisfied = 0;
+        for (int x = 0; x < size; x++) {
+            for (int y = 0; y < size; y++) {
+                if(((SegregationCell) myCells.get(x).get(y)).isSatisfied()){
+                    numSatisfied++;
+                }
+            }
+        }
+        return new double[]{(double)(numSatisfied)/(size*size*(1-empty))};
     }
 }
