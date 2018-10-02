@@ -3,11 +3,14 @@ package GUI;
 import java.io.File;
 import Simulation.Simulation;
 import XML.XMLParser;
+import javafx.geometry.Pos;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.control.Button;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
@@ -32,6 +35,8 @@ public class UISetup {
     public static final String UI_TEXT = "English";
     public static final String STYLESHEET = "default.css";
     public static final String DEFAULT_TYPE = "Life";
+    public static final String DEFAUlT_SHAPE = "Square";
+    public static final String DEFAULT_EDGE = "Finite";
     public static final int DEFAULT_GRID = 4;
     public static final double DEFAULT_INTERVAL = 10.0;
 
@@ -46,11 +51,14 @@ public class UISetup {
     private simControls myControls;
     private gridControls myGridControls;
     private Simulation mySimulation;
-    private Button myStepBtn;
 
     private String simType;
+    private String gridShape;
+    private String gridEdge;
     private int gridSize;
-    private int borderSpace = 10;
+
+    private int borderPadding = 10;
+    private int sideMenuPadding = 200;
 
     private Map<String, Double> simParams;
 
@@ -71,6 +79,8 @@ public class UISetup {
         myScene.getStylesheets().add(STYLESHEET);
 
         simType = DEFAULT_TYPE;
+        gridShape = DEFAUlT_SHAPE;
+        gridEdge = DEFAULT_EDGE;
         gridSize = DEFAULT_GRID;
         simParams = new HashMap<>();
     }
@@ -80,22 +90,40 @@ public class UISetup {
      */
     public void initializeUI() {
         this.makeBorderPane();
+        HBox top = new HBox();
+        VBox sideMenu = new VBox();
+        HBox bottom;
 
         mySimulation = new Simulation();
 
-        myControls = new simControls(mySimulation, myStage, myBorder, myResources);
-        myControls.addButtons();
-        myControls.makeSideMenu();
-        myStepBtn = myControls.getStepBtn();
-        myStepBtn.setOnAction(value ->  {
-            myGrid.updateGrid();
-        });
+        myControls = new simControls(mySimulation, myStage, myResources);
 
+        // add bottom buttons
+        bottom = myControls.addSimButtons();
+        Button myStepBtn = myControls.getStepBtn();
+        myStepBtn.setOnAction(value ->  this.updateMyGrid());
+
+        // add side menu elements
+        sideMenu.setPrefWidth(sideMenuPadding);
+        sideMenu.setPadding(new Insets(borderPadding));
+        sideMenu.setAlignment(Pos.TOP_CENTER);
+
+        sideMenu.getChildren().add(myControls.addFileChooser());
+        sideMenu.getChildren().addAll(myControls.addSpeedSlider(), myControls.getSpeedLabel());
+
+        // add top buttons
         myGridControls = new gridControls(myBorder, myResources);
         myGridControls.addShapeChoice();
         myGridControls.addTypeBtns();
 
-        myGrid = new simGrid(gridSize, simType, simParams, myBorder);
+        // add grid
+        myGrid = new simGrid(gridSize, gridShape, gridEdge, simType, simParams);
+
+        // add all elements to BorderPane
+        myBorder.setTop(top);
+        myBorder.setRight(sideMenu);
+        myBorder.setCenter(myGrid.makeGrid());
+        myBorder.setBottom(bottom);
     }
 
     /**
@@ -120,7 +148,7 @@ public class UISetup {
             mySimulation.incrementTimer(duration);
             if(interval < mySimulation.getTimer()) {
                 mySimulation.resetTimer();
-                myGrid.updateGrid();
+                this.updateMyGrid();
             }
         }
     }
@@ -135,12 +163,11 @@ public class UISetup {
     }
 
     /**
-     * returns simGrid object when called by Main
-     *
-     * @return myGrid, the simulation Grid created by simGrid
+     * updates simGrid object
      */
-    public simGrid getMyGrid() {
-        return myGrid;
+    private void updateMyGrid() {
+        myBorder.setCenter(null);
+        myBorder.setCenter(myGrid.updateGrid());
     }
 
 
@@ -150,7 +177,7 @@ public class UISetup {
     private void makeBorderPane() {
         myBorder.prefHeightProperty().bind(myScene.heightProperty());
         myBorder.prefWidthProperty().bind(myScene.widthProperty());
-        myBorder.setPadding(new Insets(borderSpace));
+        myBorder.setPadding(new Insets(borderPadding));
         myRoot.getChildren().add(myBorder);
     }
 

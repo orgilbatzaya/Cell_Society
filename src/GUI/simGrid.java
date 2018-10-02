@@ -2,7 +2,6 @@ package GUI;
 
 import Cell.*;
 import Grid.*;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
@@ -18,9 +17,10 @@ import java.util.Map;
  */
 public class simGrid {
     private AnchorPane myPane;
-    private BorderPane myBorder;
-    private String myType;
     private int gridDim;
+    private String gridShape;
+    private String gridEdge;
+    private String myType;
     private ArrayList<ArrayList<Cell>> myCells;
     private Grid myGrid;
     private Map<String, Double> myParams;
@@ -30,21 +30,22 @@ public class simGrid {
     /**
      * Constructor
      *
-     * @param n, dimensions of grid
-     * @param type, type of simulation to run
-     * @param border, BorderPane object to add Grid to
+     * @param n dimensions of grid
+     * @param shape shape of grid (square, triangle, hexagonal)
+     * @param edge edge type of grid (finite, toroidal, infinite)
+     * @param type type of simulation to run
+     * @param params simulation parameters
      */
-    public simGrid(int n, String type, Map<String, Double> params, BorderPane border) {
+    public simGrid(int n, String shape, String edge, String type, Map<String, Double> params) {
         gridDim = n;
+        gridShape = shape;
+        gridEdge = edge;
         myType = type;
         myParams = params;
 
         this.choseGrid();
 
-        myBorder = border;
         myPane = new AnchorPane();
-
-        this.makeGrid();
     }
 
     /**
@@ -70,22 +71,41 @@ public class simGrid {
     }
 
     /**
-     * creates GridPane object containing cells for cell automata
+     * creates AnchorPane object containing cells for the cell automata
      */
-    private void makeGrid() {
-//        // Square Grid
-//        for(int row = 0; row < gridDim; row++) {
-//            for (int col = 0; col < gridDim; col++) {
-//                Cell tempCell = myCells.get(row).get(col);
-//                Polygon p = makeSquare(row, col);//gc, tempCell);
-//                p.setFill(tempCell.getColor());
-//                p.setStroke(Color.WHITE);
-//                updateCell(tempCell, p);
-//                myPane.getChildren().add(p);
-//            }
-//        }
+    public AnchorPane makeGrid() {
+        if(gridShape.equals("Square")) {
+            makeSquareGrid();
+        }
+        else if(gridShape.equals("Triangle")) {
+            makeTriangleGrid();
+        }
+        else {
+            makeSquareGrid(); // would have been makeHexagonalGrid() had we had time
+        }
+        return myPane;
+    }
 
-        // Triangle Grid
+    /**
+     * creates square grid by looping through myCells
+     */
+    private void makeSquareGrid() {
+        for(int row = 0; row < gridDim; row++) {
+            for (int col = 0; col < gridDim; col++) {
+                Cell tempCell = myCells.get(row).get(col);
+                Polygon p = makeSquare(row, col, tempCell);
+                p.setFill(tempCell.getColor());
+                p.setStroke(Color.WHITE);
+                updateCell(p, tempCell);
+                myPane.getChildren().add(p);
+            }
+        }
+    }
+
+    /**
+     * creates triangle grid by looping through myCells
+     */
+    private void makeTriangleGrid() {
         for(int row = gridDim-1; row >= 0; row--) {
             for(int col = row; col >= 0; col--) {
                 Cell tempCell = myCells.get(row).get(col);
@@ -104,8 +124,6 @@ public class simGrid {
 
             }
         }
-
-        myBorder.setCenter(myPane);
     }
 
     /**
@@ -197,7 +215,7 @@ public class simGrid {
      */
     public void  updateCell(Polygon p, Cell tempCell) {
         p.setOnMousePressed(value -> {
-            if(myType.equals("WaTor")){
+            if(myType.equals("WaTor")){ //For WaTor, when its' states changes, it should reset Energy and Breed.
                 ((WatorCell)tempCell).resetEnergyAndBreed();
             }
             changeState(tempCell);
@@ -208,11 +226,10 @@ public class simGrid {
     /**
      * updates simulation grid
      */
-    public void updateGrid() {
-        myBorder.setCenter(null);
+    public AnchorPane updateGrid() {
         myGrid.updateEveryCell();
         myCells = myGrid.getGrid();
-        this.makeGrid();
+        return this.makeGrid();
     }
 
 
