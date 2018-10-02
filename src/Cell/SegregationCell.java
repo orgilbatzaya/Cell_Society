@@ -2,6 +2,7 @@ package Cell;
 
 import javafx.scene.paint.Color;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author ob29
@@ -46,7 +47,7 @@ public class SegregationCell extends Cell {
      * Then, calculate currentSatisfied.
      * @param neighbors this is ArrayList of cell; which are neighbors
      */
-    public void updateSatisfaction(ArrayList<Cell> neighbors) {
+    public void updateSatisfaction(List<Cell> neighbors) {
         int cnt = 0;
         int nonEmpty = 0;
         for(var n: neighbors) {
