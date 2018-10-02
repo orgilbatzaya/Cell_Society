@@ -6,12 +6,11 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.FileChooser;
 import java.util.ResourceBundle;
@@ -20,15 +19,13 @@ import java.util.ResourceBundle;
  * simControls
  *
  * creates an Hbox with various buttons,
- * Start, Stop, Step, and Reset, and
- * adds the Hbox to an existing BorderPane
+ * Start, Stop, Step, and Reset
  *
  * @author Brooke Keene
  */
 public class simControls {
     private Stage myStage;
     private ResourceBundle myResources;
-    private BorderPane myBorder;
 
     private Button startBtn;
     private Button stopBtn;
@@ -36,28 +33,29 @@ public class simControls {
     private Button fileBtn;
 
     private int buttonPadding = 20;
-    private int borderPadding = 10;
-    private int sideMenuPadding = 200;
-    private int mySimSpeed = 1; // starting simulation speed
+
+    private int mySimSpeed;
+    private int startSpeed = 5;
+    private int minSpeed = 1;
+    private int maxSpeed = 10;
     private Label speedLabel;
 
     private boolean fileFlag;   // flag for if user has uploaded a new file
     private File myFile;
     private Label fileName;
     private Simulation mySim;
-    private VBox myVbox;
 
     /**
      * Constructor
      *
-     * @param border BorderPane, where buttons should be added
+     * @param sim Simulation object
+     * @param stage Stage that contains all UI elements
      * @param resources ResourceBundle, contains keys for button text
      */
-    public simControls(Simulation sim, Stage stage, BorderPane border, ResourceBundle resources) {
+    public simControls(Simulation sim, Stage stage, ResourceBundle resources) {
+        mySim = sim;
         myStage = stage;
         myResources = resources;
-        myBorder = border;
-        mySim = sim;
 
         fileFlag = false;
     }
@@ -92,6 +90,15 @@ public class simControls {
     }
 
     /**
+     * returns the label of the speed slider
+     *
+     * @return
+     */
+    public Label getSpeedLabel() {
+        return speedLabel;
+    }
+
+    /**
      *
      * @return
      */
@@ -100,56 +107,30 @@ public class simControls {
     }
 
     /**
-     * creates VBox to contain FileChooser
-     */
-    public void makeSideMenu() {
-        myVbox = new VBox(borderPadding);
-        myVbox.setPrefWidth(sideMenuPadding);
-        myVbox.setPadding(new Insets(borderPadding));
-        myVbox.setAlignment(Pos.TOP_CENTER);
-
-        this.addFileChooser();
-        this.addSliders();
-
-        myBorder.setRight(myVbox);
-    }
-
-    /**
      * creates a HBox with start, stop, step, and reset buttons
      * and adds the HBox to myBorder
      */
-    public void addButtons() {
+    public HBox addSimButtons() {
         HBox bottomRow = new HBox(buttonPadding);
         bottomRow.setPadding(new Insets(buttonPadding));
         bottomRow.setAlignment(Pos.CENTER_LEFT);
 
         startBtn = new Button(myResources.getString("Start"));
+        startBtn.setOnAction(value ->  mySim.start());
+
         stopBtn = new Button(myResources.getString("Stop"));
+        stopBtn.setOnAction(value ->  mySim.stop());
+
         stepBtn = new Button(myResources.getString("Step"));
-        setButtonFunctionality();
 
         bottomRow.getChildren().addAll(startBtn, stopBtn, stepBtn);
-        myBorder.setBottom(bottomRow);
-    }
-
-    /**
-     * creates speed control slider
-     */
-    public void addSliders() {
-        Slider simSpeed = new Slider(1, 100, 50);
-        mySimSpeed = 50;
-        simSpeed.setMajorTickUnit(1);
-        speedLabel = new Label(Double.toString(simSpeed.getValue()));
-        speedLabel.setId("speedLbl");
-        simSpeed.valueProperty().addListener(this.addSliderListener());
-
-        myVbox.getChildren().addAll(simSpeed, speedLabel);
+        return bottomRow;
     }
 
     /**
      * creates FileChooser and button associated with it
      */
-    public void addFileChooser() {
+    public Node addFileChooser() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle(myResources.getString("FileWindow"));
 
@@ -159,22 +140,27 @@ public class simControls {
 
         this.setFileButtonFunctionality(fileChooser);
 
-        myVbox.getChildren().add(fileBtn);
-        myVbox.getChildren().add(fileName);
+        return fileBtn;
     }
 
     /**
-     * sets functionality of each button for when user clicks
+     * creates simulation speed control slider
      */
-    private void setButtonFunctionality() {
-        startBtn.setOnAction(value ->  {
-            mySim.start();
-        });
-        stopBtn.setOnAction(value ->  {
-            mySim.stop();
-        });
+    public Node addSpeedSlider() {
+        Slider simSpeed = new Slider(minSpeed, maxSpeed, startSpeed);
+        mySimSpeed = startSpeed;
+        simSpeed.setMajorTickUnit(1);
+        speedLabel = new Label(Double.toString(simSpeed.getValue()));
+        speedLabel.setId("speedLbl");
+        simSpeed.valueProperty().addListener(this.addSliderListener());
+
+        return simSpeed;
     }
 
+    /**
+     *
+     * @param fc
+     */
     private void setFileButtonFunctionality(FileChooser fc) {
         fileBtn.setOnAction(value -> {
             //TODO: exceptions if wrong type of file
