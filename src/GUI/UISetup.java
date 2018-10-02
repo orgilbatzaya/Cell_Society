@@ -3,6 +3,7 @@ package GUI;
 import java.io.File;
 import Simulation.Simulation;
 import XML.XMLParser;
+import javafx.geometry.Pos;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.control.Button;
@@ -50,13 +51,14 @@ public class UISetup {
     private simControls myControls;
     private gridControls myGridControls;
     private Simulation mySimulation;
-    private Button myStepBtn;
 
     private String simType;
     private String gridShape;
     private String gridEdge;
     private int gridSize;
-    private int borderSpace = 10;
+
+    private int borderPadding = 10;
+    private int sideMenuPadding = 200;
 
     private Map<String, Double> simParams;
 
@@ -89,25 +91,35 @@ public class UISetup {
     public void initializeUI() {
         this.makeBorderPane();
         HBox top = new HBox();
+        VBox sideMenu = new VBox();
+        HBox bottom;
 
         mySimulation = new Simulation();
 
         myControls = new simControls(mySimulation, myStage, myResources);
 
-        HBox bottom = myControls.addButtons();
-        myStepBtn = myControls.getStepBtn();
-        myStepBtn.setOnAction(value ->  {
-            this.updateMyGrid();
-        });
+        // add bottom buttons
+        bottom = myControls.addSimButtons();
+        Button myStepBtn = myControls.getStepBtn();
+        myStepBtn.setOnAction(value ->  this.updateMyGrid());
 
-        VBox sideMenu = myControls.makeSideMenu();
+        // add side menu elements
+        sideMenu.setPrefWidth(sideMenuPadding);
+        sideMenu.setPadding(new Insets(borderPadding));
+        sideMenu.setAlignment(Pos.TOP_CENTER);
 
+        sideMenu.getChildren().add(myControls.addFileChooser());
+        sideMenu.getChildren().addAll(myControls.addSpeedSlider(), myControls.getSpeedLabel());
+
+        // add top buttons
         myGridControls = new gridControls(myBorder, myResources);
         myGridControls.addShapeChoice();
         myGridControls.addTypeBtns();
 
+        // add grid
         myGrid = new simGrid(gridSize, gridShape, gridEdge, simType, simParams);
 
+        // add all elements to BorderPane
         myBorder.setTop(top);
         myBorder.setRight(sideMenu);
         myBorder.setCenter(myGrid.makeGrid());
@@ -165,7 +177,7 @@ public class UISetup {
     private void makeBorderPane() {
         myBorder.prefHeightProperty().bind(myScene.heightProperty());
         myBorder.prefWidthProperty().bind(myScene.widthProperty());
-        myBorder.setPadding(new Insets(borderSpace));
+        myBorder.setPadding(new Insets(borderPadding));
         myRoot.getChildren().add(myBorder);
     }
 

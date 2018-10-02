@@ -6,12 +6,11 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.FileChooser;
 import java.util.ResourceBundle;
@@ -34,8 +33,6 @@ public class simControls {
     private Button fileBtn;
 
     private int buttonPadding = 20;
-    private int borderPadding = 10;
-    private int sideMenuPadding = 200;
 
     private int mySimSpeed;
     private int startSpeed = 5;
@@ -47,7 +44,6 @@ public class simControls {
     private File myFile;
     private Label fileName;
     private Simulation mySim;
-    private VBox myVbox;
 
     /**
      * Constructor
@@ -94,6 +90,15 @@ public class simControls {
     }
 
     /**
+     * returns the label of the speed slider
+     *
+     * @return
+     */
+    public Label getSpeedLabel() {
+        return speedLabel;
+    }
+
+    /**
      *
      * @return
      */
@@ -105,7 +110,7 @@ public class simControls {
      * creates a HBox with start, stop, step, and reset buttons
      * and adds the HBox to myBorder
      */
-    public HBox addButtons() {
+    public HBox addSimButtons() {
         HBox bottomRow = new HBox(buttonPadding);
         bottomRow.setPadding(new Insets(buttonPadding));
         bottomRow.setAlignment(Pos.CENTER_LEFT);
@@ -123,38 +128,9 @@ public class simControls {
     }
 
     /**
-     * creates VBox to contain FileChooser
-     */
-    public VBox makeSideMenu() {
-        myVbox = new VBox(borderPadding);
-        myVbox.setPrefWidth(sideMenuPadding);
-        myVbox.setPadding(new Insets(borderPadding));
-        myVbox.setAlignment(Pos.TOP_CENTER);
-
-        this.addFileChooser();
-        this.addSliders();
-
-        return myVbox;
-    }
-
-    /**
-     * creates speed control slider
-     */
-    public void addSliders() {
-        Slider simSpeed = new Slider(minSpeed, maxSpeed, startSpeed);
-        mySimSpeed = startSpeed;
-        simSpeed.setMajorTickUnit(1);
-        speedLabel = new Label(Double.toString(simSpeed.getValue()));
-        speedLabel.setId("speedLbl");
-        simSpeed.valueProperty().addListener(this.addSliderListener());
-
-        myVbox.getChildren().addAll(simSpeed, speedLabel);
-    }
-
-    /**
      * creates FileChooser and button associated with it
      */
-    public void addFileChooser() {
+    public Node addFileChooser() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle(myResources.getString("FileWindow"));
 
@@ -164,8 +140,21 @@ public class simControls {
 
         this.setFileButtonFunctionality(fileChooser);
 
-        myVbox.getChildren().add(fileBtn);
-        myVbox.getChildren().add(fileName);
+        return fileBtn;
+    }
+
+    /**
+     * creates simulation speed control slider
+     */
+    public Node addSpeedSlider() {
+        Slider simSpeed = new Slider(minSpeed, maxSpeed, startSpeed);
+        mySimSpeed = startSpeed;
+        simSpeed.setMajorTickUnit(1);
+        speedLabel = new Label(Double.toString(simSpeed.getValue()));
+        speedLabel.setId("speedLbl");
+        simSpeed.valueProperty().addListener(this.addSliderListener());
+
+        return simSpeed;
     }
 
     /**
