@@ -41,9 +41,15 @@ public class FireGrid extends Grid {
     public int setStates(){
         var random = new Random();
         var x = random.nextDouble();
-        if(x < 0.1) return FireCell.FIRE;
-        else if (x <0.8) return FireCell.TREE;
-        else return FireCell.GROUND;
+        if(x < 0.1) {
+            return FireCell.FIRE;
+        }
+        else if (x <0.8) {
+            return FireCell.TREE;
+        }
+        else {
+            return FireCell.GROUND;
+        }
     }
 
     /**
@@ -75,7 +81,9 @@ public class FireGrid extends Grid {
      */
     @Override
     public void checkNeighbors(Cell cell) {
-        if(cell.getCurrentState() == FireCell.GROUND || cell.getCurrentState() == FireCell.FIRE) cell.setNextState(FireCell.GROUND);
+        if(cell.getCurrentState() == FireCell.GROUND || cell.getCurrentState() == FireCell.FIRE) {
+            cell.setNextState(FireCell.GROUND);
+        }
         else {
             var cnt = 0; //counting how many neighbor Fire.
             for(var neighbor : getCellsNear(cell)) {
