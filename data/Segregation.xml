@@ -5,7 +5,7 @@
     </grid>
     <special>
         <satisfaction>60</satisfaction>
-        <empty>0.20</empty>
-        <red>0.40</red>
+        <empty>0.40</empty>
+        <red>0.50</red>
     </special>
 </root>

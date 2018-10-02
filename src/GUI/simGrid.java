@@ -24,7 +24,10 @@ public class simGrid {
 
     private ArrayList<ArrayList<Cell>> myCells;
     private Grid myGrid;
+    private Map<String, Double> myParam;
     private Map<String, Double> myParams;
+    private Map<String, Double> myMoreParams;
+    private Map<String, Double> myOneParam;
 
     private AnchorPane myPane;
     private int borderPadding = 20;
@@ -40,12 +43,15 @@ public class simGrid {
      * @param type type of simulation to run
      * @param params simulation parameters
      */
-    public simGrid(int n, String shape, String edge, String type, Map<String, Double> params) {
+    public simGrid(int n, String shape, String edge, String type, Map<String, Double> param,  Map<String, Double> params, Map<String, Double> moreParam, Map<String, Double> oneParam) {
         gridDim = n;
         gridShape = shape;
         gridEdge = edge;
         myType = type;
+        myParam = param;
         myParams = params;
+        myMoreParams = moreParam;
+        myOneParam = oneParam;
 
         this.choseGrid();
 
@@ -64,10 +70,10 @@ public class simGrid {
             myGrid = new FireGrid(gridDim, myParams.get("probability"));
         }
         else if(myType.equals("Seg")) {
-            myGrid = new SegGrid(gridDim, myParams.get("satisfaction").intValue(), 0.50, 0.40);
+            myGrid = new SegGrid(gridDim, myParams.get("satisfaction").intValue(), myParam.get("red"), myMoreParams.get("empty"));
         }
         else if(myType.equals("WaTor")) {
-            myGrid = new WatorGrid(gridDim, .20, .10, 5, 3 );
+            myGrid = new WatorGrid(gridDim,  myParams.get("shark"), myMoreParams.get("empty"), myParam.get("breeding").intValue(), myOneParam.get("energy").intValue());
         }
         else if(myType.equals("RPS")) {
             myGrid = new RpsGrid(gridDim);
