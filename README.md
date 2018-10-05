@@ -74,6 +74,7 @@ Assumptions or Simplifications:
 * Assumed that all our simulations Cell and Grid objects would be similar enough that we could simply extend a general
 Cell and Grid class rather than using abstraction
 * Assumed all XML files would be of the same format with the same tags that we used when writing test files
+* Assumed all XML files would contain valid parameters
 * Assumed that the data structure which held Cells (Grid) could also share logic with the 
 different simulations
 
@@ -82,6 +83,7 @@ Known Bugs:
 * Simulation specific parameters are hardcoded into our grid initialization rather than being read in from the XML file
 * Grid configurations are initialized randomly every time a new Grid object is created instead of reading the initial 
 states for each cell from an XML file 
+* Grid specific buttons in top left corner of GUI are not connected to backend initialization of Grid
 
 Extra credit:
 
@@ -89,10 +91,14 @@ Extra credit:
 ### Notes
 * See Known Bugs
 * Grid dimensions should not exceed 100 because of strain on machine
+* Errors such as invalid parameter inputs in XML are not checked for
 
 ### Impressions
     Brooke: Connecting front and back end was much harder than I expected and took a lot longer. There where aspects of
-    animating the grid that I never considered when first creating the GUI.
+    animating the grid that I never considered when first creating the GUI. Additionally, we realized that it was very 
+    difficult to implement many of the new features introduced in the second sprint because we had not made our code as
+    flexible as we had anticipated it would be. Because we did not have a good enough understanding of abstraction, the 
+    new simulations were difficult to add.
     
     Orgil: We should not have combined Grid functionality with Simulation
      functionality into one class (Grid) and its subclasses. We realized this 
