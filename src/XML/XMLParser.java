@@ -24,11 +24,19 @@ public class XMLParser {
     private Element rootElem;
     private String myFile;
 
+    /**
+     * Constructor
+     *
+     * @param file XML file chosen by user
+     */
     public XMLParser(File file) {
         DOC_BUILDER = getDocumentBuilder();
         myFile = file.toString();
     }
 
+    /**
+     * parses the Document and calls appropriate exceptions
+     */
     public void readFile() {
         try {
             DOM = DOC_BUILDER.parse(myFile);
@@ -43,6 +51,7 @@ public class XMLParser {
     }
 
     /**
+     * returns the type of simulation to run
      *
      * @return String representing the simulation to run
      */
@@ -58,6 +67,7 @@ public class XMLParser {
     }
 
     /**
+     * returns the dimensions of the grid
      *
      * @return int representing the size of the grid
      */
@@ -73,9 +83,10 @@ public class XMLParser {
     }
 
     /**
+     * returns the parameter extracted from the XML file under specified tag
      *
      * @param tag, tag of the specific data to look for
-     * @return the parameter specified by tag
+     * @return Double representing the parameter
      */
     public double getParameter(String tag) {
         String temp = getTextValue(tag, rootElem);
@@ -108,9 +119,12 @@ public class XMLParser {
     }
 
     /**
+     * returns a String, the text value within the element and tag given
      * note: from Robert Duvall's code
      *
-     * @return
+     * @param tag String representing the specific tag
+     * @param e Element under which the tag is expected
+     * @return String
      */
     private String getTextValue(String tag, Element e) {
         var nodeList = e.getElementsByTagName(tag);

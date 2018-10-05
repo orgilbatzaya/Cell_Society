@@ -39,29 +39,37 @@ public class gridControls {
         myGridBtns = new HBox();
     }
 
+    /**
+     * returns a ChoiceBox that indicates the shape of the grid
+     *
+     * @return ChoiceBox
+     */
     public ChoiceBox getShapeBox() {
         return shapeSelect;
     }
 
     /**
+     * returns a RadioButton that indicates if grid should be finite
      *
-     * @return
+     * @return RadioButton
      */
     public RadioButton getFinBtn() {
         return finiteBtn;
     }
 
     /**
+     * returns a RadioButton that indicates if grid should be toroidal
      *
-     * @return
+     * @return RadioButton
      */
     public RadioButton getTorBtn() {
         return toroidalBtn;
     }
 
     /**
+     * returns a RadioButton that indicates if grid should be infinite
      *
-     * @return
+     * @return RadioButon
      */
     public RadioButton getInfinBtn() {
         return infiniteBtn;
@@ -79,7 +87,7 @@ public class gridControls {
     }
 
     /**
-     * creates a ChoiceBox to select simulation type
+     * creates a ChoiceBox to select simulation grid type (square, triangle, hexagon)
      */
     private void addShapeChoice() {
         shapeSelect = new ChoiceBox();
@@ -92,7 +100,7 @@ public class gridControls {
     }
 
     /**
-     * creates Radio Buttons to handle grid edge types
+     * creates Radio Buttons to handle grid edge types (finite, toroidal, infinite)
      */
     private void addTypeBtns() {
         ToggleGroup gridTypes = new ToggleGroup();

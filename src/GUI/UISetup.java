@@ -161,7 +161,6 @@ public class UISetup {
         myBorder.setCenter(myGrid.updateGrid());
     }
 
-
     /**
      * creates BorderPane object to hold other UI controls
      */

@@ -66,8 +66,7 @@ public class simControls {
     /**
      * returns whether user selected File
      *
-     * @return fileFlag, true if user has selected a file,
-     * otherwise false
+     * @return fileFlag, true if user has selected a file, otherwise false
      */
     public boolean getFileFlag() {
         return fileFlag;
@@ -95,15 +94,16 @@ public class simControls {
     /**
      * returns the label of the speed slider
      *
-     * @return
+     * @return Label
      */
     public Label getSpeedLabel() {
         return speedLabel;
     }
 
     /**
+     * returns the button that controls stepping through the simulation
      *
-     * @return
+     * @return Button
      */
     public Button getStepBtn() {
         return stepBtn;
@@ -111,7 +111,6 @@ public class simControls {
 
     /**
      * creates a HBox with start, stop, step, and reset buttons
-     * and adds the HBox to myBorder
      */
     public HBox addSimButtons() {
         HBox bottomRow = new HBox(buttonPadding);
@@ -161,8 +160,11 @@ public class simControls {
     }
 
     /**
+     * handles the user selection of a file, calls errorDetect
+     * to ensure it is an XML file, and if so saves the file
+     * sets flag to true, and stops the simulation timer
      *
-     * @param fc
+     * @param fc FileChooser
      */
     private void setFileButtonFunctionality(FileChooser fc) {
         fileBtn.setOnAction(value -> {
@@ -179,7 +181,8 @@ public class simControls {
     }
 
     /**
-     * This will give error messages when the user put non XML file as input
+     * gives an error message when the user choses a non-XML file
+     *
      * @param file
      */
     private void errorDetect(File file) {
