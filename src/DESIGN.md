@@ -49,10 +49,60 @@ to the back-end Simulation class which reacts to the event of the buttons being 
 ---
 
 ### Justification of Major Design Choices
-* 
+* Abstraction vs. Inheritance for Cell and Grid Classes
+   * We began by using normal inheritance for our Cell and Grid classes, but for our second sprint we changed these 
+   basic classes to be abstract. This is because abstraction allows for code flexibility while still fulfilling the
+   open-closed principle. The benefit of using normal inheritance was that we were able to actually create simple 
+   Cell and Grid objects that functioned on the most basic level necessary, but the flexibility we gained from making
+   these classes abstract was better for our design in the end. Therefore, someone would not be able to change the
+   basic functions of a Cell or Grid, but would simply need to extend their functionality depending on the simulation 
+   they wanted to add. 
+   
+* Cell Class vs. Grid Class
+    * We decided that our Cell class should encapsulate the properties of an individual cell of a grid, while our Grid 
+    class should encapsulate the general behavior of the grid and the cells in it. 
+        * For example, getNeighbors() was a method that was originally in our Cell class, but under further
+        consideration, we realized that it would make more sense for getNeighbors() to be a method in our Grid class. 
+        The getNeighbors() method is supposed to access information about more than one cell, so because of the scope of 
+        the Grid class, it made more sense to us to have that functionality encapsulated by the Grid class and then passed
+        to the Cell class. 
+   
+* UI and Animation were separated into Multiple Classes
+    * When we first created our GUI, we were initializing and placing our UI elements all in a single class, UISetup. 
+    We soon found that the code became very difficult for us to follow, however, and we began refactoring our GUI code
+    so that the similar elements would be handled by a single class, as a way of encapsulating their functionality. This
+    proved to be difficult and lead to more dependencies between classes, but I think having the UI elements initialized
+    in separate classes makes setting up the UI more clear and able to be expanded in the future. 
+
+* Had Separate XMLParser and XMLWriter Classes 
+    * It was important to create separate classes for these tasks because they are both very different from each other 
+    and require very different methods. Our XMLParser specifically includes methods that will parser through a Document
+    and identify data from a String, whereas our XMLWriter class would have been used to save the current state of a grid
+    to an XML file by writing a completely new XML file. 
 
 ----
 
 ### Assumptions or Dependencies Made
-* 
+* Assumptions
+    * Cells had a fixed number of statuses and parameters applied to them
+       *That a person would not want to control the initial configuration of cells or save the previous starting 
+    configuration of cells.
+    * All XML files would be written in a similar format with exactly the same tags that we included
+    * All XML files would contain valid, non error-throwing parameters
+    * The data structure which held individual Cells and encapsulated their overall behavior could
+    also share logic across simulations and configurations
+
+* Dependencies
+    * Some dependencies exist between Cell and Grid
+        * the getNeighbors() and checkCells() methods in the RPS and Wator Cells both depend on our Grid classs 
+        * multiple methods inside multiple Grid classes rely on getter and setter Cell methods
+    * Many UI dependencies
+        * creating simGrid requires Cell objects to dictate the colors of each cell based on cells' statuses
+        * simGrid also requires Grid variable myCells to loop through and determine the initial positions of each Cell 
+        * updateMyGrid() in UI_Setup depends on simGrid() object, which depends on Cell and Grid objects
+        * UISetup depends on buttons initialized in separate classes, but that have their functionality dictated in 
+        UI set upl 
+        * Additionally, button functionality works only by setting it in UI-Setup and not simply on a different device. 
+
+
 
