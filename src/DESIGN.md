@@ -23,15 +23,36 @@ to the back-end Simulation class which reacts to the event of the buttons being 
 ---
 
 ### How to Add New Features
+* To add a new simulation
+    * Create a new Cell class and @override or implement the new methods necessary
+    * Create a new  Grid class and @override or implement the new methods necessary
+    * Create a new XML file with the proper tags
+    * Add conditions to the XML parsing methods in UISetup to check for the new simulation
+    
+* To add a new grid shape or edge case
+    * Alter the conditions in the makeGrid method in the simGrid Class
+        * For a new shape, create a new method that will create the polygon, and determine how to loop through the List
+        myCells
+        * Also alter the inBounds and getNeighbors methods to account for different geometry
+    * For edge cases change all instances of getNearCells to getNearToroidal Cells
 
+* To add extra XML tags/parameters
+    * Create the new XML tag 
+    * Alter the XML files in question
+    * Add conditions to the XML parsing method call in UISetup to check for the new tag
+
+* To add new elements to the GUI
+    * Decide which area of the BorderPane to add the new element to
+    * Create a new method in UISetup, or possibly a new class, that handles the initialization of the new UI element as
+    well as its functionality
 
 ---
 
 ### Justification of Major Design Choices
-
+* 
 
 ----
 
 ### Assumptions or Dependencies Made
-
+* 
 
